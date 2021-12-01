@@ -1,0 +1,11 @@
+11/30)
+- Writing first for code for MEME OS 2, Electric Bugaloo
+- Have basic code that will produce an image and run assembly
+- Understand .elf format
+- undertand where code sits in elf
+- understand how computer kknows where to expand and put executable
+- how does it find magic number though?
+- need to go into more detail on the asm and link files
+- makefile??????????
+- get a detailed procedural understanding of the boot process
+- from entry asm, call kernel C code
