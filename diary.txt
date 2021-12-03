@@ -9,3 +9,16 @@
 - makefile??????????
 - get a detailed procedural understanding of the boot process
 - from entry asm, call kernel C code
+
+12/1)
+- readelf pretty much dumps everything interesting in an elf
+- Linker file makes sense, memory lay out gets encoded in section header of elf
+- Asm file makes sense
+[x] ENTRY_POINT? in linker map
+[x] What exactil is the procuder for booting when qemu reads .elf
+[x] Magic #?
+
+12/2) 
+[x] wtf is the makefile doing -> refactored
+[x] call C code using ASM or sections -> now calling C function
+[] Disas objects to see compiled C code and where it is in image / mem etc.

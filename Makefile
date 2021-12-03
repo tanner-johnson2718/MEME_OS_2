@@ -1,24 +1,18 @@
 CC = gcc
 
-WARNINGS = -Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wsystem-headers
-CFLAGS = -g -msoft-float -O -fno-stack-protector
-CPPFLAGS = -nostdinc -I. -Ilib -Ilib/kernel 
-ASFLAGS = -Wa,--gstabs
 LDFLAGS = -T link.ld -melf_i386
-DEPS = -MMD -MF $(@:.o=.d)
 
 all: kernel.elf
 
-SOURCES = entry.S
-OBJECTS = entry.o
-DEPENDS = entry.d
+kernel_entry: kernel_entry.c
+	gcc -m32 -c kernel_entry.c -o kernel_entry.o
 
-%.o: %.S
-	$(CC) -m32 -c $< -o $@ $(ASFLAGS) $(CPPFLAGS) $(DEFINES) $(DEPS)
+asm_entry: entry.S
+	gcc -m32 -c entry.S -o entry.o
 
-kernel.elf: $(OBJECTS)
-	ld $(LDFLAGS) $(OBJECTS) -o kernel.elf
+kernel.elf: asm_entry kernel_entry
+	ld $(LDFLAGS) entry.o kernel_entry.o -o kernel.elf
 
 clean:
-	rm -f $(OBJECTS) $(DEPENDS) 
-	rm kernel.elf
+	rm -f *.o *.elf
+	rm -f kernel.elf
