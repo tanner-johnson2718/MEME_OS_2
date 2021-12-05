@@ -4,7 +4,7 @@ ENTRY(start)      /* symbol from entry.S?? */
 
 SECTIONS {
     . = 0x200000;
-
+    kernel_start = .;
     .text ALIGN (0x1000) :     /* Align to 4KB */
     {
         *(.text)               /* all text sections */
@@ -29,3 +29,5 @@ SECTIONS {
         *(.bss)                /* all bss sections */
     }
 }
+
+kernel_end = .;

@@ -1,0 +1,6 @@
+- How to get devices?
+- What are the memory regions we have access too?
+- Understand EXACT boot processs
+- What is the serial IO code doing
+- Does the serial shit need to be initialzed
+- What is qemu doing before it boots the kernel?
