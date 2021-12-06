@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html class="client-js ve-available" dir="ltr" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Serial Programming/8250 UART Programming - Wikibooks, open books for an open world</title>
+<script>document.documentElement.className="client-js";RLCONF={"wgBreakFrames":false,"wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"12f6c623-a170-4e8d-b934-8800c374cb38","wgCSPNonce":false,"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Serial_Programming/8250_UART_Programming","wgTitle":"Serial Programming/8250 UART Programming","wgCurRevisionId":3799165,"wgRevisionId":3799165,"wgArticleId":11839,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Book:Serial Programming"],"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgRelevantPageName":"Serial_Programming/8250_UART_Programming","wgRelevantArticleId":11839,"wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,
+"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgFlaggedRevsParams":{"tags":{"value":{"levels":3}}},"wgStableRevisionId":3799165,"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en"},"wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":false},"wgWMESchemaEditAttemptStepOversample":false,"wgWMEPageLength":80000,"wgNoticeProject":"wikibooks","wgULSCurrentAutonym":"English","wgEditSubmitButtonLabelPublish":true,"wgCentralAuthMobileDomain":false,"wgULSPosition":"interlanguage","wgULSisCompactLinksEnabled":true,"wgSiteNoticeId":"2.24"};RLSTATE={"ext.globalCssJs.user.styles":"ready","site.styles":"ready","user.styles":"ready","ext.globalCssJs.user":"ready","user":"ready","user.options":"loading","ext.flaggedRevs.icons":"ready","oojs-ui-core.styles":"ready","oojs-ui.styles.indicators":"ready","mediawiki.widgets.styles":"ready","oojs-ui-core.icons":
+"ready","ext.math.styles":"ready","skins.vector.styles.legacy":"ready","ext.flaggedRevs.basic":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.wikimediaBadges":"ready","ext.uls.interlanguage":"ready","wikibase.client.init":"ready","ext.dismissableSiteNotice.styles":"ready"};RLPAGEMODULES=["ext.math.scripts","site","mediawiki.page.ready","mediawiki.toc","skins.vector.legacy.js","ext.flaggedRevs.advanced","ext.gadget.wikidialog","ext.gadget.commons-file","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.eventLogging","ext.wikimediaEvents","ext.navigationTiming","ext.centralNotice.geoIP","ext.centralNotice.startUp","ext.centralauth.centralautologin","ext.uls.compactlinks","ext.uls.interface","ext.dismissableSiteNotice"];</script>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.loader.implement("user.options@1hzgi",function($,jQuery,require,module){/*@nomin*/mw.user.tokens.set({"patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});
+});});</script>
+<link rel="stylesheet" href="UART%208250%20and%208259%20PIC_files/load_002.css">
+<script async="" src="UART%208250%20and%208259%20PIC_files/load.php"></script>
+<style>
+.mw-editfont-monospace{font-family:monospace,monospace}.mw-editfont-sans-serif{font-family:sans-serif}.mw-editfont-serif{font-family:serif} .mw-editfont-monospace,.mw-editfont-sans-serif,.mw-editfont-serif{  font-size:13px;  -moz-tab-size:4; tab-size:4; }.mw-editfont-monospace.oo-ui-textInputWidget,.mw-editfont-sans-serif.oo-ui-textInputWidget,.mw-editfont-serif.oo-ui-textInputWidget{font-size:inherit}.mw-editfont-monospace.oo-ui-textInputWidget > .oo-ui-inputWidget-input,.mw-editfont-sans-serif.oo-ui-textInputWidget > .oo-ui-inputWidget-input,.mw-editfont-serif.oo-ui-textInputWidget > .oo-ui-inputWidget-input{  font-size:13px}.mw-editfont-monospace.oo-ui-textInputWidget > input.oo-ui-inputWidget-input,.mw-editfont-sans-serif.oo-ui-textInputWidget > input.oo-ui-inputWidget-input,.mw-editfont-serif.oo-ui-textInputWidget > input.oo-ui-inputWidget-input{min-height:32px}
+.mw-ui-button{background-color:#f8f9fa;color:#202122;display:inline-block;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;border:1px solid #a2a9b1;border-radius:2px;cursor:pointer;vertical-align:middle;font-family:inherit;font-size:1em;font-weight:bold;line-height:1.28571429em;text-align:center;-webkit-appearance:none}.mw-ui-button:not(.mw-ui-icon-element){min-height:32px;min-width:4em;max-width:28.75em;padding:5px 12px}.mw-ui-button:not(:disabled){-webkit-transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms;transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms}.mw-ui-button:not(:disabled):visited{color:#202122}.mw-ui-button:not(:disabled):hover{background-color:#ffffff;color:#404244;border-color:#a2a9b1}.mw-ui-button:not(:disabled):focus{color:#202122;border-color:#3366cc;box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff;outline-width:0}.mw-ui-button:not(:disabled):focus::-moz-focus-inner{border-color:transparent;padding:0}.mw-ui-button:not(:disabled):active,.mw-ui-button:not(:disabled).is-on{background-color:#c8ccd1;color:#000000;border-color:#72777d;box-shadow:none}.mw-ui-button:disabled{background-color:#c8ccd1;color:#ffffff;border-color:#c8ccd1;cursor:default}.mw-ui-button.mw-ui-icon-element:not(.mw-ui-icon-with-label-desktop){color:transparent !important}.mw-ui-button.mw-ui-icon-element:not(.mw-ui-icon-with-label-desktop) span{display:block;position:absolute !important; clip:rect(1px,1px,1px,1px);width:1px;height:1px;margin:-1px;border:0;padding:0;overflow:hidden}@media all and (max-width:1000px){.mw-ui-button.mw-ui-icon-element.mw-ui-icon-with-label-desktop{color:transparent !important}.mw-ui-button.mw-ui-icon-element span{display:block;position:absolute !important; clip:rect(1px,1px,1px,1px);width:1px;height:1px;margin:-1px;border:0;padding:0;overflow:hidden}}.mw-ui-button.mw-ui-quiet,.mw-ui-button.mw-ui-quiet.mw-ui-progressive,.mw-ui-button.mw-ui-quiet.mw-ui-destructive{background-color:transparent;color:#202122;border-color:transparent;font-weight:bold}.mw-ui-button.mw-ui-quiet:not(.mw-ui-icon-element),.mw-ui-button.mw-ui-quiet.mw-ui-progressive:not(.mw-ui-icon-element),.mw-ui-button.mw-ui-quiet.mw-ui-destructive:not(.mw-ui-icon-element){min-height:32px}input[type='checkbox']:hover + .mw-ui-button.mw-ui-quiet,input[type='checkbox']:hover + .mw-ui-button.mw-ui-quiet.mw-ui-progressive,input[type='checkbox']:hover + .mw-ui-button.mw-ui-quiet.mw-ui-destructive,.mw-ui-button.mw-ui-quiet:hover,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:hover,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:hover{background-color:rgba(0,24,73,0.02745098);color:#202122;border-color:transparent}input[type='checkbox']:focus + .mw-ui-button.mw-ui-quiet,input[type='checkbox']:focus + .mw-ui-button.mw-ui-quiet.mw-ui-progressive,input[type='checkbox']:focus + .mw-ui-button.mw-ui-quiet.mw-ui-destructive,.mw-ui-button.mw-ui-quiet:focus,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:focus,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:focus{color:#202122;border-color:#3366cc;box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff}input[type='checkbox']:active + .mw-ui-button.mw-ui-quiet,input[type='checkbox']:active + .mw-ui-button.mw-ui-quiet.mw-ui-progressive,input[type='checkbox']:active + .mw-ui-button.mw-ui-quiet.mw-ui-destructive,.mw-ui-button.mw-ui-quiet:active,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:active,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:active{background-color:rgba(0,36,73,0.08235294);color:#000000;border-color:#72777d;box-shadow:none}.mw-ui-button.mw-ui-quiet:disabled,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled,.mw-ui-button.mw-ui-quiet:disabled:hover,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled:hover,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled:hover,.mw-ui-button.mw-ui-quiet:disabled:active,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled:active,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled:active{background-color:transparent;color:#72777d;border-color:transparent}.mw-ui-button.mw-ui-progressive:not(:disabled){background-color:#3366cc;color:#fff;border-color:#3366cc}.mw-ui-button.mw-ui-progressive:not(:disabled):hover{background-color:#447ff5;border-color:#447ff5}.mw-ui-button.mw-ui-progressive:not(:disabled):focus{box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff}.mw-ui-button.mw-ui-progressive:not(:disabled):active,.mw-ui-button.mw-ui-progressive:not(:disabled).is-on{background-color:#2a4b8d;border-color:#2a4b8d;box-shadow:none}.mw-ui-button.mw-ui-progressive:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button.mw-ui-progressive.mw-ui-quiet{color:#3366cc;background-color:transparent;border-color:transparent}input[type='checkbox']:hover + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,.mw-ui-button.mw-ui-progressive.mw-ui-quiet:hover{background-color:rgba(52,123,255,0.2);border-color:transparent;color:#447ff5}input[type='checkbox']:focus + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,.mw-ui-button.mw-ui-progressive.mw-ui-quiet:focus{color:#3366cc;border-color:#3366cc}input[type='checkbox']:active + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,.mw-ui-button.mw-ui-progressive.mw-ui-quiet:active{color:#ffffff;background-color:#2a4b8d;border-color:#2a4b8d}.mw-ui-button.mw-ui-destructive:not(:disabled){background-color:#dd3333;color:#fff;border-color:#dd3333}.mw-ui-button.mw-ui-destructive:not(:disabled):hover{background-color:#ff4242;border-color:#ff4242}.mw-ui-button.mw-ui-destructive:not(:disabled):focus{box-shadow:inset 0 0 0 1px #dd3333,inset 0 0 0 2px #ffffff}.mw-ui-button.mw-ui-destructive:not(:disabled):active,.mw-ui-button.mw-ui-destructive:not(:disabled).is-on{background-color:#b32424;border-color:#b32424;box-shadow:none}.mw-ui-button.mw-ui-destructive:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button.mw-ui-destructive.mw-ui-quiet{color:#dd3333;background-color:transparent;border-color:transparent}input[type='checkbox']:hover + .mw-ui-button.mw-ui-destructive.mw-ui-quiet,.mw-ui-button.mw-ui-destructive.mw-ui-quiet:hover{background-color:rgba(209,29,19,0.2);border-color:transparent;color:#ff4242}input[type='checkbox']:focus + .mw-ui-button.mw-ui-destructive.mw-ui-quiet,.mw-ui-button.mw-ui-destructive.mw-ui-quiet:focus{color:#dd3333;border-color:#dd3333}input[type='checkbox']:active + .mw-ui-button.mw-ui-destructive.mw-ui-quiet,.mw-ui-button.mw-ui-destructive.mw-ui-quiet:active{color:#ffffff;background-color:#b32424;border-color:#b32424}.mw-ui-button.mw-ui-big{font-size:1.3em}.mw-ui-button.mw-ui-block{display:block;width:100%;margin-left:auto;margin-right:auto}a.mw-ui-button{text-decoration:none}a.mw-ui-button:hover,a.mw-ui-button:focus{text-decoration:none}.mw-ui-button-group > *{min-width:48px;border-radius:0;float:left}.mw-ui-button-group > *:first-child{border-top-left-radius:2px;border-bottom-left-radius:2px}.mw-ui-button-group > *:not(:first-child){border-left:0}.mw-ui-button-group > *:last-child{border-top-right-radius:2px;border-bottom-right-radius:2px}.mw-ui-button-group .is-on .button{cursor:default}
+.ve-init-mw-progressBarWidget{height:1em;overflow:hidden;margin:0 25%}.ve-init-mw-progressBarWidget-bar{height:1em;width:0} .ve-init-mw-progressBarWidget{background-color:#fff;box-sizing:border-box;height:0.875em;border:1px solid #36c;border-radius:0.875em;box-shadow:0 1px 1px rgba(0,0,0,0.15)}.ve-init-mw-progressBarWidget-bar{background-color:#36c;height:0.875em}
+@media screen {
+	.toctoggle{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;font-size:94%}}
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+.uls-menu{border-radius:2px; font-size:medium}.uls-search,.uls-language-settings-close-block{border-top-right-radius:2px;border-top-left-radius:2px}.uls-language-list{border-bottom-right-radius:2px;border-bottom-left-radius:2px}.uls-menu.callout:before,.uls-menu.callout:after{border-top:10px solid transparent;border-bottom:10px solid transparent;display:inline-block; top:17px;position:absolute;content:''}.uls-menu.callout.selector-right:before{ border-left:10px solid #c8ccd1; right:-11px}.uls-menu.callout.selector-right:after{ border-left:10px solid #fff; right:-10px}.uls-menu.callout.selector-left:before{ border-right:10px solid #c8ccd1; left:-11px}.uls-menu.callout.selector-left:after{ border-right:10px solid #fff; left:-10px}.uls-ui-languages button{margin:5px 15px 5px 0;white-space:nowrap;overflow:hidden}.uls-search-wrapper-wrapper{position:relative;padding-left:40px;margin-top:5px;margin-bottom:5px}.uls-icon-back{background:transparent url(/w/extensions/UniversalLanguageSelector/resources/images/back-grey-ltr.svg?01868) no-repeat scroll center center;background-size:28px;height:32px;width:40px;display:block;position:absolute;left:0;border-right:1px solid #c8ccd1;opacity:0.8}.uls-icon-back:hover{opacity:1;cursor:pointer}.uls-menu .uls-no-results-view .uls-no-found-more{background-color:#fff}.uls-menu .uls-no-results-view h3{padding:0 28px;margin:0;color:#54595d;font-size:1em;font-weight:normal}   .skin-vector .uls-menu{border-color:#c8ccd1;box-shadow:0 2px 2px 0 rgba(0,0,0,0.25);font-size:0.875em}.skin-vector .uls-search{border-bottom-color:#c8ccd1}.skin-vector .uls-search-label{opacity:0.51;-webkit-transition:opacity 250ms;transition:opacity 250ms}.skin-vector .uls-search-wrapper:hover .uls-search-label{opacity:0.87}.skin-vector .uls-filtersuggestion{color:#72777d}.skin-vector .uls-lcd-region-title{color:#54595d}
+#uls-settings-block{background-color:#f8f9fa;border-top:1px solid #c8ccd1;padding-left:10px;line-height:1.2em;border-radius:0 0 2px 2px}#uls-settings-block > button{background:left top transparent no-repeat;background-size:20px auto;color:#54595d;display:inline-block;margin:8px 15px;border:0;padding:0 0 0 26px;font-size:medium;cursor:pointer}#uls-settings-block > button:hover{color:#202122}#uls-settings-block > button.display-settings-block{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/display.svg?b78f7)}#uls-settings-block > button.input-settings-block{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/input.svg?e7c85)}.uls-tipsy.uls-tipsy{z-index:1000}</style><style>
+.ve-init-mw-tempWikitextEditorWidget{border:0;padding:0;color:inherit;line-height:1.5em;width:100%;-moz-tab-size:4;tab-size:4; }.ve-init-mw-tempWikitextEditorWidget:focus{outline:0;padding:0}.ve-init-mw-tempWikitextEditorWidget::selection{background:rgba(109,169,247,0.5); }
+#p-lang .body ul .uls-trigger,#p-lang .pBody ul .uls-trigger{background-image:none;padding:0}#p-lang .mw-interlanguage-selector,#p-lang .mw-interlanguage-selector:active{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/language-base20.svg?b7954);background-position:left 4px center;background-repeat:no-repeat;background-size:16px;margin:4px 0 8px;padding:4px 8px 4px 26px;font-size:13px;font-weight:normal;text-align:left;cursor:pointer} .mw-interlanguage-selector.selector-open{background-color:#c8ccd1} .interlanguage-uls-menu:before,.interlanguage-uls-menu:after{border-top:10px solid transparent;border-bottom:10px solid transparent;display:inline-block; top:17px;position:absolute;content:''}.interlanguage-uls-menu.selector-right:before{ border-left:10px solid #c8ccd1; right:-11px}.interlanguage-uls-menu.selector-right:after{ border-left:10px solid #fff; right:-10px}.interlanguage-uls-menu.selector-left:before{ border-right:10px solid #c8ccd1; left:-11px}.interlanguage-uls-menu.selector-left:after{ border-right:10px solid #fff; left:-10px}</style><style>
+.ve-activated .ve-init-mw-desktopArticleTarget-editableContent #toc,.ve-activated #siteNotice,.ve-activated .mw-indicators,.ve-activated #t-print,.ve-activated #t-permalink,.ve-activated #p-coll-print_export,.ve-activated #t-cite,.ve-deactivating .ve-ui-surface,.ve-active .ve-init-mw-desktopArticleTarget-editableContent,.ve-active .ve-init-mw-tempWikitextEditorWidget{display:none} .ve-activating .ve-ui-surface{height:0;padding:0 !important; overflow:hidden} .ve-loading #content > :not(.ve-init-mw-desktopArticleTarget-loading-overlay), .ve-activated .ve-init-mw-desktopArticleTarget-uneditableContent{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;opacity:0.5}.ve-activated #firstHeading{ -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;pointer-events:auto;cursor:text}.ve-activated #firstHeading a{ pointer-events:none}.ve-activated #catlinks{cursor:pointer}.ve-activated #catlinks:hover{ background:#e9f2fd}.ve-activated #catlinks a{opacity:1}.ve-activated #content{position:relative} .ve-init-mw-desktopArticleTarget-loading-overlay{position:absolute;top:1.25em;left:0;right:0;z-index:1;margin-top:-0.5em}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{transition:height 250ms ease;height:0; } .oo-ui-element-hidden{display:none !important; } .mw-editsection{ unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection:before{content:'\200B'}.mw-editsection a{white-space:nowrap}.mw-editsection-divider{color:#54595d} .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{border-bottom:1px solid #c8ccd1;box-shadow:0 1px 1px 0 rgba(0,0,0,0.1)}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-open{height:42px} .ve-init-mw-desktopArticleTarget-toolbar,.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{font-size:0.875em;margin:-1.42857143em -0.57142857em 1.42857143em -0.57142857em}.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbar,.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{ margin:-1.14em -1.14em 1.14em -1.14em; }@media screen and (min-width:982px){.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbar,.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{ margin:-1.43em -1.71em 1.43em -1.71em}}</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="UART%208250%20and%208259%20PIC_files/load.css">
+<meta name="generator" content="MediaWiki 1.38.0-wmf.9">
+<meta name="referrer" content="origin">
+<meta name="referrer" content="origin-when-crossorigin">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:title" content="Serial Programming/8250 UART Programming - Wikibooks, open books for an open world">
+<meta property="og:type" content="website">
+<link rel="alternate" media="only screen and (max-width: 720px)" href="https://en.m.wikibooks.org/wiki/Serial_Programming/8250_UART_Programming">
+<link rel="alternate" type="application/x-wiki" title="Edit" href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit">
+<link rel="shortcut icon" href="https://en.wikibooks.org/static/favicon/wikibooks.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://en.wikibooks.org/w/opensearch_desc.php" title="Wikibooks (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://en.wikibooks.org/w/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="canonical" href="https://en.wikibooks.org/wiki/Serial_Programming/8250_UART_Programming">
+<link rel="dns-prefetch" href="https://meta.wikimedia.org/">
+<link rel="dns-prefetch" href="https://login.wikimedia.org/">
+<style>.client-js .mw-dismissable-notice { display: block; }</style><script src="UART%208250%20and%208259%20PIC_files/index_014.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_006.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_005.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_003.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_010.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_009.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_008.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_007.php"></script><script src="UART%208250%20and%208259%20PIC_files/index.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_004.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_002.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_011.php"></script><script src="UART%208250%20and%208259%20PIC_files/index_012.php"></script><link rel="stylesheet" href="UART%208250%20and%208259%20PIC_files/index.css"><script src="UART%208250%20and%208259%20PIC_files/index_013.php"></script></head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject mw-editable page-Serial_Programming_8250_UART_Programming rootpage-Serial_Programming skin-vector action-view skin-vector-legacy"><div id="mw-page-base" class="noprint"></div>
+<div id="mw-head-base" class="noprint"></div>
+<div id="content" class="mw-body" role="main">
+	<a id="top"></a>
+	<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --><div class="mw-dismissable-notice"><div class="mw-dismissable-notice-close" style="visibility: visible;">[<a tabindex="0" role="button">dismiss</a>]</div><div class="mw-dismissable-notice-body"><div id="localNotice" dir="ltr" lang="en"><div style="background: #ffffff; border: solid 1px #48b; width: auto; padding-left:2px; padding-right:2px; margin-left:auto; margin-right:auto; vertical-align: top; display:table; color:black;">The Wikibooks community has accepted <a href="https://en.wikibooks.org/wiki/Wikibooks:Reading_room/Proposals#Implementation" title="Wikibooks:Reading room/Proposals">video game strategy guides</a> on this wiki! See <a href="https://en.wikibooks.org/wiki/Wikibooks:Strategy_guides" title="Wikibooks:Strategy guides">Wikibooks:Strategy guides</a> for the newly-created policy on strategy games. We're looking forward to your contributions.
+</div></div></div></div><script>(function(){var node=document.getElementById("mw-dismissablenotice-anonplace");if(node){node.outerHTML="\u003Cdiv class=\"mw-dismissable-notice\"\u003E\u003Cdiv class=\"mw-dismissable-notice-close\"\u003E[\u003Ca tabindex=\"0\" role=\"button\"\u003Edismiss\u003C/a\u003E]\u003C/div\u003E\u003Cdiv class=\"mw-dismissable-notice-body\"\u003E\u003Cdiv id=\"localNotice\" lang=\"en\" dir=\"ltr\"\u003E\u003Cdiv style=\"background: #ffffff; border: solid 1px #48b; width: auto; padding-left:2px; padding-right:2px; margin-left:auto; margin-right:auto; vertical-align: top; display:table; color:black;\"\u003EThe Wikibooks community has accepted \u003Ca href=\"/wiki/Wikibooks:Reading_room/Proposals#Implementation\" title=\"Wikibooks:Reading room/Proposals\"\u003Evideo game strategy guides\u003C/a\u003E on this wiki! See \u003Ca href=\"/wiki/Wikibooks:Strategy_guides\" title=\"Wikibooks:Strategy guides\"\u003EWikibooks:Strategy guides\u003C/a\u003E for the newly-created policy on strategy games. We're looking forward to your contributions.\n\u003C/div\u003E\u003C/div\u003E\u003C/div\u003E\u003C/div\u003E";}}());</script></div>
+	<div class="mw-indicators">
+	</div>
+	<h1 id="firstHeading" class="firstHeading">Serial Programming/8250 UART Programming</h1>
+	<div id="bodyContent" class="vector-body">
+		<div id="siteSub" class="noprint">From Wikibooks, open books for an open world</div>
+		<div id="contentSub"><span class="subpages">&lt; <a href="https://en.wikibooks.org/wiki/Serial_Programming" title="Serial Programming">Serial Programming</a></span></div>
+		<div id="contentSub2"></div>
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#searchInput">Jump to search</a>
+		<div id="mw-content-text" class="mw-body-content mw-content-ltr" dir="ltr" lang="en"><div class="mw-parser-output"><div style="background:#f2fff2; border:1px solid #bfffbf; padding:0.5em 1em; margin:0.5em 0em;">
+<p><b><a href="https://en.wikibooks.org/wiki/Serial_Programming" title="Serial Programming">Serial Programming</a></b>: <a href="https://en.wikibooks.org/wiki/Serial_Programming/Introduction_and_OSI_Model" title="Serial Programming/Introduction and OSI Model">Introduction and OSI Network Model</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/RS-232_Connections" title="Serial Programming/RS-232 Connections">RS-232 Wiring and Connections</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Typical_RS232_Hardware_Configuration" title="Serial Programming/Typical RS232 Hardware Configuration">Typical RS232 Hardware Configuration</a>
+-- <a class="mw-selflink selflink">8250 UART</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/DOS_Programming" title="Serial Programming/DOS Programming">DOS</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/MAX232_Driver_Receiver" title="Serial Programming/MAX232 Driver Receiver">MAX232 Driver/Receiver Family</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Windows_TAPI" title="Serial Programming/Windows TAPI">TAPI Communications In Windows</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Serial_Linux" title="Serial Programming/Serial Linux">Linux and Unix</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Serial_Java" title="Serial Programming/Serial Java">Java</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Modems_and_AT_Commands" title="Serial Programming/Modems and AT Commands">Hayes-compatible Modems and AT Commands</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/USB" title="Serial Programming/USB">Universal Serial Bus (USB)</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Forming_Data_Packets" title="Serial Programming/Forming Data Packets">Forming Data Packets</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Error_Correction_Methods" title="Serial Programming/Error Correction Methods">Error Correction Methods</a>
+-- <a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/Bi-directional_Communication&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Bi-directional Communication (does not exist)">Two Way Communication</a>
+-- <a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/Packet_Recovery&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Packet Recovery (does not exist)">Packet Recovery Methods</a>
+-- <a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Networking&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Serial Networking (does not exist)">Serial Data Networks</a>
+-- <a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/Application_Messaging&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Application Messaging (does not exist)">Practical Application Development</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/IP_Over_Serial_Connections" title="Serial Programming/IP Over Serial Connections">IP Over Serial Connections</a>
+</p>
+</div>
+<div id="toc" class="toc" role="navigation" aria-labelledby="mw-toc-heading"><input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" dir="ltr" lang="en"><h2 id="mw-toc-heading">Contents</h2><span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#8086_I/O_ports"><span class="tocnumber">2</span> <span class="toctext">8086 I/O ports</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Software_I/O_access"><span class="tocnumber">2.1</span> <span class="toctext">Software I/O access</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#x86_port_I/O_extensions"><span class="tocnumber">2.2</span> <span class="toctext">x86 port I/O extensions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#x86_Processor_Interrupts"><span class="tocnumber">3</span> <span class="toctext">x86 Processor Interrupts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#IRQs_Explained"><span class="tocnumber">3.1</span> <span class="toctext">IRQs Explained</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Interrupt_handlers"><span class="tocnumber">3.2</span> <span class="toctext">Interrupt handlers</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Software_interrupts"><span class="tocnumber">3.3</span> <span class="toctext">Software interrupts</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#8259_PIC_(Programmable_Interrupt_Controller)"><span class="tocnumber">4</span> <span class="toctext">8259 PIC (Programmable Interrupt Controller)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#8259_Registers"><span class="tocnumber">4.1</span> <span class="toctext">8259 Registers</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Device_Registers"><span class="tocnumber">4.2</span> <span class="toctext">Device Registers</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#ISR_Cleanup"><span class="tocnumber">4.3</span> <span class="toctext">ISR Cleanup</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#PIC_Device_Masking"><span class="tocnumber">4.4</span> <span class="toctext">PIC Device Masking</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Serial_COM_Port_Memory_and_I/O_Allocation"><span class="tocnumber">5</span> <span class="toctext">Serial COM Port Memory and I/O Allocation</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#UART_Registers"><span class="tocnumber">6</span> <span class="toctext">UART Registers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#Transmitter_Holding_Buffer/Receiver_Buffer"><span class="tocnumber">6.1</span> <span class="toctext">Transmitter Holding Buffer/Receiver Buffer</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Divisor_Latch_Bytes"><span class="tocnumber">6.2</span> <span class="toctext">Divisor Latch Bytes</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Interrupt_Enable_Register"><span class="tocnumber">6.3</span> <span class="toctext">Interrupt Enable Register</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Interrupt_Identification_Register"><span class="tocnumber">6.4</span> <span class="toctext">Interrupt Identification Register</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#FIFO_Control_Register"><span class="tocnumber">6.5</span> <span class="toctext">FIFO Control Register</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Line_Control_Register"><span class="tocnumber">6.6</span> <span class="toctext">Line Control Register</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Modem_Control_Register"><span class="tocnumber">6.7</span> <span class="toctext">Modem Control Register</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Line_Status_Register"><span class="tocnumber">6.8</span> <span class="toctext">Line Status Register</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Modem_Status_Register"><span class="tocnumber">6.9</span> <span class="toctext">Modem Status Register</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Scratch_Register"><span class="tocnumber">6.10</span> <span class="toctext">Scratch Register</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#Software_Identification_of_the_UART"><span class="tocnumber">7</span> <span class="toctext">Software Identification of the UART</span></a></li>
+<li class="toclevel-1 tocsection-27"><a href="#External_References"><span class="tocnumber">8</span> <span class="toctext">External References</span></a></li>
+<li class="toclevel-1 tocsection-28"><a href="#Other_Serial_Programming_Articles"><span class="tocnumber">9</span> <span class="toctext">Other Serial Programming Articles</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=1" class="mw-editsection-visualeditor" title="Edit section: Introduction">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=1" title="Edit section: Introduction">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Finally we are moving away from wires and voltages and hard-core 
+electrical engineering applications, although we still need to know 
+quite a bit regarding computer chip architectures at this level.  While 
+the primary focus of this section will concentrate on the 8250 UART, 
+there are really three computer chips that we will be working with here:
+</p>
+<ul><li>8250 UART</li>
+<li>8259 PIC (Programmable Interrupt Controller)</li>
+<li>8086 CPU (Central Processing Unit)</li></ul>
+<p>Keep in mind that these are chip families, not simply the chip part 
+number itself.  Computer designs have evolved quite a bit over the 
+years, and often all three chips are put onto the same piece of silicon 
+because they are tied together so much, and to reduce overall costs of 
+the equipment.  So when I say 8086, I also mean the successor chips 
+including the 80286, 80386, Pentium, and compatible chips made by 
+manufacturers other than Intel.  There are some subtle differences and 
+things you need to worry about for serial data communication between the
+ different chips other than the 8086, but in many cases you could in 
+theory write software for the original IBM PC doing serial communication
+ and it should run just fine on a modern computer you just bought that 
+is running the latest version of Linux or Windows XP.  
+</p><p>Modern operating systems handle most of the details that we will 
+be covering here through low-level drivers, so this should be more of a 
+quick understanding for how this works rather than something you might 
+implement yourself, unless you are writing your own operating system.  
+For people who are designing small embedded computer devices, it does 
+become quite a bit more important to understand the 8250 at this level.
+</p><p>Just like the 8086, the 8250 has evolved quite a bit as well, 
+e.g. into the 16550 UART. Further down I will go into how to detect many
+ of the different UART chips on PCs, and some quirks or changes that 
+affect each one.  The differences really aren't as significant as the 
+changes to CPU architecture, and the primary reason for updating the 
+UART chip was to make it work with the considerably faster CPUs that are
+ around right now.  The 8250 itself simply can't keep up with a Pentium 
+chip.
+</p><p>Remember as well that this is trying to build a foundation for 
+serial programming on the software side.  While this can be useful for 
+hardware design as well, quite a bit will be missing from the 
+descriptions here to implement a full system.
+</p>
+<h2><span id="8086_I.2FO_ports"></span><span class="mw-headline" id="8086_I/O_ports">8086 I/O ports</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=2" class="mw-editsection-visualeditor" title="Edit section: 8086 I/O ports">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=2" title="Edit section: 8086 I/O ports">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>We should go back even further than the Intel 8086, to the original 
+Intel CPU, the 4004, and its successor, the 8008. All computer 
+instructions, or op-codes, for the 8008 still function in today's Intel 
+chips, so even port I/O tutorials written 30 years ago are valid today. 
+The newer CPUs have enhanced instructions for dealing with more data 
+more efficiently, but the original instructions are still there.
+</p><p>When the 8008 was released, Intel tried to devise a method for 
+the CPU to communicate with external devices.  They chose a method 
+called I/O port architecture, meaning that the chip has a special set of
+ pins dedicated to communicating with external devices.  In the 8008, 
+this meant that there were a total of sixteen (16) pins dedicated to 
+communicating with the chip.  The exact details varied based on chip 
+design and other factors too detailed for the current discussion, but 
+the general theory is fairly straightforward.
+</p><p>Eight of the pins represent an I/O code that signaled a specific 
+device.  This is known as the I/O port.  Since this is just a binary 
+code, it represents the potential to hook up 256 different devices to 
+the CPU.  It gets a little more complicated than that, but still you can
+ think of it from software like a small-town post-office that has a bank
+ of 256 PO boxes for its customers.
+</p><p>The next set of pins represent the actual data being exchanged.  
+You can think of this as the postcards being put into or removed from 
+the PO boxes.
+</p><p>All the external device has to do is look for its I/O code, and 
+then when it matches what it is "assigned" to look for, it has control 
+over the corresponding port.  An pin signals whether the data is being 
+sent to or from the CPU.  For those familiar with setting up early PCs, 
+this is also where I/O conflicts happen: when two or more devices try to
+ access the same I/O port at the same time.  This was a source of 
+heartburn on those early systems, particularly when adding new 
+equipment.
+</p><p>Incidentally, this is very similar to how conventional RAM works,
+ and some CPU designs mimic this whole process straight in RAM, 
+reserving a block of memory for I/O control.  This has some problems, 
+including the fact that it chews up a portion of potential memory that 
+could be used for software instead.  It ends up that with the IBM PC and
+ later PC systems, both Memory-mapped I/O (MMIO) and Port-mapped I/O 
+(PMIO) are used extensively, so it really gets complicated.  For serial 
+communication, however, we are going to stick with the port I/O method, 
+as that is how the 8250 chip works.
+</p>
+<h3><span id="Software_I.2FO_access"></span><span class="mw-headline" id="Software_I/O_access">Software I/O access</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=3" class="mw-editsection-visualeditor" title="Edit section: Software I/O access">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=3" title="Edit section: Software I/O access">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>When you get down to actually using this in your software, the 
+assembly language instruction to send or receive data to port 9 looks 
+something like this:
+</p>
+<pre>out 9, al&nbsp;; sending data from register al out to port 9 
+in al, 9&nbsp;; getting data from port 9 and putting it in register al
+</pre>
+<p>When programming in higher level languages, it gets a bit simpler.  A
+ typical C language Port I/O library is usually written like this:
+</p>
+<pre>char test;
+
+test = 255;
+outp(9,test);
+inp(9,&amp;test);
+</pre>
+<p>For many versions of Pascal, it treats the I/O ports like a massive array that you can access, that is simply named Port:
+</p>
+<pre>procedure PortIO(var Test: Byte);
+begin
+  Port[9]&nbsp;:= Test;
+  Test&nbsp;:= Port[9];
+end;
+</pre>
+<p><b>Warning!!</b> And this really is a warning.  By randomly accessing
+ I/O ports in your computer without really knowing what it is connected 
+to can really mess up your computer.  At the minimum, it will crash the 
+operating system and cause the computer to not work.  Writing to some 
+I/O ports can permanently change the internal configuration of your 
+computer, making a trip to the repair shop necessary just to undo the 
+damage you've done through software.  Worse yet, in some cases it can 
+cause actual damage to the computer.  This means that some chips inside 
+the computer will no longer work and those components would have to be 
+replaced in order for the computer to work again.  Damaged chips are an 
+indication of lousy engineering on the part of the computer, but 
+unfortunately it does happen and you should be aware of it.
+</p><p>Don't be afraid to use the I/O ports, just make sure you know 
+what you are writing to, and you know what equipment is "mapped" to for 
+each I/O port if you intend to use a particular I/O port.  We will get 
+into more of the specifics for how to identify the I/O ports for serial 
+communication in a bit.  Finally we are starting to write a little bit 
+of software, and there is more to come.
+</p>
+<h3><span id="x86_port_I.2FO_extensions"></span><span class="mw-headline" id="x86_port_I/O_extensions">x86 port I/O extensions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=4" class="mw-editsection-visualeditor" title="Edit section: x86 port I/O extensions">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=4" title="Edit section: x86 port I/O extensions">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>There are a few differences between the 8088 CPU and the 8086.  The 
+most notable that affects software development is that instead of just 
+256 port I/O addresses, the 8086 can access 65536 different I/O ports.  
+However, computer configurations may use less than 16 wires for the I/O 
+address bus&nbsp;; for example on the IBM PC, only 10 wires were used, 
+making only 1024 different ports.  Higher bits of the port number being 
+ignored, this made multiple port number aliases for the same port.
+</p><p>In addition, besides simply sending a single character in or out,
+ the 8086 will let you send and receive 16 bits at once.  The 16-bit 
+word bytes is read/written in little endian using consecutive port 
+numbers.  The 386 chips will even let you send and receive 32-bits 
+simultaneously.  The need for more than 65536 different I/O ports has 
+never been a serious problem, and if a device needed a larger piece of 
+memory, the Direct Memory Access (DMA) methods are available.  This is 
+where the device writes and reads the RAM of the computer directly 
+instead of going through the CPU.  We will not cover that topic here.
+</p><p>Also, while the 8086 CPU was able to address 65536 different I/O 
+ports, in actual practice it didn't.  The chip designers at Intel got 
+cheap and only had address lines for 10 bits, which has implications for
+ software designers having to work with legacy systems.  This also meant
+ that I/O port address $1E8 and $19E8 (and others... this is just an 
+example) would resolve to the same I/O port for those early PCs.  The 
+Pentium CPUs don't have this limitation, but software written for some 
+of that early hardware sometimes wrote to I/O port addresses that were 
+"aliased" because those upper bits were ignored.  There are other legacy
+ issues that show up, but fortunately for the 8250 chip and serial 
+communications in general this isn't a concern, unless you happen to 
+have a serial driver that "took advantage" of this aliasing situation.  
+This issue would generally only show up when you are using more than the
+ typical 2 or 4 serial COM ports on a PC.
+</p>
+<h2><span class="mw-headline" id="x86_Processor_Interrupts">x86 Processor Interrupts</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=5" class="mw-editsection-visualeditor" title="Edit section: x86 Processor Interrupts">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=5" title="Edit section: x86 Processor Interrupts">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The 8086 CPU and compatible chips have what is known as an interrupt 
+line.  This is literally a wire to the rest of the computer that can be 
+turned on to let the CPU know that it is time to stop whatever it is 
+doing and pay attention to some I/O situations.
+</p><p>Within the 8086, there are two kinds of interrupts:  Hardware 
+interrupts and Software interrupts.  There are some interesting quirks 
+that are different from each kind, but from a software perspective they 
+are essentially the same thing.  The 8086 CPU allows for 256 interrupts,
+ but the number available for equipment to perform a Hardware interrupt 
+is considerably restricted.
+</p>
+<h3><span class="mw-headline" id="IRQs_Explained">IRQs Explained</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=6" class="mw-editsection-visualeditor" title="Edit section: IRQs Explained">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=6" title="Edit section: IRQs Explained">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Hardware interrupts are numbered IRQ 0 through IRQ 15.  IRQ means 
+Interrupt ReQuest.  There are a total of fifteen different hardware 
+interrupts.  Before you think I don't know how to count or do math, we 
+need to do a little bit of a history lesson here, which we will finish 
+when we move on to the 8259 chip.  When the original IBM-PC was built, 
+it only had eight IRQs, labeled IRQ 0 through IRQ 7.  At the time it was
+ felt that was sufficient for almost everything that would ever be put 
+on a PC, but very soon it became apparent it wasn't nearly enough for 
+everything that was being added.  When the IBM-PC/AT was made (the first
+ one with the 80286 CPU, and a number of enhancements that are commonly 
+found on PCs today), it was decided that instead of a single 8259 chip, 
+they would use two of these same chips, and "chain" them to one another 
+in order to expand the number of interrupts from 8 to 15.  One IRQ had 
+to be sacrificed in order to accomplish this task, and that was IRQ 2.
+</p><p>The point here is that if a device wants to notify the CPU that 
+it has some data ready for the CPU, it sends a signal that it wants to 
+stop whatever software is currently running on the computer and instead 
+run a special "little" program called an interrupt handler.  Once the 
+interrupt handler is finished, the computer can go back to whatever it 
+was doing before.  If the interrupt handler is fast enough, you wouldn't
+ even notice that the handler has even been used.
+</p><p>In fact, if you are reading this text on a PC, in the time that 
+it takes for you to read this sentence several interrupt handlers have 
+already been used by your computer.  Every time that you use a keyboard 
+or a mouse, or receive some data over the Internet, an interrupt handler
+ has been used at some point in your computer to retrieve that 
+information.
+</p>
+<h3><span class="mw-headline" id="Interrupt_handlers">Interrupt handlers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=7" class="mw-editsection-visualeditor" title="Edit section: Interrupt handlers">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=7" title="Edit section: Interrupt handlers">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>We will be getting into specific details of interrupt handlers in a 
+little bit, but now I want to explain just what they are.  Interrupt 
+handlers are a method of showing the CPU exactly what piece of software 
+should be running when the interrupt is triggered.
+</p><p>The 8086 CPU has a portion of RAM that has been established that 
+"points" to where the interrupt software is located elsewhere in RAM.  
+The advantage of going this route is that the CPU only has to do a 
+simple look-up to find just where the software is, and then transfers 
+software execution to that point in RAM.  This also allows you as a 
+programmer to change where the CPU is "pointing" to in RAM, and instead 
+of going to something in the operating system, you can customize the 
+interrupt handler and put something else there yourself.
+</p><p>How this is best done depends largely on your operating system.  
+For a simple operating system like MS-DOS, it actually encourages you to
+ directly write these interrupt handlers, particularly when you are 
+working with external peripherals.  Other operating systems like Linux 
+or MS-Windows use the approach of having a "driver" that hooks into 
+these interrupt handlers or service routines, and then the application 
+software deals with the drivers rather than dealing directly with the 
+equipment.  How a program actually does this is very dependent on the 
+specific operating system you would be using.  If you are instead trying
+ to write your own operating system, you would have to write these 
+interrupt handlers directly, and establish the protocol on how you 
+access these handlers to send and retrieve data.
+</p>
+<h3><span class="mw-headline" id="Software_interrupts">Software interrupts</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=8" class="mw-editsection-visualeditor" title="Edit section: Software interrupts">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=8" title="Edit section: Software interrupts">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Before we move on, I want to hit very briefly on software interrupts.
+  Software interrupts are invoked with the 8086 assembly instruction 
+"int", as in:
+</p><p>int $21
+</p><p>From the perspective of a software application, this is really 
+just another way to call a subroutine, but with a twist.  The "software"
+ that is running in the interrupt handler doesn't have to be from the 
+same application, or even made from the same compiler.  Indeed, often 
+these subroutines are written directly in assembly language.  In the 
+above example, this interrupt actually calls a "DOS" subroutine that 
+will allow you to perform some sort of I/O access that is directly 
+related to DOS.  Depending on the values of the registers, usually the 
+AX register in the 8086 in this case, it can determine just what 
+information you want to get from DOS, such as the current time, date, 
+disk size, and just about everything that normally you would associate 
+with DOS.  Compilers often hide these details, because setting up these 
+interrupt routines can be a little tricky.
+</p><p>Now to really make a mess of things.  "Hardware interrupts" can 
+also be called from "software interrupts", and indeed this is a 
+reasonable way to make sure you have written your software correctly.  
+The difference here is that software interrupts will only be invoked, or
+ have their portion of software code running in the CPU, if it has been 
+explicitly called through this assembly opcode.
+</p>
+<h2><span id="8259_PIC_.28Programmable_Interrupt_Controller.29"></span><span class="mw-headline" id="8259_PIC_(Programmable_Interrupt_Controller)">8259 PIC (Programmable Interrupt Controller)</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=9" class="mw-editsection-visualeditor" title="Edit section: 8259 PIC (Programmable Interrupt Controller)">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=9" title="Edit section: 8259 PIC (Programmable Interrupt Controller)">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The 8259 chip is the "heart" of the whole process of doing hardware 
+interrupts.  External devices are directly connected to this chip, or in
+ the case of the PC-AT compatibles (most likely what you are most 
+familiar with for a modern PC) it will have two of these devices that 
+are connected together.  Literally sixteen wires come into this pair of 
+chips, each wire labeled IRQ-0 through IRQ-15.
+</p><p>The purpose of these chips is to help "prioritize" the interrupt 
+signals and organize them in some orderly fashion.  There is no way to 
+predict when a certain device is going to "request" an interrupt, so 
+often multiple devices can be competing for attention from the CPU.
+</p><p>Generally speaking, the lower numbered IRQ gets priority.  In 
+other words, if both IRQ-1 and IRQ-4 are requesting attention at the 
+same time, IRQ-1 gets priority and will be triggered first as far as the
+ CPU is concerned.  IRQ-4 has to wait until after IRQ-1 has completed 
+its "Interrupt Service Routine" or ISR.
+</p><p>If the opposite happens however, with IRQ-4 doing its ISR 
+(remember, this is software, just like any computer program you might 
+normally write as a computer application), IRQ-1 will "interrupt" the 
+ISR for IRQ-4 and push through its own ISR to be run instead, returning 
+to the IRQ-4 ISR when it has finished.  There are exceptions to this as 
+well, but let's keep things simple at the moment.
+</p><p>Let's return for a minute to the original IBM-PC.  When it was 
+built, there was only one 8259 chip on the motherboard.  When the IBM-AT
+ came out the engineers at IBM decided to add a second 8259 chip to add 
+some additional IRQ signals.  Since there was still only 1 pin on the 
+CPU (at this point the 80286) that could receive notification of an 
+interrupt, it was decided to grab IRQ-2 from the original 8259 chip and 
+use that to chain onto the next chip.  IRQ-2 was re-routed to IRQ-9 as 
+far as any devices that depended on IRQ-2.  The nice thing about going 
+with this scheme was that software that planned on something using IRQ-2
+ would still be "notified" when that device was used, even though seven 
+other devices were now "sharing" this interrupt.  These are IRQ-8 
+through IRQ-15.
+</p><p>What this means in terms of priorities, however, is that IRQ-8 
+through IRQ-15 have a higher priority than IRQ-3.  This is mainly of 
+concern when you are trying to sort out which device can take precedence
+ over another, and how important it would be to notified when a piece of
+ equipment is trying to get your attention.  If you are dealing with 
+software running a specific computer configuration, this priority level 
+is very important.
+</p><p>It should be noted here that COM1 (serial communication channel 
+one) usually uses IRQ-4, and COM2 uses IRQ-3, which has the net effect 
+of making COM2 to be a higher priority for receiving data over COM1.  
+Usually the software really doesn't care, but on some rare occasions you
+ really need to know this fact.
+</p>
+<h3><span class="mw-headline" id="8259_Registers">8259 Registers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=10" class="mw-editsection-visualeditor" title="Edit section: 8259 Registers">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=10" title="Edit section: 8259 Registers">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The 8259 has several "registers" that are associated with I/O port 
+addresses.  We will visit this concept a little bit more when we get to 
+the 8250 chip.  For a typical PC Computer system, the following are 
+typical primary port addresses associated with the 8259:
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Interrupt Controller Port I/O Addresses</b>
+</caption>
+<tbody><tr>
+<th>Register Name
+</th>
+<th>I/O Port
+</th></tr>
+<tr>
+<td>Master Interrupt Controller</td>
+<td>$0020
+</td></tr>
+<tr>
+<td>Slave Interrupt Controller</td>
+<td>$00A0
+</td></tr></tbody></table>
+<p>This primary port address is what we will use to directly communicate
+ with the 8259 chip in our software.  There are a number of commands 
+that can be sent to this chip through these I/O port addresses, but for 
+our purposes we really don't need to deal with them.  Most of these are 
+used to do the initial setup and configuration of the computer equipment
+ by the Basic Input Output System (BIOS) of the computer, and unless you
+ are rewriting the BIOS from scratch, you really don't have to worry 
+about this.  Also, each computer is a little different in its behavior 
+when you are dealing with equipment at this level, so this is something 
+more for a computer manufacturer to worry about rather than something an
+ application programmer should have to deal with, which is exactly why 
+BIOS software is written at all.
+</p><p>Keep in mind that this is the "typical" Port I/O address for most
+ PC-compatible type computer systems, and can vary depending on what the
+ manufacturer is trying to accomplish.  Generally you don't have to 
+worry about incompatibility at this level, but when we get to Port I/O 
+addresses for the serial ports this will become a much larger issue.
+</p>
+<h3><span class="mw-headline" id="Device_Registers">Device Registers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=11" class="mw-editsection-visualeditor" title="Edit section: Device Registers">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=11" title="Edit section: Device Registers">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>I'm going to spend a little time here to explain the meaning of the 
+word register.  When you are working with equipment at this level, the 
+electrical engineers who designed the equipment refer to registers that 
+change the configuration of the equipment.  This can happen at several 
+levels of abstraction, so I want to clear up some of the confusion.
+</p><p>A register is simply a small piece of RAM that is available for a
+ device to directly manipulate.  In a CPU like the 8086 or a Pentium, 
+these are the memory areas that are used to directly perform 
+mathematical operations like adding two numbers together.  These usually
+ go by names like AX, SP, etc.  There are very few registers on a 
+typical CPU because access to these registers is encoded directly into 
+the basic machine-level instructions.
+</p><p>When we are talking about device register, keep in mind these are
+ not the CPU registers, but instead memory areas on the devices 
+themselves.  These are often designed so they are connected to the Port 
+I/O memory, so when you write to or read from the Port I/O addresses, 
+you are directly accessing the device registers.  Sometimes there will 
+be a further level of abstraction, where you will have one Port I/O 
+address that will indicate which register you are changing, and another 
+Port I/O address that has the data you are sending to that register.  
+How you deal with the device is based on how complex it is and what you 
+are going to be doing.
+</p><p>In a real sense, they are registers, but keep in mind that often 
+each of these devices can be considered a full computer in its own 
+right, and all you are doing is establishing how it will be 
+communicating with the main CPU.  Don't get hung up here and get these 
+confused with the CPU registers.
+</p>
+<h3><span class="mw-headline" id="ISR_Cleanup">ISR Cleanup</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=12" class="mw-editsection-visualeditor" title="Edit section: ISR Cleanup">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=12" title="Edit section: ISR Cleanup">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>One area that you have to interact on a regular basis when using 
+interrupt controllers is to inform the 8259 PIC controller that the 
+interrupt service routine is completed.  When your software is 
+performing an interrupt handler, there is no automated method for the 
+CPU to signal to the 8259 chip that you have finished, so a specific 
+"register" in the PIC needs to be set to let the next interrupt handler 
+be able to access the computer system.  Typical software to accomplish 
+this is like the following:
+</p>
+<pre>  Port[$20]&nbsp;:= $20;
+</pre>
+<p>This is sending the command called "End of Interrupt" or often 
+written as an abbreviation simply "EOI".  There are other commands that 
+can be sent to this register, but for our purposes this is the only one 
+that we need to concern ourselves with.
+</p>
+<dl><dt><dl><dt><dl><dt></dt></dl></dt></dl></dt></dl>
+<p>Now this will clear the "master" PIC, but if you are using a device 
+that is triggered on the "slave" PIC, you also need to inform that chip 
+as well that the interrupt service has been completed.  This means you 
+need to send "EOI" to that chip as well in a manner like this:
+</p>
+<pre>  Port[$A0]&nbsp;:= $20;
+  Port[$20]&nbsp;:= $20;
+</pre>
+<p>There are other things you can do to make your computer system work smoothly, but let's keep things simple for now.
+</p>
+<h3><span class="mw-headline" id="PIC_Device_Masking">PIC Device Masking</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=13" class="mw-editsection-visualeditor" title="Edit section: PIC Device Masking">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=13" title="Edit section: PIC Device Masking">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Before we leave the subject of the 8259 PIC, I'd like to cover the 
+concept of device masking.  Each one of the devices that are attached to
+ the PIC can be "turned on" or "turned off" from the viewpoint of how 
+they can interrupt the CPU through the PIC chip.  Usually as an 
+application developer all we really care about is if the device is 
+turned on, although if you are trying to isolate performance issues you 
+might turn off some other devices.  Keep in mind that if you turn a 
+device "off", the interrupt will not work until it is turned back on.  
+That can include the keyboard or other critical devices you may need to 
+operate your computer.
+</p><p>The register to set this mask is called "Operation Control Word 
+1" or "OCW1".  This is located at the PIC base address + 1, or for the 
+"Master" PIC at Port I/O Address $21.  This is where you need to go over
+ bit manipulation, which I won't cover in detail here.  The following 
+tables show the related bits to change in order to enable or disable 
+each of the hardware interrupt devices:
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Master OCW1 ($21)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th>IRQ Enabled<b></b>
+</th>
+<th>Device Function
+</th></tr>
+<tr>
+<td>7</td>
+<td>IRQ7</td>
+<td>Parallel Port (LPT1)
+</td></tr>
+<tr>
+<td>6</td>
+<td>IRQ6</td>
+<td>Floppy Disk Controller
+</td></tr>
+<tr>
+<td>5</td>
+<td>IRQ5</td>
+<td>Reserved/Sound Card
+</td></tr>
+<tr>
+<td>4</td>
+<td>IRQ4</td>
+<td>Serial Port (COM1)
+</td></tr>
+<tr>
+<td>3</td>
+<td>IRQ3</td>
+<td>Serial Port (COM2)
+</td></tr>
+<tr>
+<td>2</td>
+<td>IRQ2</td>
+<td>Slave PIC
+</td></tr>
+<tr>
+<td>1</td>
+<td>IRQ1</td>
+<td>Keyboard
+</td></tr>
+<tr>
+<td>0</td>
+<td>IRQ0</td>
+<td>System Timer
+</td></tr></tbody></table>
+<p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Slave OCW1 ($A1)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th>IRQ Enabled
+</th>
+<th>Device Function
+</th></tr>
+<tr>
+<td>7</td>
+<td>IRQ15</td>
+<td>Reserved
+</td></tr>
+<tr>
+<td>6</td>
+<td>IRQ14</td>
+<td>Hard Disk Drive
+</td></tr>
+<tr>
+<td>5</td>
+<td>IRQ13</td>
+<td>Math Co-Processor
+</td></tr>
+<tr>
+<td>4</td>
+<td>IRQ12</td>
+<td>PS/2 Mouse
+</td></tr>
+<tr>
+<td>3</td>
+<td>IRQ11</td>
+<td>PCI Devices
+</td></tr>
+<tr>
+<td>2</td>
+<td>IRQ10</td>
+<td>PCI Devices
+</td></tr>
+<tr>
+<td>1</td>
+<td>IRQ9</td>
+<td>Redirected IRQ2 Devices
+</td></tr>
+<tr>
+<td>0</td>
+<td>IRQ8</td>
+<td>Real Time Clock
+</td></tr></tbody></table>
+<p>Assuming that we want to turn on IRQ3 (typical for the serial port COM2), we would use the following software:
+</p>
+<pre>  Port[$21]&nbsp;:= Port[$21] and $F7; {Clearing bit 3 for enabling IRQ3}
+</pre>
+<p>And to turn it off we would use the following software:
+</p>
+<pre>  Port[$21]&nbsp;:= Port[$21] or $08; {Setting bit 3 for disabling IRQ3}
+</pre>
+<p>If you are having problems getting anything to work, you can simply send this command in your software:
+</p>
+<pre>  Port[$21]&nbsp;:= 0;
+</pre>
+<p>which will simply enable everything.  This may not be a good thing to
+ do, but will have to be something for you to experiment with depending 
+on what you are working with.  Try not to take short cuts like this as 
+not only is it a sign of a lazy programmer, but it can have side effects
+ that your computer may behave different than you intended.  If you are 
+working with the computer at this level, the goal is to change as little
+ as possible so you don't cause damage to any other software you are 
+using.
+</p>
+<h2><span id="Serial_COM_Port_Memory_and_I.2FO_Allocation"></span><span class="mw-headline" id="Serial_COM_Port_Memory_and_I/O_Allocation">Serial COM Port Memory and I/O Allocation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=14" class="mw-editsection-visualeditor" title="Edit section: Serial COM Port Memory and I/O Allocation">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=14" title="Edit section: Serial COM Port Memory and I/O Allocation">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Now that we have pushed through the 8259 chip, lets move on to the 
+UART itself.  While the Port I/O addresses for the PICs are fairly 
+standard, it is common for computer manufacturers to move stuff around 
+for the serial ports themselves.  Also, if you have serial port devices 
+that are part of an add-in card (like an ISA or PCI card in the 
+expansion slots of your computer), these will usually have different 
+settings than something built into the main motherboard of your 
+computer.  It may take some time to hunt down these settings, and it is 
+important to know what these values are when you are trying to write 
+your software.  Often these values can be found in the BIOS setup 
+screens of your computer, or if you can pause the messages when your 
+computer turns on, they can be found as a part of the boot process of 
+your computer.
+</p><p>For a "typical" PC system, the following are the Port I/O addresses and IRQs for each serial COM port:
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Common UART IRQ and I/O Port Addresses</b>
+</caption>
+<tbody><tr>
+<th>COM Port
+</th>
+<th>IRQ
+</th>
+<th>Base Port I/O address
+</th></tr>
+<tr>
+<td>COM1</td>
+<td>IRQ4</td>
+<td>$3F8
+</td></tr>
+<tr>
+<td>COM2</td>
+<td>IRQ3</td>
+<td>$2F8
+</td></tr>
+<tr>
+<td>COM3</td>
+<td>IRQ4</td>
+<td>$3E8
+</td></tr>
+<tr>
+<td>COM4</td>
+<td>IRQ3</td>
+<td>$2E8
+</td></tr></tbody></table>
+<p>If you notice something interesting here, you can see that COM3 and 
+COM1 share the same interrupt.  This is not a mistake but something you 
+need to keep in mind when you are writing an interrupt service routine. 
+ The 15 interrupts that were made available through the 8259 PIC chips 
+still have not been enough to allow all of the devices that are found on
+ a modern computer to have their own separate hardware interrupt, so in 
+this case you will need to learn how to share the interrupt with other 
+devices.  I'll cover more of that later when we get into the actual 
+software to access the serial data ports, but for now remember not to 
+write your software strictly for one device.
+</p><p>The Base Port I/O address is important for the next topic we will cover, which is directly accessing the UART registers.
+</p>
+<h2><span class="mw-headline" id="UART_Registers">UART Registers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=15" class="mw-editsection-visualeditor" title="Edit section: UART Registers">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=15" title="Edit section: UART Registers">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The UART chip has a total of 12 different registers that are mapped 
+into 8 different Port I/O locations.  Yes, you read that correct, 12 
+registers in 8 locations.  Obviously that means there is more than one 
+register that uses the same Port I/O location, and affects how the UART 
+can be configured.  In reality, two of the registers are really the same
+ one but in a different context, as the Port I/O address that you 
+transmit the characters to be sent out of the serial data port is the 
+same address that you can read in the characters that are sent to the 
+computer.  Another I/O port address has a different context when you 
+write data to it than when you read data from it... and the number will 
+be different after writing the data to it than when you read data from 
+it.  More on that in a little bit.
+</p><p>One of the issues that came up when this chip was originally 
+being designed was that the designer needed to be able to send 
+information about the baud rate of the serial data with 16 bits.  This 
+actually takes up two different "registers" and is toggled by what is 
+called the "Divisor Latch Access Bit" or "DLAB".  When the DLAB is set 
+to "1", the baud rate registers can be set and when it is "0" the 
+registers have a different context.
+</p><p>Does all this sound confusing?  It can be, but lets take it one 
+simple little piece at a time.  The following is a table of each of the 
+registers that can be found in a typical UART chip:
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>UART Registers</b>
+</caption>
+<tbody><tr>
+<th>Base Address
+</th>
+<th>DLAB
+</th>
+<th>I/O Access
+</th>
+<th>Abbrv.
+</th>
+<th>Register Name
+</th></tr>
+<tr>
+<td>+0</td>
+<td>0</td>
+<td>Write</td>
+<td>THR</td>
+<td>Transmitter Holding Buffer
+</td></tr>
+<tr>
+<td>+0</td>
+<td>0</td>
+<td>Read</td>
+<td>RBR</td>
+<td>Receiver Buffer
+</td></tr>
+<tr>
+<td>+0</td>
+<td>1</td>
+<td>Read/Write</td>
+<td>DLL</td>
+<td>Divisor Latch Low Byte
+</td></tr>
+<tr>
+<td>+1</td>
+<td>0</td>
+<td>Read/Write</td>
+<td>IER</td>
+<td>Interrupt Enable Register
+</td></tr>
+<tr>
+<td>+1</td>
+<td>1</td>
+<td>Read/Write</td>
+<td>DLH</td>
+<td>Divisor Latch High Byte
+</td></tr>
+<tr>
+<td>+2</td>
+<td>x</td>
+<td>Read
+</td>
+<td>IIR</td>
+<td>Interrupt Identification Register
+</td></tr>
+<tr>
+<td>+2</td>
+<td>x</td>
+<td>Write</td>
+<td>FCR</td>
+<td>FIFO Control Register
+</td></tr>
+<tr>
+<td>+3</td>
+<td>x</td>
+<td>Read/Write</td>
+<td>LCR</td>
+<td>Line Control Register
+</td></tr>
+<tr>
+<td>+4</td>
+<td>x</td>
+<td>Read/Write</td>
+<td>MCR</td>
+<td>Modem Control Register
+</td></tr>
+<tr>
+<td>+5</td>
+<td>x</td>
+<td>Read</td>
+<td>LSR</td>
+<td>Line Status Register
+</td></tr>
+<tr>
+<td>+6</td>
+<td>x</td>
+<td>Read</td>
+<td>MSR</td>
+<td>Modem Status Register
+</td></tr>
+<tr>
+<td>+7</td>
+<td>x</td>
+<td>Read/Write</td>
+<td>SR</td>
+<td>Scratch Register
+</td></tr></tbody></table>
+<p>The "x" in the DLAB column means that the status of the DLAB has no 
+effect on what register is going to be accessed for that offset range.  
+Notice also that some registers are Read only.  If you attempt to write 
+data to them, you may end up with either some problems with the modem 
+(worst case), or the data will simply be ignored (typically the result).
+  As mentioned earlier, some registers share a Port I/O address where 
+one register will be used when you write data to it and another register
+ will be used to retrieve data from the same address.
+</p><p>Each serial communication port will have its own set of these 
+registers.  For example, if you wanted to access the Line Status 
+Register (LSR) for COM1, and assuming the base I/O Port address of $3F8,
+ the I/O Port address to get the information in this register would be 
+found at $3F8 + $05 or $3FD.  Some example code would be like this:
+</p>
+<pre>const
+  COM1_Base = $3F8;
+  COM2_Base = $2F8;
+  LSR_Offset = $05;
+
+function LSR_Value: Byte;
+begin
+  Result&nbsp;:= Port[COM1_Base+LSR_Offset];
+end;
+</pre>
+<p>There is quite a bit of information packed into each of these 
+registers, and the following is an explanation for the meaning of each 
+register and the information it contains.
+</p>
+<h3><span id="Transmitter_Holding_Buffer.2FReceiver_Buffer"></span><span class="mw-headline" id="Transmitter_Holding_Buffer/Receiver_Buffer">Transmitter Holding Buffer/Receiver Buffer</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=16" class="mw-editsection-visualeditor" title="Edit section: Transmitter Holding Buffer/Receiver Buffer">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=16" title="Edit section: Transmitter Holding Buffer/Receiver Buffer">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +0 .
+The Transmit and Receive buffers are related, and often even use the 
+very same memory.  This is also one of the areas where later versions of
+ the 8250 chip have a significant impact, as the later models 
+incorporate some internal buffering of the data within the chip before 
+it gets transmitted as serial data.  The base 8250 chip can only receive
+ one byte at a time, while later chips like the 16550 chip will hold up 
+to 16 bytes either to transmit or to receive (sometimes both... 
+depending on the manufacturer) before you have to wait for the character
+ to be sent.  This can be useful in multi-tasking environments where you
+ have a computer doing many things, and it may be a couple of 
+milliseconds before you get back to dealing with serial data flow.
+</p><p>These registers really are the "heart" of serial data 
+communication, and how data is transferred from your software to another
+ computer and how it gets data from other devices.  Reading and Writing 
+to these registers is simply a matter of accessing the Port I/O address 
+for the respective UART.
+</p><p>If the receive buffer is occupied or the FIFO is full, the 
+incoming data is discarded and the Receiver Line Status interrupt is 
+written to the IIR register. The Overrun Error bit is also set in the 
+Line Status Register.
+</p>
+<h3><span class="mw-headline" id="Divisor_Latch_Bytes">Divisor Latch Bytes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=17" class="mw-editsection-visualeditor" title="Edit section: Divisor Latch Bytes">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=17" title="Edit section: Divisor Latch Bytes">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +0 and +1 .
+The Divisor Latch Bytes are what control the baud rate of the modem.  As
+ you might guess from the name of this register, it is used as a divisor
+ to determine what baud rate that the chip is going to be transmitting 
+at.  
+</p><p>In reality, it is even simpler than that.  This is really a 
+count-down clock that is used each time a bit is transmitted by the 
+UART.  Each time a bit is sent, a count-down register is reset to this 
+value and then counts down to zero.  This clock is running typically at 
+115.2&nbsp;kHz.  In other words, at 115 thousand times per second a 
+counter is going down to determine when to send the next bit.  At one 
+time during the design process it was anticipated that some other 
+frequencies might be used to get a UART working, but with the large 
+amount of software already written for this chip this frequency is 
+pretty much standard for almost all UART chips used on a PC platform.  
+They may use a faster clock in some portion (like a 1.843 MHz clock), 
+but some fraction of that frequency will then be used to scale down to a
+ 115.2&nbsp;kHz clock.
+</p><p>Some more on UART clock speeds (advanced coverage):  For many 
+UART chips, the clock frequency that is driving the UART is 1.8432 MHz. 
+ This frequency is then put through a divider circuit that drops the 
+frequency down by a factor of 16, giving us the 115.2 KHz frequency 
+mentioned above.  If you are doing some custom equipment using this 
+chip, the National Semiconductor spec sheets allow for a 3.072 MHz clock
+ and 18.432 MHz clock.  These higher frequencies will allow you to 
+communicate at higher baud rates, but require custom circuits on the 
+motherboard and often new drivers in order to deal with these new 
+frequencies.  What is interesting is that you can still operate at 50 
+baud with these higher clock frequencies, but at the time the original 
+IBM-PC/XT was manufactured this wasn't a big concern as it is now for 
+higher data throughput.
+</p><p>If you use the following mathematical formula, you can determine what numbers you need to put into the Divisor Latch Bytes:
+</p>
+<dl><dd><dl><dd><span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle {DivisorLatchValue}={115200 \over {BaudRate}}}">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle scriptlevel="0" displaystyle="true">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi>D</mi>
+          <mi>i</mi>
+          <mi>v</mi>
+          <mi>i</mi>
+          <mi>s</mi>
+          <mi>o</mi>
+          <mi>r</mi>
+          <mi>L</mi>
+          <mi>a</mi>
+          <mi>t</mi>
+          <mi>c</mi>
+          <mi>h</mi>
+          <mi>V</mi>
+          <mi>a</mi>
+          <mi>l</mi>
+          <mi>u</mi>
+          <mi>e</mi>
+        </mrow>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mn>115200</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>B</mi>
+              <mi>a</mi>
+              <mi>u</mi>
+              <mi>d</mi>
+              <mi>R</mi>
+              <mi>a</mi>
+              <mi>t</mi>
+              <mi>e</mi>
+            </mrow>
+          </mfrac>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {DivisorLatchValue}={115200 \over {BaudRate}}}</annotation>
+  </semantics>
+</math></span><img src="UART%208250%20and%208259%20PIC_files/dc2c47451e837a9d2b23b65d2bccd2d25ba068a0.svg" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.005ex; width:34.436ex; height:5.343ex;" alt="{\displaystyle {DivisorLatchValue}={115200 \over {BaudRate}}}"></span></dd></dl></dd></dl>
+<p>That gives you the following table that can be used to determine common baud rates for serial communication:
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Divisor Latch Byte Values (common baud rates)</b>
+</caption>
+<tbody><tr>
+<th>Baud Rate
+</th>
+<th>Divisor (in decimal)
+</th>
+<th>Divisor Latch High Byte
+</th>
+<th>Divisor Latch Low Byte
+</th></tr>
+<tr>
+<td>50</td>
+<td>2304</td>
+<td>$09</td>
+<td>$00
+</td></tr>
+<tr>
+<td>110</td>
+<td>1047</td>
+<td>$04</td>
+<td>$17
+</td></tr>
+<tr>
+<td>220</td>
+<td>524</td>
+<td>$02</td>
+<td>$0C
+</td></tr>
+<tr>
+<td>300</td>
+<td>384</td>
+<td>$01</td>
+<td>$80
+</td></tr>
+<tr>
+<td>600</td>
+<td>192</td>
+<td>$00</td>
+<td>$C0
+</td></tr>
+<tr>
+<td>1200</td>
+<td>96</td>
+<td>$00</td>
+<td>$60
+</td></tr>
+<tr>
+<td>2400</td>
+<td>48</td>
+<td>$00</td>
+<td>$30
+</td></tr>
+<tr>
+<td>4800</td>
+<td>24</td>
+<td>$00</td>
+<td>$18
+</td></tr>
+<tr>
+<td>9600</td>
+<td>12</td>
+<td>$00</td>
+<td>$0C
+</td></tr>
+<tr>
+<td>19200</td>
+<td>6</td>
+<td>$00</td>
+<td>$06
+</td></tr>
+<tr>
+<td>38400</td>
+<td>3</td>
+<td>$00</td>
+<td>$03
+</td></tr>
+<tr>
+<td>57600</td>
+<td>2</td>
+<td>$00</td>
+<td>$02
+</td></tr>
+<tr>
+<td>115200</td>
+<td>1</td>
+<td>$00</td>
+<td>$01
+</td></tr></tbody></table>
+<p>One thing to keep in mind when looking at the table is that baud 
+rates 600 and above all set the Divisor Latch High Byte to zero.  A 
+sloppy programmer might try to skip setting the high byte, assuming that
+ nobody would deal with such low baud rates, but this is not something 
+to always presume.  Good programming habits suggest you should still try
+ to set this to zero even if all you are doing is running at higher baud
+ rates.
+</p><p>Another thing to notice is that there are other potential baud 
+rates other than the standard ones listed above.  While this is not 
+encouraged for a typical application, it would be something fun to 
+experiment with.  Also, you can attempt to communicate with older 
+equipment in this fashion where a standard API library might not allow a
+ specific baud rate that should be compatible.  This should demonstrate 
+why knowledge of these chips at this level is still very useful.
+</p><p>When working with these registers, also remember that these are 
+the only ones that require the Divisor Latch Access Bit to be set to 
+"1".  More on that below, but I'd like to mention that it would be 
+useful for application software setting the baud rate to set the DLAB to
+ "1" just for the immediate operation of changing the baud rate, then 
+putting it back to "0" as the very next step before you do any more I/O 
+access to the modem.  This is just a good working habit, and keeps the 
+rest of the software you need to write for accessing the UART much 
+cleaner and easier.
+</p><p>One word of caution:  Do not set the value "0" for both Divisor 
+Latch bytes.  While it will not (likely) damage the UART chip, the 
+behavior on how the UART will be transmitting serial data will be 
+unpredictable, and will change from one computer to the next, or even 
+from one time you boot the computer to the next.  This is an error 
+condition, and if you are writing software that works with baud rate 
+settings on this level you should catch potential "0" values for the 
+Divisor Latch.
+</p><p>Here is some sample software to set and retrieve the baud rate for COM1:
+</p>
+<pre>const
+  COM1_Base = $3F8;
+  COM2_Base = $2F8;
+  LCR_Offset = $03;
+  Latch_Low = $00;
+  Latch_High = $01;
+
+procedure SetBaudRate(NewRate: Word);
+var
+  DivisorLatch: Word;
+begin
+  DivisorLatch&nbsp;:= 115200 div NewRate;
+  Port[COM1_Base + LCR_Offset]&nbsp;:= Port[COM1_Base + LCR_Offset] or $80; {Set DLAB}
+  Port[COM1_Base + Latch_High]&nbsp;:= DivisorLatch shr 8;
+  Port[COM1_Base + Latch_Low]&nbsp;:= DivisorLatch and $FF;
+  Port[COM1_Base + LCR_Offset]&nbsp;:= Port[COM1_Base + LCR_Offset] and $7F; {Clear DLAB}
+end;
+
+function GetBaudRate: Integer;
+var
+  DivisorLatch: Word;
+begin
+  Port[COM1_Base + LCR_Offset]&nbsp;:= Port[COM1_Base + LCR_Offset] or $80; {Set DLAB}
+  DivisorLatch&nbsp;:= (Port[COM1_Base + Latch_High] shl 8) + Port[COM1_Base + Latch_Low];
+  Port[COM1_Base + LCR_Offset]&nbsp;:= Port[COM1_Base + LCR_Offset] and $7F; {Clear DLAB}
+  Result&nbsp;:= 115200 div DivisorLatch;
+end;
+</pre>
+<h3><span class="mw-headline" id="Interrupt_Enable_Register">Interrupt Enable Register</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=18" class="mw-editsection-visualeditor" title="Edit section: Interrupt Enable Register">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=18" title="Edit section: Interrupt Enable Register">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +1 .
+This register allows you to control when and how the UART is going to 
+trigger an interrupt event with the hardware interrupt associated with 
+the serial COM port.  If used properly, this can enable an efficient use
+ of system resources and allow you to react to information being sent 
+across a serial data line in essentially real-time conditions.  Some 
+more on that will be covered later, but the point here is that you can 
+use the UART to let you know exactly when you need to extract some data.
+  This register has both read- and write-access.
+</p><p>The following is a table showing each bit in this register and 
+what events that it will enable to allow you check on the status of this
+ chip:
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Interrupt Enable Register (IER)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th>Notes
+</th></tr>
+<tr>
+<td>7</td>
+<td>Reserved
+</td></tr>
+<tr>
+<td>6</td>
+<td>Reserved
+</td></tr>
+<tr>
+<td>5</td>
+<td>Enables Low Power Mode (16750)
+</td></tr>
+<tr>
+<td>4</td>
+<td>Enables Sleep Mode (16750)
+</td></tr>
+<tr>
+<td>3</td>
+<td>Enable Modem Status Interrupt
+</td></tr>
+<tr>
+<td>2
+</td>
+<td>Enable Receiver Line Status Interrupt
+</td></tr>
+<tr>
+<td>1
+</td>
+<td>Enable Transmitter Holding Register Empty Interrupt
+</td></tr>
+<tr>
+<td>0
+</td>
+<td>Enable Received Data Available Interrupt
+</td></tr></tbody></table>
+<p>The Received Data interrupt is a way to let you know that there is 
+some data waiting for you to pull off of the UART.  This is probably the
+ one bit that you will use more than the rest, and has more use.
+</p><p>The Transmitter Holding Register Empty Interrupt is to let you 
+know that the output buffer (on more advanced models of the chip like 
+the 16550) has finished sending everything that you pushed into the 
+buffer.  This is a way to streamline the data transmission routines so 
+they take up less CPU time.
+</p><p>The Receiver Line Status Interrupt indicates that something in 
+the LSR register has probably changed.  This is usually an error 
+condition, and if you are going to write an efficient error handler for 
+the UART that will give plain text descriptions to the end user of your 
+application, this is something you should consider. This is certainly 
+something that takes a bit more advanced knowledge of programming.
+</p><p>The Modem Status Interrupt is to notify you when something 
+changes with an external modem connected to your computer.  This can 
+include things like the telephone "bell" ringing (you can simulate this 
+in your software), that you have successfully connected to another modem
+ (Carrier Detect has been turned on), or that somebody has "hung up" the
+ telephone (Carrier Detect has turned off).  It can also help you to 
+know if the external modem or data equipment can continue to receive 
+data (Clear to Send).  Essentially, this deals with the other wires in 
+the RS-232 standard other than strictly the transmit and receive wires.
+</p><p>The other two modes are strictly for the 16750 chip, and help put
+ the chip into a "low power" state for use on things like a laptop 
+computer or an embedded controller that has a very limited power source 
+like a battery.  On earlier chips you should treat these bits as 
+"Reserved", and only put a "0" into them.
+</p>
+<h3><span class="mw-headline" id="Interrupt_Identification_Register">Interrupt Identification Register</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=19" class="mw-editsection-visualeditor" title="Edit section: Interrupt Identification Register">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=19" title="Edit section: Interrupt Identification Register">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +2 .
+This register is to be used to help identify what the unique 
+characteristics of the UART chip that you are using has.  This chip has 
+two uses:
+</p>
+<ul><li>Identification of why the UART triggered an interrupt.</li>
+<li>Identification of the UART chip itself.</li></ul>
+<p>Of these, identification of why the interrupt service routine has been invoked is perhaps the most important.
+</p><p>The following table explains some of the details of this register, and what each bit on it represents:
+</p><p><br>
+</p>
+<table cellpadding="1" border="2">
+<caption><b>Interrupt Identification Register (IIR)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th colspan="5">Notes
+</th></tr>
+<tr>
+<td rowspan="5">7 and 6
+</td>
+<th>Bit 7
+</th>
+<th>Bit 6
+</th>
+<td colspan="3">
+</td></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td colspan="3">No FIFO on chip
+</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td colspan="3">Reserved condition
+</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td colspan="3">FIFO enabled, but not functioning
+</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td colspan="3">FIFO enabled
+</td></tr>
+<tr>
+<td>5
+</td>
+<td colspan="5">64 Byte FIFO Enabled (16750 only)
+</td></tr>
+<tr>
+<td>4</td>
+<td colspan="5">Reserved
+</td></tr>
+<tr>
+<td rowspan="9">3, 2 and 1
+</td>
+<th>Bit 3
+</th>
+<th>Bit 2
+</th>
+<th>Bit 1
+</th>
+<td>
+</td>
+<th>Reset Method
+</th></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0
+</td>
+<td>Modem Status Interrupt</td>
+<td>Reading Modem Status Register(MSR)
+</td></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1
+</td>
+<td>Transmitter Holding Register Empty Interrupt
+</td>
+<td>Reading Interrupt Identification Register(IIR) or <br>Writing to Transmit Holding Buffer(THR)
+</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Received Data Available Interrupt
+</td>
+<td>Reading Receive Buffer Register(RBR)
+</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1
+</td>
+<td>Receiver Line Status Interrupt</td>
+<td>Reading Line Status Register(LSR)
+</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>Reserved</td>
+<td>N/A
+</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>Reserved</td>
+<td>N/A
+</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0
+</td>
+<td>Time-out Interrupt Pending (16550 &amp; later)
+</td>
+<td>Reading Receive Buffer Register(RBR)
+</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>Reserved</td>
+<td>N/A
+</td></tr>
+<tr>
+<td>0
+</td>
+<td colspan="5">Interrupt Pending Flag
+</td></tr></tbody></table>
+<p>When you are writing an interrupt handler for the 8250 chip (and 
+later), this is the register that you need to look at in order to 
+determine what exactly was the trigger for the interrupt.  
+</p><p>As explained earlier, multiple serial communication devices can 
+share the same hardware interrupt.  The use of "Bit 0" of this register 
+will let you know (or confirm) that this was indeed the device that 
+caused the interrupt.  What you need to do is check on all serial 
+devices (that are in separate port I/O address spaces), and get the 
+contents of this register.  Keep in mind that it is at least possible 
+for more than one device to trigger an interrupt at the same time, so 
+when you are doing this scanning of serial devices, make sure you 
+examine all of them, even one of the first devices did in fact need to 
+be processed.  Some computer systems may not require this to occur, but 
+this is a good programming practice anyway.  It is also possible that 
+due to how you processed the UARTs earlier, that you have already dealt 
+with all of the UARTs for a given interrupt.  When this bit is a "0", it
+ identifies that the UART is triggering an interrupt.  When it is "1", 
+that means the interrupt has already been processed or this particular 
+UART was not the triggering device.  I know that this seems a little bit
+ backward for a typical bit-flag used in computers, but this is called 
+digital logic being asserted low, and is fairly common with electrical 
+circuit design.  This is a bit more unusual through for this logic 
+pattern to go into the software domain.
+</p><p>Bits 1, 2 &amp; 3 help to identify exactly what sort of interrupt
+ event was used within the UART to invoke the hardware interrupt.  These
+ are the same interrupts that were earlier enabled with the IER 
+register.  In this case, however, each time you process the registers 
+and deal with the interrupt it will be unique.  If multiple "triggers" 
+occur for the UART due to many things happening at the same time, this 
+will be invoked through multiple hardware interrupts.  Earlier chip sets
+ don't use bit 3, but this is a reserved bit on those UART systems and 
+always set to logic state "0", so programming logic doesn't have to be 
+different when trying to decipher which interrupt has been used.
+</p><p>To explain the FIFO timeout Interrupt, this is a way to check for
+ the end of a packet or if the incoming data stream has stopped.  
+Generally the following conditions must exist for this interrupt to be 
+triggered:  Some data needs to be in the incoming FIFO and has not been 
+read by the computer.  Data transmissions being sent to the UART via 
+serial data link must have ended with no new characters being received. 
+ The CPU processing incoming data must not have retrieved any data from 
+the FIFO before the timeout has occurred.  The timeout will occur 
+usually after the period it would take to transmit or receive at least 4
+ characters.  If you are talking about data sent at 1200 baud, 8 data 
+bits, 2 stop bits, odd parity, that would take about 40 milliseconds, 
+which is almost an eternity in terms of things that your computer can 
+accomplish on a 4 GHz Pentium CPU.
+</p><p>The "Reset Method" listed above describes how the UART is 
+notified that a given interrupt has been processed.  When you access the
+ register mentioned under the reset method, this will clear the 
+interrupt condition for that UART.  If multiple interrupts for the same 
+UART have been triggered, either it won't clear the interrupt signal on 
+the CPU (triggering a new hardware interrupt when you are done), or if 
+you check back to this register (IIR) and query the Interrupt Pending 
+Flag to see if there are more interrupts to process, you can move on and
+ attempt to resolve any new interrupt issue that you may have to deal 
+with, using appropriate application code.
+</p><p>Bits 5, 6 &amp; 7 are reporting the current status of FIFO 
+buffers being used for transmitting and receiving characters.  There was
+ a bug in the original 16550 chip design when it was first released that
+ had a serious flaw in the FIFO, causing the FIFO to report that it was 
+working but in fact it wasn't.  Because some software had already been 
+written to work with the FIFO, this bit (Bit 7 of this register) was 
+kept, but Bit 6 was added to confirm that the FIFO was in fact working 
+correctly, in case some new software wanted to ignore the hardware FIFO 
+on the earlier versions of the 16550 chip.  This pattern has been kept 
+on future versions of this chip as well.  On the 16750 chip an added 
+64-byte FIFO has been implemented, and Bit 5 is used to designate the 
+presence of this extended buffer.  These FIFO buffers can be turned on 
+and off using registers listed below.
+</p>
+<h3><span class="mw-headline" id="FIFO_Control_Register">FIFO Control Register</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=20" class="mw-editsection-visualeditor" title="Edit section: FIFO Control Register">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=20" title="Edit section: FIFO Control Register">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +2 .
+This is a relatively "new" register that was not a part of the original 
+8250 UART implementation.  The purpose of this register is to control 
+how the First In/First Out (FIFO) buffers will behave on the chip and to
+ help you fine-tune their performance in your application.  This even 
+gives you the ability to "turn on" or "turn off" the FIFO.
+</p><p>Keep in mind that this is a "write only" register.  Attempting to
+ read in the contents will only give you the Interrupt Identification 
+Register (IIR), which has a totally different context.
+</p><p><br>
+</p>
+<table cellpadding="1" border="2">
+<caption><b>FIFO Control Register (FCR)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th colspan="4">Notes
+</th></tr>
+<tr>
+<td rowspan="5">7 &amp; 6
+</td>
+<th>Bit 7
+</th>
+<th>Bit 6
+</th>
+<th>Interrupt Trigger Level (16 byte)
+</th>
+<th>Trigger Level (64 byte)
+</th></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1 Byte</td>
+<td>1 Byte
+</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>4 Bytes</td>
+<td>16 Bytes
+</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>8 Bytes</td>
+<td>32 Bytes
+</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>14 Bytes</td>
+<td>56 Bytes
+</td></tr>
+<tr>
+<td>5
+</td>
+<td colspan="4">Enable 64 Byte FIFO (16750)
+</td></tr>
+<tr>
+<td>4</td>
+<td colspan="4">Reserved
+</td></tr>
+<tr>
+<td>3</td>
+<td colspan="4">DMA Mode Select
+</td></tr>
+<tr>
+<td>2</td>
+<td colspan="4">Clear Transmit FIFO
+</td></tr>
+<tr>
+<td>1</td>
+<td colspan="4">Clear Receive FIFO
+</td></tr>
+<tr>
+<td>0</td>
+<td colspan="4">Enable FIFOs
+</td></tr></tbody></table>
+<p>Writing a "0" to bit 0 will disable the FIFOs, in essence turning the
+ UART into 8250 compatibility mode.  In effect this also renders the 
+rest of the settings in this register to become useless.  If you write a
+ "0" here it will also stop the FIFOs from sending or receiving data, so
+ any data that is sent through the serial data port may be scrambled 
+after this setting has been changed.  It would be recommended to disable
+ FIFOs only if you are trying to reset the serial communication protocol
+ and clearing any working buffers you may have in your application 
+software.  Some documentation suggests that setting this bit to "0" also
+ clears the FIFO buffers, but I would recommend explicit buffer clearing
+ instead using bits 1 and 2.
+</p><p>Bits 1 and 2 are used to clear the internal FIFO buffers.  This 
+is useful when you are first starting up an application where you might 
+want to clear out any data that may have been "left behind" by a 
+previous piece of software using the UART, or if you want to reset a 
+communications connection.  These bits are "automatically" reset, so if 
+you set either of these to a logical "1" state you will not have to go 
+and put them back to "0" later.  Sending a logical "0" only tells the 
+UART not to reset the FIFO buffers, even if other aspects of FIFO 
+control are going to be changed.
+</p><p>Bit 3 is in reference to how the DMA (Direct Memory Access) takes
+ place, primarily when you are trying to retrieve data from the FIFO.  
+This would be useful primarily to a chip designer who is trying to 
+directly access the serial data, and store this data in an internal 
+buffer.  There are two digital logic pins on the UART chip itself 
+labeled RXRDY and TXRDY.  If you are trying to design a computer circuit
+ with the UART chip this may be useful or even important, but for the 
+purposes of an application developer on a PC system it is of little use 
+and you can safely ignore it.
+</p><p>Bit 5 allows the 16750 UART chip to expand the buffers from 16 
+bytes to 64 bytes.  Not only does this affect the size of the buffer, 
+but it also controls the size of the trigger threshold, as described 
+next.  On earlier chip types this is a reserved bit and should be kept 
+in a logical "0" state.  On the 16750 it make that UART perform more 
+like the 16550 with only a 16 byte FIFO.
+</p><p>Bits 6 and 7 describe the trigger threshold value.  This is the 
+number of characters that would be stored in the FIFO before an 
+interrupt is triggered that will let you know data should be removed 
+from the FIFO.  If you anticipate that large amounts of data will be 
+sent over the serial data link, you might want to increase the size of 
+the buffer.  The reason why the maximum value for the trigger is less 
+than the size of the FIFO buffer is because it may take a little while 
+for some software to access the UART and retrieve the data.  Remember 
+that when the FIFO is full, you will start to lose data from the FIFO, 
+so it is important to make sure you have retrieved the data once this 
+threshold has been reached.  If you are encountering software timing 
+problems in trying to retrieve the UART data, you might want to lower 
+the threshold value.  At the extreme end where the threshold is set to 1
+ byte, it will act essentially like the basic 8250, but with the added 
+reliability that some characters may get caught in the buffer in 
+situations where you don't have a chance to get all of them immediately.
+</p>
+<h3><span class="mw-headline" id="Line_Control_Register">Line Control Register</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=21" class="mw-editsection-visualeditor" title="Edit section: Line Control Register">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=21" title="Edit section: Line Control Register">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +3 .
+This register has two major purposes:
+</p>
+<ul><li>Setting the Divisor Latch Access Bit (DLAB), allowing you to set the values of the Divisor Latch Bytes.</li>
+<li>Setting the bit patterns that will be used for both receiving and 
+transmitting the serial data.  In other words, the serial data protocol 
+you will be using (8-1-None, 5-2-Even, etc.).</li></ul>
+<p><br>
+</p>
+<table cellpadding="1" border="2">
+<caption><b>Line Control Register (LCR)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th colspan="4">Notes
+</th></tr>
+<tr>
+<td>7
+</td>
+<td colspan="4">Divisor Latch Access Bit
+</td></tr>
+<tr>
+<td>6</td>
+<td colspan="4">Set Break Enable
+</td></tr>
+<tr>
+<td rowspan="6">3, 4 &amp; 5
+</td>
+<th>Bit 5
+</th>
+<th>Bit 4
+</th>
+<th>Bit 3
+</th>
+<th>Parity Select
+</th></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>No Parity
+</td></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>Odd Parity
+</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>Even Parity
+</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>Mark
+</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>Space
+</td></tr>
+<tr>
+<td rowspan="2">2</td>
+<td>0</td>
+<td colspan="3">One Stop Bit
+</td></tr>
+<tr>
+<td>1
+</td>
+<td colspan="3">1.5 Stop Bits or 2 Stop Bits
+</td></tr>
+<tr>
+<td rowspan="5">0 &amp; 1
+</td>
+<th>Bit 1
+</th>
+<th>Bit 0
+</th>
+<th colspan="2">Word Length
+</th></tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td colspan="2">5 Bits
+</td></tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td colspan="2">6 Bits
+</td></tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td colspan="2">7 Bits
+</td></tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td colspan="2">8 Bits
+</td></tr></tbody></table>
+<p>The first two bits (Bit 0 and Bit 1) control how many data bits are 
+sent for each data "word" that is transmitted via serial protocol.  For 
+most serial data transmission, this will be 8 bits, but you will find 
+some of the earlier protocols and older equipment that will require 
+fewer data bits.  For example, some military encryption equipment only 
+uses 5 data bits per serial "word", as did some TELEX equipment.  Early 
+ASCII teletype terminals only used 7 data bits, and indeed this heritage
+ has been preserved with SMTP format that only uses 7-bit ASCII for 
+e-mail messages.  Clearly this is something that needs to be established
+ before you are able to successfully complete message transmission using
+ RS-232 protocol.
+</p><p>Bit 2 controls how many stop bits are transmitted by the UART to 
+the receiving device.  This is selectable as either one or two stop 
+bits, with a logical "0" representing 1 stop bit and "1" representing 2 
+stop bits.  In the case of 5 data bits, the UART instead sends out "1.5 
+stop bits".  Remember that a 'bit' in this context is actually a time 
+interval: at 50 baud (bits per second) each bit takes 20 ms. So "1.5 
+stop bits" would have a minimum of 30 ms between characters. This is 
+tied to the "5 data bits" setting, since only the equipment that used 
+5-bit Baudot rather than 7- or 8-bit ASCII used "1.5 stop bits".
+</p><p>Another thing to keep in mind is that the RS-232 standard only 
+specifies that at least one data bit cycle will be kept a logical "1" at
+ the end of each serial data word (in other words, a complete character 
+from start bit, data bits, parity bits, and stop bits).  If you are 
+having timing problems between the two computers but are able to in 
+general get the character sent across one at a time, you might want to 
+add a second stop bit instead of reducing baud rate.  This adds a 
+one-bit penalty to the transmission speed per character instead of 
+halving the transmission speed by dropping the baud rate (usually).
+</p><p>Bits 3, 4, and 5 control how each serial word responds to parity 
+information.  When Bit 3 is a logical "0", this causes no parity bits to
+ be sent out with the serial data word.  Instead it moves on immediately
+ to the stop bits, and is an admission that parity checking at this 
+level is really useless.  You might still gain a little more reliability
+ with data transmission by including the parity bits, but there are 
+other more reliable and practical ways that will be discussed in other 
+chapters in this book.  If you want to include parity checking, the 
+following explains each parity method other than "none" parity:
+</p>
+<dl><dt>Odd Parity</dt><dd>Each bit in the data portion of the serial 
+word is added as a simple count of the number of logical "1" bits.  If 
+this is an odd number of bits, the parity bit will be transmitted as a 
+logical "0". If the count is even, the parity bit will be transmitted as
+ a logical "1" to make the number of "1" bits odd.</dd></dl>
+<dl><dt>Even Parity</dt><dd>Like Odd Parity, the bits are added 
+together.  In this case, however, if the number of bits end up as an odd
+ number it will be transmitted as a logical "1" to make the number of 
+"1" bits even, which is the exact opposite of odd parity.</dd></dl>
+<dl><dt>Mark Parity</dt><dd>In this case the parity bit will always be a
+ logical "1".  While this may seem a little unusual, this is put in for 
+testing and diagnostics purposes.  If you want to make sure that the 
+software on the receiving end of the serial connection is responding 
+correctly to a parity error, you can send a Mark or a Space parity, and 
+send characters that don't meet what the receiving UART or device is 
+expecting for parity.  In addition for Mark Parity only, you can use 
+this bit as an extra "stop bit".  Keep in mind that RS-232 standards are
+ expecting a logical "1" to end a serial data word, so a receiving 
+computer will not be able to tell the difference between a "Mark" parity
+ bit and a stop bit.  In essence, you can have 3 or 2.5 stop bits 
+through the use of this setting and by appropriate use of the stop bit 
+portion of this register as well.  This is a way to "tweak" the settings
+ on your computer in a way that typical applications don't allow you to 
+do, or at least gain a deeper insight into serial data settings.</dd></dl>
+<dl><dt>Space Parity</dt><dd>Like the Mark parity, this makes the parity
+ bit "sticky", so it doesn't change.  In this case it puts in a logical 
+"0" for the parity bit every time you transmit a character.  There are 
+not many practical uses for doing this other than a crude way to put in 9
+ data bits for each serial word, or for diagnostics purposes as 
+described above.</dd></dl>
+<p>Bit 6, when set to 1, causes TX wire to go logical "0" and stay that 
+way, which is interpreted as long stream of "0" bits by the receiving 
+UART - the "break condition". To end the "break", set bit 6 back to 0.
+</p>
+<h3><span class="mw-headline" id="Modem_Control_Register">Modem Control Register</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=22" class="mw-editsection-visualeditor" title="Edit section: Modem Control Register">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=22" title="Edit section: Modem Control Register">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +4 .
+This register allows you to do "hardware" flow control, under software 
+control.  Or in a more practical manner, it allows direct manipulation 
+of four different wires on the UART that you can set to any series of 
+independent logical states, and be able to offer control of the modem.  
+It should also be noted that most UARTs need Auxiliary Output 2 set to a
+ logical "1" to enable interrupts.
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Modem Control Register (MCR)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th>Notes
+</th></tr>
+<tr>
+<td>7</td>
+<td>Reserved
+</td></tr>
+<tr>
+<td>6</td>
+<td>Reserved
+</td></tr>
+<tr>
+<td>5</td>
+<td>Autoflow Control Enabled (16750)
+</td></tr>
+<tr>
+<td>4</td>
+<td>Loopback Mode
+</td></tr>
+<tr>
+<td>3</td>
+<td>Auxiliary Output 2
+</td></tr>
+<tr>
+<td>2</td>
+<td>Auxiliary Output 1
+</td></tr>
+<tr>
+<td>1</td>
+<td>Request To Send
+</td></tr>
+<tr>
+<td>0</td>
+<td>Data Terminal Ready
+</td></tr></tbody></table>
+<p>Of these outputs on a typical PC platform, only the Request to Send 
+(RTS) and Data Terminal Ready (DTR) are actually connected to the output
+ of the PC on the DB-9 connector.  If you are fortunate to have a DB-25 
+serial connector (more commonly used for parallel communications on a PC
+ platform), or if you have a custom UART on an expansion card, the 
+auxiliary outputs might be connected to the RS-232 connection.  If you 
+are using this chip as a component on a custom circuit, this would give 
+you some "free" extra output signals you can use in your chip design to 
+signal anything you might want to have triggered by a TTL output, and 
+would be under software control.  There are easier ways to do this, but 
+in this case it might save you an extra chip on your layout.
+</p><p>The "loopback" mode is primarily a way to test the UART to verify
+ that the circuits are working between your main CPU and the UART.  This
+ seldom, if ever, needs to be tested by an end user, but might be useful
+ for some initial testing of some software that uses the UART.  When 
+this is set to a logical state of "1", any character that gets put into 
+the transmit register will immediately be found in the receive register 
+of the UART.  Other logical signals like the RTS and DTS listed above 
+will show up in the modem status register just as if you had put a 
+loopback RS-232 device on the end of your serial communication port.  In
+ short, this allows you to do a loopback test using just software.  
+Except for these diagnostics purposes and for some early development 
+testing of software using the UART, this will never be used.
+</p><p>On the 16750 there is a special mode that can be invoked using 
+the Modem Control Register.  Basically this allows the UART to directly 
+control the state of the RTS and DTS for hardware character flow 
+control, depending on the current state of the FIFO.  This behavior is 
+also affected by the status of Bit 5 of the FIFO Control Register (FCR).
+  While this is useful, and can change some of the logic on how you 
+would write UART control software, the 16750 is comparatively new as a 
+chip and not commonly found on many computer systems.  If you know your 
+computer has a 16750 UART, have fun taking advantage of this increased 
+functionality.
+</p>
+<h3><span class="mw-headline" id="Line_Status_Register">Line Status Register</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=23" class="mw-editsection-visualeditor" title="Edit section: Line Status Register">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=23" title="Edit section: Line Status Register">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +5 . 
+This register is used primarily to give you information on possible 
+error conditions that may exist within the UART, based on the data that 
+has been received.  Keep in mind that this is a "read only" register, 
+and any data written to this register is likely to be ignored or worse, 
+cause different behavior in the UART.  There are several uses for this 
+information, and some information will be given below on how it can be 
+useful for diagnosing problems with your serial data connection:
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Line Status Register (LSR)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th>Notes
+</th></tr>
+<tr>
+<td>7</td>
+<td>Error in Received FIFO
+</td></tr>
+<tr>
+<td>6</td>
+<td>Empty Data Holding Registers
+</td></tr>
+<tr>
+<td>5</td>
+<td>Empty Transmitter Holding Register
+</td></tr>
+<tr>
+<td>4</td>
+<td>Break Interrupt
+</td></tr>
+<tr>
+<td>3</td>
+<td>Framing Error
+</td></tr>
+<tr>
+<td>2</td>
+<td>Parity Error
+</td></tr>
+<tr>
+<td>1</td>
+<td>Overrun Error
+</td></tr>
+<tr>
+<td>0</td>
+<td>Data Ready
+</td></tr></tbody></table>
+<p>Bit 7 refers to errors that are with characters in the FIFO.  If any 
+character that is currently in the FIFO has had one of the other error 
+messages listed here (like a framing error, parity error, etc.), this is
+ reminding you that the FIFO needs to be cleared as the character data 
+in the FIFO is unreliable and has one or more errors.  On UART chips 
+without a FIFO this is a reserved bit field.
+</p><p>Bits 5 and 6 refer to the condition of the character transmitter 
+circuits and can help you to identify if the UART is ready to accept 
+another character.  Bit 6 is set to a logical "1" if all characters have
+ been transmitted (including the FIFO, if active), and the "shift 
+register" is done transmitting as well.  This shift register is an 
+internal memory block within the UART that grabs data from the 
+Transmitter Holding Buffer (THB) or the FIFO and is the circuitry that 
+does the actual transformation of the data to a serial format, sending 
+out one bit of the data at a time and "shifting" the contents of the 
+shift register down one bit to get the value of the next bit.  Bit 5 
+merely tells you that the UART is capable of receiving more characters, 
+including into the FIFO for transmitting.
+</p><p>The Break Interrupt (Bit 4) gets to a logical state of "1" when 
+the serial data input line has received "0" bits for a period of time 
+that is at least as long as an entire serial data "word", including the 
+start bit, data bits, parity bit, and stop bits, for the given baud rate
+ in the Divisor Latch Bytes.  (The normal state of a serial line is to 
+send "1" bits when idle, or send start bit which is always one "0" bit, 
+then send variable data and parity bits, then stop bit which is "1", 
+continued into more "1"s if line goes idle.)  A long sequence of "0" 
+bits instead of the normal state usually means that the device that is 
+sending serial data to your computer has stopped for some reason.  Often
+ with serial communications this is a normal condition, but in this way 
+you have a way to monitor just how the other device is functioning.  
+Some serial terminals have a key which make them generate this "break 
+condition" as an out-of-band signaling method.
+</p><p>Framing errors (Bit 3) occur when the last bit is not a stop bit.
+  Or to be more precise the stop bit is a logical "0".  There are 
+several causes for this, including that you have the timing between the 
+two computer mismatched.  This is usually caused by a mismatch in baud 
+rate, although other causes might be involved as well, including 
+problems in the physical cabling between the devices or that the cable 
+is too long.  You may even have the number of data bits off, so when 
+errors like this are encountered, check the serial data protocol very 
+closely to make sure that all of the settings for the UART (data bit 
+length, parity, and stop bit count) are what should be expected.
+</p><p>Parity errors (Bit 2) can also indicate a mismatched baud rate 
+like the framing errors (particularly if both errors are occurring at 
+the same time).  This bit is raised when the parity algorithm that is 
+expected (odd, even, mark, or space) has not been found.  If you are 
+using "no parity" in the setup of the UART, this bit should always be a 
+logical "0".  When framing errors are not occurring, this is a way to 
+identify that there are some problems with the cabling, although there 
+are other issues you may have to deal with as well.
+</p><p>Overrun errors (Bit 1) are a sign of poor programming or an 
+operating system that is not giving you proper access to the UART.  This
+ error condition occurs when there is a character waiting to be read, 
+and the incoming shift register is attempting to move the contents of 
+the next character into the Receiver Buffer (RBR).  On UARTs with a 
+FIFO, this also indicates that the FIFO is full as well.  
+</p><p>Some things you can do to help get rid of this error including 
+looking at how efficient your software is that is accessing the UART, 
+particularly the part that is monitoring and reading incoming data.  On 
+multi-tasking operating systems, you might want to make sure that the 
+portion of the software that reads incoming data is on a separate 
+thread, and that the thread priority is high or time-critical, as this 
+is a very important operation for software that uses serial 
+communications data.  A good software practice for applications also 
+includes adding in an application specific "buffer" that is done through
+ software, giving your application more opportunity to be able to deal 
+with the incoming data as necessary, and away from the time critical 
+subroutines needed to get the data off of the UART.  This buffer can be 
+as small as 1KB to as large as 1MB, and depends substantially on the 
+kind of data that you are working with.  There are other more exotic 
+buffering techniques as well that apply to the realm of application 
+development, and that will be covered in later modules.
+</p><p>If you are working with simpler operating systems like MS-DOS or a
+ real-time operating system, there is a distinction between a 
+poll-driven access to the UART vs. interrupt driven software.  Writing 
+an interrupt driver is much more efficient, and there will be a whole 
+section of this book that will go into details of how to write software 
+for UART access.
+</p><p>Finally, when you can't seem to solve the problems of trying to 
+prevent overrun errors from showing up, you might want to think about 
+reducing the baud rate for the serial transmission.  This is not always 
+an option, and really should be the option of last choice when trying to
+ resolve this issue in your software.  As a quick test to simply verify 
+that the fundamental algorithms are working, you can start with a slower
+ baud rate and gradually go to higher speeds, but that should only be 
+done during the initial development of the software, and not something 
+that gets released to a customer or placed as publicly distributed 
+software.
+</p><p>The Data Ready Bit (Bit 0) is really the simplest part here.  
+This is a way to simply inform you that there is data available for your
+ software to extract from the UART.  When this bit is a logical "1", it 
+is time to read the Receiver Buffer (RBR).  On UARTs with a FIFO that is
+ active, this bit will remain in a logical "1" state until you have read
+ all of the contents of the FIFO.
+</p>
+<h3><span class="mw-headline" id="Modem_Status_Register">Modem Status Register</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=24" class="mw-editsection-visualeditor" title="Edit section: Modem Status Register">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=24" title="Edit section: Modem Status Register">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +6 . 
+This register is another read-only register that is here to inform your 
+software about the current status of the modem.  The modem accessed in 
+this manner can either be an external modem, or an internal modem that 
+uses a UART as an interface to the computer.
+</p><p><br>
+</p>
+<table cellpadding="1" border="1">
+<caption><b>Modem Status Register (MSR)</b>
+</caption>
+<tbody><tr>
+<th>Bit
+</th>
+<th>Notes
+</th></tr>
+<tr>
+<td>7</td>
+<td>Carrier Detect
+</td></tr>
+<tr>
+<td>6</td>
+<td>Ring Indicator
+</td></tr>
+<tr>
+<td>5</td>
+<td>Data Set Ready
+</td></tr>
+<tr>
+<td>4</td>
+<td>Clear To Send
+</td></tr>
+<tr>
+<td>3</td>
+<td>Delta Data Carrier Detect
+</td></tr>
+<tr>
+<td>2</td>
+<td>Trailing Edge Ring Indicator
+</td></tr>
+<tr>
+<td>1</td>
+<td>Delta Data Set Ready
+</td></tr>
+<tr>
+<td>0</td>
+<td>Delta Clear To Send
+</td></tr></tbody></table>
+<p>Bits 7 and 6 are directly related to modem activity.  Carrier Detect 
+will stay in a logical state of "1" while the modem is "connect" to 
+another modem.  When this goes to a logical state of "0", you can assume
+ that the phone connection has been lost.  The Ring Indicator bit is 
+directly tied to the RS-232 wire also labeled "RI" or Ring Indicator.  
+Usually this bit goes to a logical state of "1" as a result of the "ring
+ voltage" on the telephone line is detected, like when a conventional 
+telephone will be ringing to inform you that somebody is trying to call 
+you.  
+</p><p>When we get to the section of AT modem commands, there will be 
+other methods that can be shown to inform you about this and other 
+information regarding the status of a modem, and instead this 
+information will be sent as characters in the normal serial data stream 
+instead of special wires.  In truth, these extra bits are pretty 
+worthless, but have been a part of the specification from the beginning 
+and comparatively easy for UART designers to implement.  It may, 
+however, be a way to efficiently send some additional information or 
+allow a software designer using the UART to get some logical bit signals
+ from other devices for other purposes.
+</p><p>The "Data Set Ready" and "Clear To Send" bits (Bits 4 and 5) are 
+found directly on an RS-232 cable, and are matching wires to "Request To
+ Send" and "Data Terminal Ready" that are transmitted with the "Modem 
+Control Register (MCR).  With these four bits in two registers, you can 
+perform "hardware flow control", where you can signal to the other 
+device that it is time to send more data, or to hold back and stop 
+sending data while you are trying to process the information.  More will
+ be written about this subject in another module when we get to data 
+flow control.
+</p><p>A note regarding the "delta" bits (Bits 0, 1, 2, and 3).  In this
+ case the word "delta" means change, as in a change in the status of one
+ of the bits.  This comes from other scientific areas like rocket 
+science where delta-vee means a change in velocity.  For the purposes of
+ this register, each of these bits will be a logical "1" the next time 
+you access this Modem Status register if the bit it is associated with 
+(like Delta Data Carrier Detect with Carrier Detect) has changed its 
+logical state from the previous time you accessed this register.  The 
+Trailing Edge Ring Indicator is pretty much like the rest, except it is 
+in a logical "1" state only if the "Ring Indicator" bit went from a 
+logical "1" to a logical "0" condition.  There really isn't much 
+practical use for this knowledge, but there is some software that tries 
+to take advantage of these bits and perform some manipulation of the 
+data received from the UART based on these bits.  If you ignore these 4 
+bits you can still make a very robust serial communications software.
+</p>
+<h3><span class="mw-headline" id="Scratch_Register">Scratch Register</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=25" class="mw-editsection-visualeditor" title="Edit section: Scratch Register">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=25" title="Edit section: Scratch Register">edit source</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Offset: +7 . 
+The Scratch Register is an interesting enigma.  So much effort was done 
+to try and squeeze a whole bunch of registers into all of the other I/O 
+port addresses that the designers had an extra "register" that they 
+didn't know what to do with.  Keep in mind that when dealing with 
+computer architecture, it is easier when dealing with powers of 2, so 
+they were "stuck" with having to address 8 I/O ports.  Allowing another 
+device to use this extra I/O port would make the motherboard design far 
+too complicated.
+</p><p>On some variants of the 8250 UART, any data written to this 
+scratch register will be available to software when you read the I/O 
+port for this register.  In effect, this gives you one extra byte of 
+"memory" that you can use in your applications in any way that you find 
+useful.  Other than a virus author (maybe I shouldn't give any ideas), 
+there isn't really a good use for this register.  Of limited use is the 
+fact that you can use this register to identify specific variations of 
+the UART because the original 8250 did not store the data sent to it 
+through this register.  As that chip is hardly ever used anymore on a PC
+ design (those companies are using more advanced chips like the 16550), 
+you will not find that "bug" in most modern PC-type platforms.  More 
+details will be given below on how to identify through software which 
+UART chip is being used in your computer, and for each serial port.
+</p>
+<h2><span class="mw-headline" id="Software_Identification_of_the_UART">Software Identification of the UART</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=26" class="mw-editsection-visualeditor" title="Edit section: Software Identification of the UART">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=26" title="Edit section: Software Identification of the UART">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Just as it is possible to identify many of the components on a 
+computer system through just software routines, it is also possible to 
+detect which version or variant of the UART that is found on your 
+computer as well.  The reason this is possible is because each different
+ version of the UART chip has some unique qualities that if you do a 
+process of elimination you can identify which version you are dealing 
+with.  This can be useful information if you are trying to improve 
+performance of the serial I/O routines, know if there are buffers 
+available for transmitting and sending information, as well as simply 
+getting to know the equipment on your PC better.
+</p><p>One example of how you can determine the version of the UART is 
+if the Scratch Register is working or not.  On the first 8250 and 8250A 
+chips, there was a flaw in the design of those chip models where the 
+Scratch Register didn't work.  If you write some data to this register 
+and it comes back changed, you know that the UART in your computer is 
+one of these two chip models.
+</p><p>Another place to look is with the FIFO control registers.  If you set bit "0" of this register to a logical <b>1</b>,
+ you are trying to enable the FIFOs on the UART, which are only found in
+ the more recent version of this chip.  Reading bits "6" and "7" will 
+help you to determine if you are using either the 16550 or 16550A chip. 
+ Bit "5" will help you determine if the chip is the 16750.
+</p><p>Below is a full pseudo code algorithm to help you determine the type of chip you are using:
+</p>
+<pre>Set the value "0xE7" to the FCR to test the status of the FIFO flags.
+Read the value of the IIR to test for what flags actually got set.
+If Bit 6 is set Then
+  If Bit 7 is set Then
+    If Bit 5 is set Then
+      UART is 16750
+    Else
+      UART is 16550A
+    End If
+  Else
+    UART is 16550
+  End If
+Else you know the chip doesn't use FIFO, so we need to check the scratch register
+  Set some arbitrary value like 0x2A to the Scratch Register.  
+  You don't want to use 0xFF or 0x00 as those might be returned by the Scratch Register instead for a false postive result.
+  Read the value of the Scratch Register
+  If the arbitrary value comes back identical
+    UART is 16450
+  Else
+    UART is 8250
+  End If
+End If
+</pre>
+<p>When written in Pascal, the above algorithm ends up looking like this:
+</p>
+<pre>const
+  COM1_Addr = $3F8;
+  FCR = 2;
+  IIR = 2;
+  SCR = 7;
+
+function IdentifyUART: String;
+var
+  Test: Byte;
+begin
+  Port[COM1_Addr + FCR]&nbsp;:= $E7;
+  Test&nbsp;:= Port[COM1_Addr + IIR];
+  if (Test and $40) &gt; 0 then
+    if (Test and $80) &gt; 0 then
+      if (Test and $20) &gt; 0 then
+        IdentifyUART&nbsp;:= '16750'
+      else
+        IdentifyUART&nbsp;:= '16550A'
+    else
+      IdentifyUART&nbsp;:= '16550'
+  else begin
+    Port[COM1_Addr + SCR]&nbsp;:= $2A;
+    if Port[COM1_Addr + SCR] = $2A then
+      IdentifyUART&nbsp;:= '16450'
+    else
+      IdentifyUART&nbsp;:= '8250';
+  end;
+end;
+</pre>
+<p>We still havn't identified between the 8250, 8250A, or 8250B; but 
+that is rather pointless anyway on most current computers as it is very 
+unlikely to even find one of those chips because of their age.
+</p><p>A very similar procedure can be used to determine the CPU of a computer, but that is beyond the scope of this book.
+</p>
+<h2><span class="mw-headline" id="External_References">External References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=27" class="mw-editsection-visualeditor" title="Edit section: External References">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=27" title="Edit section: External References">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://www.cs.clemson.edu/~mark/interrupts.html">History of Interrupt Programming</a></li>
+<li><a rel="nofollow" class="external text" href="http://satyap.csoft.net/8259.html">8259 Chip Information with other registers explained</a> (dead link?)</li>
+<li><a rel="nofollow" class="external text" href="http://www.beyondlogic.org/serial/serial.htm">Interfacing the Serial / RS232 Port</a></li></ul>
+<p>While the 8250 is by far the most popular UART on desktop computers, other popular UARTs include:
+</p>
+<ul><li>the UART inside the <a href="https://en.wikibooks.org/wiki/Embedded_Systems/Atmel_AVR" title="Embedded Systems/Atmel AVR">Atmel AVR</a>: ... <a href="https://en.wikibooks.org/wiki/Embedded_Systems/Atmel_AVR#Serial_Communication" title="Embedded Systems/Atmel AVR">Embedded_Systems/Atmel_AVR#Serial_Communication</a></li>
+<li>the UART inside the <a href="https://en.wikibooks.org/wiki/PIC" class="mw-redirect" title="PIC">Microchip PIC</a>: <a rel="nofollow" class="external text" href="http://microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=1824&amp;appnote=en012073">"Microchip AN774: Asynchronous Communications with the PICmicro® USART"</a></li>
+<li>the UART inside the Apple Macintosh:  ...</li>
+<li>"bit-banging" a UART: ... <a rel="nofollow" class="external autonumber" href="http://microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&amp;nodeId=1824&amp;appnote=en012058">[1]</a></li></ul>
+<h2><span class="mw-headline" id="Other_Serial_Programming_Articles">Other Serial Programming Articles</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit&amp;section=28" class="mw-editsection-visualeditor" title="Edit section: Other Serial Programming Articles">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit&amp;section=28" title="Edit section: Other Serial Programming Articles">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div style="background:#f2fff2; border:1px solid #bfffbf; padding:0.5em 1em; margin:0.5em 0em;">
+<p><b><a href="https://en.wikibooks.org/wiki/Serial_Programming" title="Serial Programming">Serial Programming</a></b>: <a href="https://en.wikibooks.org/wiki/Serial_Programming/Introduction_and_OSI_Model" title="Serial Programming/Introduction and OSI Model">Introduction and OSI Network Model</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/RS-232_Connections" title="Serial Programming/RS-232 Connections">RS-232 Wiring and Connections</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Typical_RS232_Hardware_Configuration" title="Serial Programming/Typical RS232 Hardware Configuration">Typical RS232 Hardware Configuration</a>
+-- <a class="mw-selflink selflink">8250 UART</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/DOS_Programming" title="Serial Programming/DOS Programming">DOS</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/MAX232_Driver_Receiver" title="Serial Programming/MAX232 Driver Receiver">MAX232 Driver/Receiver Family</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Windows_TAPI" title="Serial Programming/Windows TAPI">TAPI Communications In Windows</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Serial_Linux" title="Serial Programming/Serial Linux">Linux and Unix</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Serial_Java" title="Serial Programming/Serial Java">Java</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Modems_and_AT_Commands" title="Serial Programming/Modems and AT Commands">Hayes-compatible Modems and AT Commands</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/USB" title="Serial Programming/USB">Universal Serial Bus (USB)</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Forming_Data_Packets" title="Serial Programming/Forming Data Packets">Forming Data Packets</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/Error_Correction_Methods" title="Serial Programming/Error Correction Methods">Error Correction Methods</a>
+-- <a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/Bi-directional_Communication&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Bi-directional Communication (does not exist)">Two Way Communication</a>
+-- <a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/Packet_Recovery&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Packet Recovery (does not exist)">Packet Recovery Methods</a>
+-- <a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Networking&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Serial Networking (does not exist)">Serial Data Networks</a>
+-- <a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/Application_Messaging&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Application Messaging (does not exist)">Practical Application Development</a>
+-- <a href="https://en.wikibooks.org/wiki/Serial_Programming/IP_Over_Serial_Connections" title="Serial Programming/IP Over Serial Connections">IP Over Serial Connections</a>
+</p>
+</div>
+<!-- 
+NewPP limit report
+Parsed by mw1354
+Cached time: 20211118063755
+Cache expiry: 1814400
+Reduced expiry: false
+Complications: []
+CPU time usage: 0.122 seconds
+Real time usage: 0.160 seconds
+Preprocessor visited node count: 352/1000000
+Post‐expand include size: 4120/2097152 bytes
+Template argument size: 860/2097152 bytes
+Highest expansion depth: 12/40
+Expensive parser function count: 0/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 1627/5000000 bytes
+Lua time usage: 0.027/10.000 seconds
+Lua memory usage: 1129305/52428800 bytes
+Number of Wikibase entities loaded: 0/400
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   62.049      1 -total
+ 87.76%   54.454      2 Template:Serial_Data_CommunicationsTOC
+ 87.71%   54.425      2 Template:BookCat
+ 27.08%   16.802      2 Template:Evalx
+  9.09%    5.637      2 Template:BOOKCATEGORY
+  4.39%    2.723      2 Template:NAIVEBOOKNAME
+-->
+
+<!-- Saved in parser cache with key enwikibooks:pcache:idhash:11839-0!canonical and timestamp 20211118063755 and revision id 3799165. Serialized with JSON.
+ -->
+
+<!-- 
+NewPP limit report
+Parsed by mw1354
+Cached time: 20211118063755
+Cache expiry: 1814400
+Reduced expiry: false
+Complications: []
+CPU time usage: 0.122 seconds
+Real time usage: 0.160 seconds
+Preprocessor visited node count: 352/1000000
+Post‐expand include size: 4120/2097152 bytes
+Template argument size: 860/2097152 bytes
+Highest expansion depth: 12/40
+Expensive parser function count: 0/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 1627/5000000 bytes
+Lua time usage: 0.027/10.000 seconds
+Lua memory usage: 1129305/52428800 bytes
+Number of Wikibase entities loaded: 0/400
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   62.049      1 -total
+ 87.76%   54.454      2 Template:Serial_Data_CommunicationsTOC
+ 87.71%   54.425      2 Template:BookCat
+ 27.08%   16.802      2 Template:Evalx
+  9.09%    5.637      2 Template:BOOKCATEGORY
+  4.39%    2.723      2 Template:NAIVEBOOKNAME
+-->
+</div><noscript><img src="//en.wikibooks.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript>
+<div class="printfooter">Retrieved from "<a dir="ltr" href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;oldid=3799165">https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;oldid=3799165</a>"</div></div>
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://en.wikibooks.org/wiki/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="https://en.wikibooks.org/wiki/Category:Book:Serial_Programming" title="Category:Book:Serial Programming">Book:Serial Programming</a></li></ul></div></div>
+	</div>
+</div>
+
+<div id="mw-navigation">
+	<h2>Navigation menu</h2>
+	<div id="mw-head">
+		<nav id="p-personal" class="mw-portlet mw-portlet-personal vector-user-menu-legacy vector-menu" aria-labelledby="p-personal-label" role="navigation">
+	<h3 id="p-personal-label" aria-label="" class="vector-menu-heading">
+		
+		<span>Personal tools</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="pt-anonuserpage" class="mw-list-item"><span>Not logged in</span></li><li id="pt-anontalk" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:MyTalk" title="Discussion about edits from this IP address [Alt+Shift+n]" accesskey="n"><span>Discussion for this IP address</span></a></li><li id="pt-anoncontribs" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:MyContributions" title="A list of edits made from this IP address [Alt+Shift+y]" accesskey="y"><span>Contributions</span></a></li><li id="pt-createaccount" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:CreateAccount&amp;returnto=Serial+Programming%2F8250+UART+Programming" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Create account</span></a></li><li id="pt-login" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:UserLogin&amp;returnto=Serial+Programming%2F8250+UART+Programming" title="You are encouraged to log in; however, it is not mandatory [Alt+Shift+o]" accesskey="o"><span>Log in</span></a></li></ul>
+		
+	</div>
+</nav>
+
+		<div id="left-navigation">
+			<nav id="p-namespaces" class="mw-portlet mw-portlet-namespaces vector-menu vector-menu-tabs" aria-labelledby="p-namespaces-label" role="navigation">
+	<h3 id="p-namespaces-label" aria-label="" class="vector-menu-heading">
+		
+		<span>Namespaces</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="ca-nstab-main" class="selected mw-list-item"><a href="https://en.wikibooks.org/wiki/Serial_Programming/8250_UART_Programming" title="View the content page [Alt+Shift+c]" accesskey="c"><span>Book</span></a></li><li id="ca-talk" class="new mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Talk:Serial_Programming/8250_UART_Programming&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page (does not exist) [Alt+Shift+t]" accesskey="t"><span>Discussion</span></a></li></ul>
+		
+	</div>
+</nav>
+
+			<nav id="p-variants" class="mw-portlet mw-portlet-variants emptyPortlet vector-menu-dropdown-noicon vector-menu vector-menu-dropdown" aria-labelledby="p-variants-label" role="navigation">
+	<input type="checkbox" id="p-variants-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-variants" class="vector-menu-checkbox" aria-labelledby="p-variants-label">
+	<h3 id="p-variants-label" aria-label="Change language variant" class="vector-menu-heading">
+		
+		<span>Variants</span>
+			<span class="vector-menu-checkbox-expanded">expanded</span>
+			<span class="vector-menu-checkbox-collapsed">collapsed</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</nav>
+
+		</div>
+		<div id="right-navigation">
+			<nav id="p-views" class="mw-portlet mw-portlet-views vector-menu vector-menu-tabs" aria-labelledby="p-views-label" role="navigation">
+	<h3 id="p-views-label" aria-label="" class="vector-menu-heading">
+		
+		<span>Views</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="ca-view" class="selected mw-list-item collapsible"><a href="https://en.wikibooks.org/wiki/Serial_Programming/8250_UART_Programming"><span>Read</span></a></li><li id="ca-ve-edit" class="mw-list-item collapsible"><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;veaction=edit" title="Edit this page [Alt+Shift+v]" accesskey="v">Edit</a></li><li id="ca-edit" class="collapsible mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=edit" title="Edit this page [Alt+Shift+e]" accesskey="e"><span>Edit source</span></a></li><li id="ca-history" class="mw-list-item collapsible"><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h"><span>View history</span></a></li></ul>
+		
+	</div>
+</nav>
+
+			<nav id="p-cactions" class="mw-portlet mw-portlet-cactions emptyPortlet vector-menu-dropdown-noicon vector-menu vector-menu-dropdown" aria-labelledby="p-cactions-label" role="navigation" title="More options">
+	<input type="checkbox" id="p-cactions-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-cactions" class="vector-menu-checkbox" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label" aria-label="" class="vector-menu-heading">
+		
+		<span>More</span>
+			<span class="vector-menu-checkbox-expanded">expanded</span>
+			<span class="vector-menu-checkbox-collapsed">collapsed</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</nav>
+
+			<div id="p-search" role="search" class=" vector-search-box">
+	<div>
+			<h3>
+				<label for="searchInput">Search</label>
+			</h3>
+		<form action="/w/index.php" id="searchform" class="vector-search-box-form">
+			<div id="simpleSearch" class="vector-search-box-inner" data-search-loc="header-navigation">
+				<input class="vector-search-box-input" type="search" name="search" placeholder="Search Wikibooks" aria-label="Search Wikibooks" autocapitalize="sentences" title="Search Wikibooks [Alt+Shift+f]" accesskey="f" id="searchInput">
+				<input type="hidden" name="title" value="Special:Search">
+				<input id="mw-searchButton" class="searchButton mw-fallbackSearchButton" type="submit" name="fulltext" title="Search the pages for this text" value="Search">
+				<input id="searchButton" class="searchButton" type="submit" name="go" title="Go to a page with this exact name if it exists" value="Go">
+			</div>
+		</form>
+	</div>
+</div>
+
+		</div>
+	</div>
+	
+<div id="mw-panel">
+	<div id="p-logo" role="banner">
+		<a class="mw-wiki-logo" href="https://en.wikibooks.org/wiki/Main_Page" title="Visit the main page"></a>
+	</div>
+	<nav id="p-Navigation" class="mw-portlet mw-portlet-Navigation vector-menu vector-menu-portal portal" aria-labelledby="p-Navigation-label" role="navigation">
+	<h3 id="p-Navigation-label" aria-label="" class="vector-menu-heading">
+		
+		<span>Navigation</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="n-mainpage" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z"><span>Main Page</span></a></li><li id="n-help" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Help:Contents" title="Find help on how to use and edit Wikibooks"><span>Help</span></a></li><li id="n-Browse" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Card_Catalog_Office" title="Check out what Wikibooks has to offer"><span>Browse</span></a></li><li id="n-Cookbook" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Cookbook:Table_of_Contents" title="Learn recipes from around the world"><span>Cookbook</span></a></li><li id="n-Wikijunior" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikijunior" title="Books for children"><span>Wikijunior</span></a></li><li id="n-Featured-books" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Featured_books" title="The best of Wikibooks"><span>Featured books</span></a></li><li id="n-recentchanges" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r"><span>Recent changes</span></a></li><li id="n-sitesupport" class="mw-list-item"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikibooks.org&amp;uselang=en" title="Support Wikibooks"><span>Donations</span></a></li><li id="n-randomrootpage" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:RandomInCategory/Book:Wikibooks_Stacks/Books"><span>Random book</span></a></li><li id="n-Using-Wikibooks" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Using_Wikibooks"><span>Using Wikibooks</span></a></li></ul>
+		
+	</div>
+</nav>
+
+	<nav id="p-Community" class="mw-portlet mw-portlet-Community vector-menu vector-menu-portal portal" aria-labelledby="p-Community-label" role="navigation">
+	<h3 id="p-Community-label" aria-label="" class="vector-menu-heading">
+		
+		<span>Community</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="n-Reading-room-forum" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Reading_room"><span>Reading room forum</span></a></li><li id="n-portal" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Community_Portal" title="Find your way around the Wikibooks community"><span>Community portal</span></a></li><li id="n-currentevents" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Reading_room/Bulletin_Board" title="Important community news"><span>Bulletin Board</span></a></li><li id="n-maintenance" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Maintenance" title="Frequent tasks that you can help with"><span>Help out!</span></a></li><li id="n-Policies-and-guidelines" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Policies_and_guidelines" title="Pages detailing important rules and procedures"><span>Policies and guidelines</span></a></li><li id="n-contact" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Contact_us" title="Alternative methods of communication"><span>Contact us</span></a></li></ul>
+		
+	</div>
+</nav>
+<nav id="p-tb" class="mw-portlet mw-portlet-tb vector-menu vector-menu-portal portal" aria-labelledby="p-tb-label" role="navigation">
+	<h3 id="p-tb-label" aria-label="" class="vector-menu-heading">
+		
+		<span>Tools</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="t-whatlinkshere" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:WhatLinksHere/Serial_Programming/8250_UART_Programming" title="A list of all wiki pages that link here [Alt+Shift+j]" accesskey="j"><span>What links here</span></a></li><li id="t-recentchangeslinked" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:RecentChangesLinked/Serial_Programming/8250_UART_Programming" rel="nofollow" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k"><span>Related changes</span></a></li><li id="t-upload" class="mw-list-item"><a href="https://commons.wikimedia.org/wiki/Special:UploadWizard?uselang=en" title="Upload files [Alt+Shift+u]" accesskey="u"><span>Upload file</span></a></li><li id="t-specialpages" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q"><span>Special pages</span></a></li><li id="t-permalink" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;oldid=3799165" title="Permanent link to this revision of the page"><span>Permanent link</span></a></li><li id="t-info" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;action=info" title="More information about this page"><span>Page information</span></a></li><li id="t-cite" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:CiteThisPage&amp;page=Serial_Programming%2F8250_UART_Programming&amp;id=3799165&amp;wpFormIdentifier=titleform" title="Information on how to cite this page"><span>Cite this page</span></a></li></ul>
+		
+	</div>
+</nav>
+<nav id="p-Sister_projects" class="mw-portlet mw-portlet-Sister_projects vector-menu vector-menu-portal portal" aria-labelledby="p-Sister_projects-label" role="navigation">
+	<h3 id="p-Sister_projects-label" aria-label="" class="vector-menu-heading">
+		
+		<span>Sister projects</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="n-Wikipedia" class="mw-list-item"><a href="https://en.wikipedia.org/wiki/Main_Page"><span>Wikipedia</span></a></li><li id="n-Wikiversity" class="mw-list-item"><a href="https://en.wikiversity.org/wiki/Wikiversity:Main_Page"><span>Wikiversity</span></a></li><li id="n-Wiktionary" class="mw-list-item"><a href="https://en.wiktionary.org/wiki/Wiktionary:Main_Page"><span>Wiktionary</span></a></li><li id="n-Wikiquote" class="mw-list-item"><a href="https://en.wikiquote.org/wiki/Main_Page"><span>Wikiquote</span></a></li><li id="n-Wikisource" class="mw-list-item"><a href="https://en.wikisource.org/wiki/Main_Page"><span>Wikisource</span></a></li><li id="n-Wikinews" class="mw-list-item"><a href="https://en.wikinews.org/wiki/Main_Page"><span>Wikinews</span></a></li><li id="n-Wikivoyage" class="mw-list-item"><a href="https://en.wikivoyage.org/wiki/Main_Page"><span>Wikivoyage</span></a></li><li id="n-Commons" class="mw-list-item"><a href="https://commons.wikimedia.org/wiki/Main_Page"><span>Commons</span></a></li><li id="n-Wikidata" class="mw-list-item"><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"><span>Wikidata</span></a></li><li id="n-MediaWiki" class="mw-list-item"><a href="https://www.mediawiki.org/wiki/Main_Page"><span>MediaWiki</span></a></li><li id="n-Meta-Wiki" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Main_Page"><span>Meta-Wiki</span></a></li></ul>
+		
+	</div>
+</nav>
+<nav id="p-coll-print_export" class="mw-portlet mw-portlet-coll-print_export vector-menu vector-menu-portal portal" aria-labelledby="p-coll-print_export-label" role="navigation">
+	<h3 id="p-coll-print_export-label" aria-label="" class="vector-menu-heading">
+		
+		<span>Print/export</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="coll-create_a_book" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Serial+Programming%2F8250+UART+Programming"><span>Create a collection</span></a></li><li id="coll-download-as-rl" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:DownloadAsPdf&amp;page=Serial_Programming%2F8250_UART_Programming&amp;action=show-download-screen"><span>Download as PDF</span></a></li><li id="t-print" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;printable=yes" title="Printable version of this page [Alt+Shift+p]" accesskey="p"><span>Printable version</span></a></li></ul>
+		
+	</div>
+</nav>
+
+	<nav id="p-lang" class="mw-portlet mw-portlet-lang vector-menu vector-menu-portal portal" aria-labelledby="p-lang-label" role="navigation"><button class="uls-settings-trigger" title="Language settings"></button>
+	<h3 id="p-lang-label" aria-label="" class="vector-menu-heading">Languages</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		<div class="after-portlet after-portlet-lang"><span class="uls-after-portlet-link"></span><span class="wb-langlinks-add wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Special:NewItem?site=enwikibooks&amp;page=Serial+Programming%2F8250+UART+Programming" title="Add interlanguage links" class="wbc-editpage">Add links</a></span></div>
+	</div>
+</nav>
+
+</div>
+
+</div>
+<footer id="footer" class="mw-footer" role="contentinfo">
+	<ul id="footer-info">
+	<li id="footer-info-lastmod"> This page was last edited on 13 January 2021, at 19:19.</li>
+	<li id="footer-info-copyright">Text is available under the <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike License.</a>; additional terms may apply.  By using this site, you agree to the <a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="https://foundation.wikimedia.org/wiki/Privacy_policy">Privacy Policy.</a></li>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="https://foundation.wikimedia.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="https://en.wikibooks.org/wiki/Wikibooks:Welcome" title="Wikibooks:Welcome">About Wikibooks</a></li>
+	<li id="footer-places-disclaimer"><a href="https://en.wikibooks.org/wiki/Wikibooks:General_disclaimer" title="Wikibooks:General disclaimer">Disclaimers</a></li>
+	<li id="footer-places-mobileview"><a href="https://en.m.wikibooks.org/w/index.php?title=Serial_Programming/8250_UART_Programming&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+	<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+	<li id="footer-places-statslink"><a href="https://stats.wikimedia.org/#/en.wikibooks.org">Statistics</a></li>
+	<li id="footer-places-cookiestatement"><a href="https://foundation.wikimedia.org/wiki/Cookie_statement">Cookie statement</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://wikimediafoundation.org/"><img src="UART%208250%20and%208259%20PIC_files/wikimedia-button.png" srcset="UART%208250%20and%208259%20PIC_files/wikimedia-button-1.png 1.5x, UART%208250%20and%208259%20PIC_files/wikimedia-button-2x.png 2x" alt="Wikimedia Foundation" loading="lazy" width="88" height="31"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="UART%208250%20and%208259%20PIC_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="UART%208250%20and%208259%20PIC_files/poweredby_mediawiki_132x47.png 1.5x, UART%208250%20and%208259%20PIC_files/poweredby_mediawiki_176x62.png 2x" loading="lazy" width="88" height="31"></a></li>
+</ul>
+
+</footer>
+
+<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.122","walltime":"0.160","ppvisitednodes":{"value":352,"limit":1000000},"postexpandincludesize":{"value":4120,"limit":2097152},"templateargumentsize":{"value":860,"limit":2097152},"expansiondepth":{"value":12,"limit":40},"expensivefunctioncount":{"value":0,"limit":500},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":1627,"limit":5000000},"entityaccesscount":{"value":0,"limit":400},"timingprofile":["100.00%   62.049      1 -total"," 87.76%   54.454      2 Template:Serial_Data_CommunicationsTOC"," 87.71%   54.425      2 Template:BookCat"," 27.08%   16.802      2 Template:Evalx","  9.09%    5.637      2 Template:BOOKCATEGORY","  4.39%    2.723      2 Template:NAIVEBOOKNAME"]},"scribunto":{"limitreport-timeusage":{"value":"0.027","limit":"10.000"},"limitreport-memusage":{"value":1129305,"limit":52428800}},"cachereport":{"origin":"mw1354","timestamp":"20211118063755","ttl":1814400,"transientcontent":false}}});mw.config.set({"wgBackendResponseTime":167,"wgHostname":"mw1436"});});</script>
+
+</body></html>

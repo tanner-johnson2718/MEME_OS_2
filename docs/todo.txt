@@ -1,0 +1,13 @@
+- How to get devices?
+- What are the memory regions we have access too?
+- Understand EXACT boot processs
+- What is qemu doing before it boots the kernel?
+- volitile / asm command?
+- When I compile this, where is all this code resising?
+   -> The linker map should say
+- why did I need to turn off stack protection for the UART code?
+- mmu / tlb and address translation??
+
+- Need general IRQ code
+- Need specific UART serial ISR's
+- Need general IO port handler
