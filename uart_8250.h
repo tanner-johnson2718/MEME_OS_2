@@ -8,6 +8,7 @@
 #define COM4          0x2E8
 
 #define DEFAULT_COM COM1
+#define DEFAULT_COM_BAUD 9600
 
 #define COM_RX		  0x0	// In:	Receive buffer (DLAB=0)
 #define COM_TX		  0x0	// Out: Transmit buffer (DLAB=0)
@@ -30,7 +31,6 @@
 #define COM_LSR_TSRE  0x40	//   Transmitter off
 
 #define MAX_BAUD      115200   // Maximum Buad rate i.e. Divisor latch = 0x1
-
 
 void serial_puts(char* s);
 void serial_putc(char data);

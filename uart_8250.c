@@ -12,6 +12,10 @@ static inline char inb(int port)
 	return data;
 }
 
+void serial_init()
+{
+
+}
 
 int serial_get_buad()
 {
@@ -27,6 +31,20 @@ int serial_get_buad()
     return MAX_BAUD / ret;
 }
 
+void serial_set_buad(int rate)
+{
+    int dl = MAX_BAUD / rate;
+
+    // read the ctl register, turn on the DLAB, write it back
+    outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) | 0x80);
+
+    outb(DEFAULT_COM + COM_DLH, dl >> 8);
+    outb(DEFAULT_COM + COM_DLL, dl & 0xff);
+
+    // Clear DLAB
+    outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) & 0x7f);
+}
+
 void serial_putc(char data)
 {
     outb(DEFAULT_COM, data);
@@ -34,7 +52,7 @@ void serial_putc(char data)
 
 void serial_putd(int d)
 {
-    int m = 10;    // log_10 (2^32) ~ 10
+    int m = 10;    // log_10 (2^32) =~ 10
     char num[m];
     num[0] = 0;
     int i;
