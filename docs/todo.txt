@@ -1,16 +1,21 @@
 - How to get devices?
-- What are the memory regions we have access too?
 - Understand EXACT boot processs
 - What is qemu doing before it boots the kernel?
-- volitile / asm command?
-- When I compile this, where is all this code resising?
-   -> The linker map should say
 - why did I need to turn off stack protection for the UART code?
 - mmu / tlb and address translation??
 - Do i want a device struct / device table?
 - How do i know if Im in "real mode"
-- Clean up UART code
 
+- GDT????
+- Clean up UART code amd other code too
+     -> UART not fully implemented
+     -> Magic numbers everywhere
+     -> naming conventions
+     -> whats funcs are in .h
+     -> UART bit shifts
+     -> etc
+- Add some comment on style + conventions
 - Need general IRQ code
 - Need specific UART serial ISR's
 - Need .config file
+- Documetation!!

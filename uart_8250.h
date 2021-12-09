@@ -1,6 +1,8 @@
 #ifndef MEME_UART_8250
 #define MEME_UART_8250
 
+#include "types.h"
+
 // Standard 8250 UART SERIAL IO port and registers
 #define COM1		  0x3F8
 #define COM2          0x2F8
@@ -44,12 +46,12 @@
 #define MAX_BAUD      115200   // Maximum Buad rate i.e. Divisor latch = 0x1
 
 void serial_init();
-void serial_puts(char* s);
-void serial_putc(char data);
-void serial_putd(int d);
-void serial_put_hex(int h);
-char serial_getc();
-int serial_get_buad();
-void serial_set_buad(int r);
+void serial_puts(u8* s);
+void serial_putc(u8 data);
+void serial_putd(u32 d);
+void serial_put_hex(u32 h);
+u8 serial_getc();
+u32 serial_get_buad();
+void serial_set_buad(u32 r);
 
 #endif

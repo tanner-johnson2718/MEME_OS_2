@@ -7,7 +7,7 @@ void serial_init()
     serial_set_buad(DEFAULT_COM_BAUD);
 
     // Enable inturrepts we want to handle
-    char ier = inb(DEFAULT_COM + COM_IER);
+    u8 ier = inb(DEFAULT_COM + COM_IER);
     ier = ier | (DEFAULT_COM_DATA_RDY_IRQ);
     ier = ier | (DEFAULT_COM_DATA_SENT_IRQ << 1);
     ier = ier | (DEFAULT_COM_LSR_IRQ << 2);
@@ -15,7 +15,7 @@ void serial_init()
     outb(DEFAULT_COM + COM_IER, ier);
 
     // Set LCR values
-    char lcr = 0;
+    u8 lcr = 0;
     lcr = lcr | DEFAULT_COM_WORD_LEN;
     lcr = lcr | (DEFAULT_COM_STOP_BIT << 2);
     lcr = lcr | (DEFAULT_COM_PARITY << 3);
@@ -44,13 +44,13 @@ void serial_init()
     serial_put_hex(inb(DEFAULT_COM + COM_MSR));
 }
 
-int serial_get_buad()
+u32 serial_get_buad()
 {
     // read the ctl register, turn on the DLAB, write it back
     outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) | 0x80);
 
     // get upper and lower DL value
-    int ret = (inb(DEFAULT_COM + COM_DLH) << 8) + inb(DEFAULT_COM + COM_DLL);
+    u32 ret = (inb(DEFAULT_COM + COM_DLH) << 8) + inb(DEFAULT_COM + COM_DLL);
 
     // Clear DLAB
     outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) & 0x7f);
@@ -58,9 +58,9 @@ int serial_get_buad()
     return MAX_BAUD / ret;
 }
 
-void serial_set_buad(int rate)
+void serial_set_buad(u32 rate)
 {
-    int dl = MAX_BAUD / rate;
+    u32 dl = MAX_BAUD / rate;
 
     // read the ctl register, turn on the DLAB, write it back
     outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) | 0x80);
@@ -72,17 +72,17 @@ void serial_set_buad(int rate)
     outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) & 0x7f);
 }
 
-void serial_putc(char data)
+void serial_putc(u8 data)
 {
     outb(DEFAULT_COM, data);
 }
 
-void serial_putd(int d)
+void serial_putd(u32 d)
 {
-    int m = 10;
-    char num[m];
+    u32 m = 10;
+    u8 num[m];
     num[0] = 0;
-    int i;
+    u32 i;
     for(i = 0; (i<m); ++i)
     {
         num[i] = d % 10;
@@ -94,20 +94,26 @@ void serial_putd(int d)
         }
     }
 
-    for(; i>=0; i--)
+    while(1)
     {
         serial_putc(num[i] + '0');
+
+        if(i == 0)
+        {
+            break;
+        }
+        i--;
     }
     
     
 }
 
-void serial_put_hex(int d)
+void serial_put_hex(u32 d)
 {
-    int m = 8;
-    char num[m];
+    u32 m = 8;
+    u8 num[m];
     num[0] = 0;
-    int i;
+    u32 i;
     for(i = 0; (i<m); ++i)
     {
         num[i] = d % 16;
@@ -121,7 +127,7 @@ void serial_put_hex(int d)
 
     serial_putc('0');
     serial_putc('x');
-    for(; i>=0; i--)
+    while(1)
     {
         if(num[i] <= 9)
         {
@@ -131,12 +137,18 @@ void serial_put_hex(int d)
         {
            serial_putc(num[i] - 10 + 'A'); 
         }
+
+        if(i == 0)
+        {
+            break;
+        }
+        --i;
     }
 }
 
-void serial_puts(char* s)
+void serial_puts(u8* s)
 {
-    int i = 0;
+    u32 i = 0;
     while(s[i] != 0)
     {
         serial_putc(s[i]);
@@ -144,10 +156,10 @@ void serial_puts(char* s)
     }
 }
 
-char serial_getc()
+u8 serial_getc()
 {
     // wait till data rx line set high
-    char rdy = 0;
+    u8 rdy = 0;
     while(!rdy){
         rdy = inb((DEFAULT_COM + COM_LSR) & COM_LSR_DATA);
         serial_putc(rdy + 60);

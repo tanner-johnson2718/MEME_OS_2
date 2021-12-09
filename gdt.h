@@ -1,20 +1,22 @@
 #ifndef MEME_GDT
 #define MEME_GDT
 
+#include "types.h"
+
 struct gdt_entry
 {
-    unsigned short limit_low;
-    unsigned short base_low;
-    unsigned char base_middle;
-    unsigned char access;
-    unsigned char granularity;
-    unsigned char base_high;
+    u16 limit_low;
+    u16 base_low;
+    u8 base_middle;
+    u8 access;
+    u8 granularity;
+    u8 base_high;
 } __attribute__((packed));
 
 struct gdt_ptr
 {
-    unsigned short limit;
-    unsigned int base;
+    u16 limit;
+    u32 base;
 } __attribute__((packed));
 
 struct gdt_entry gdt[3];
