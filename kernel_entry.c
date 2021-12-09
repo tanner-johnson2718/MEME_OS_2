@@ -7,9 +7,7 @@ extern int kernel_end;
 void kernel_main(void) 
 {
 
-    serial_puts("The Divisor Latch is: ");
-    serial_putd(serial_get_buad());
-    serial_puts("\n");
+    serial_init();
 
     int i = 0;
     for(;;){
