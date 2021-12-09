@@ -7,6 +7,7 @@
    -> The linker map should say
 - why did I need to turn off stack protection for the UART code?
 - mmu / tlb and address translation??
+- Do i want a device struct / device table?
 
 - Need general IRQ code
 - Need specific UART serial ISR's
