@@ -8,13 +8,7 @@ struct gdt_ptr gp;
 
 void gdt_flush()
 {
-    asm volatile("lgdt (%0)\n\t"
-                  "mov $0x10,%%ax\n\t"
-                  "mov %%ax,%%ds\n\t"
-                  "mov %%ax,%%es\n\t"
-                  "mov %%ax,%%fs\n\t"
-                  "mov %%ax,%%gs\n\t"
-                  "mov %%ax,%%ss" :: "g" (gp));
+    asm volatile("lgdt (%0)\n\t" :: "g" (gp));
 }
 
 void gdt_get_curr_gdt_ptr(struct gdt_ptr *p)

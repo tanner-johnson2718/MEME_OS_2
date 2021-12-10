@@ -25,9 +25,8 @@ struct idt_ptr
     u32 base;
 } __attribute__((packed));
 
-/* This exists in 'start.asm', and is used to load our IDT */
-void irq_idt_load();
 void irq_get_curr_idt_ptr(struct idt_ptr *p);
 void irq_init_idt();
+void irq_raise33();
 
 #endif

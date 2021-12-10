@@ -14,8 +14,13 @@ void irq_get_curr_idt_ptr(struct idt_ptr *p)
     asm volatile("sidt (%0)" : "=a"(p):);
 }
 
+void irq_raise33()
+{
+    asm volatile("int $33" );
+}
 
-void idt_set_gate(u8 num, u32 base, u8 sel, u8 flags)
+
+void irq_idt_set_gate(u8 num, u32 base, u8 sel, u8 flags)
 {
     /* The interrupt routine's base address */
     idt[num].base_lo = (base & 0xFFFF);
@@ -26,6 +31,14 @@ void idt_set_gate(u8 num, u32 base, u8 sel, u8 flags)
     idt[num].sel = sel;
     idt[num].always0 = 0;
     idt[num].flags = flags;
+}
+
+void irq_isr_sink()
+{
+    while(1)
+    {
+
+    }
 }
 
 /* Installs the IDT */
@@ -47,6 +60,10 @@ void irq_init_idt()
     }
 
     // set up the first 32 exception interrupts
+    for(i = 0; i < 256; ++i)
+    {
+        irq_idt_set_gate(i, (u32) irq_isr_sink, 0x08, 0x8E);
+    }
 
     /* Points the processor's internal register to the new IDT */
     irq_idt_load();
