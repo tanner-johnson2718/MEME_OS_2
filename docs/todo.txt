@@ -6,16 +6,16 @@
 - Do i want a device struct / device table?
 - How do i know if Im in "real mode"
 
-- GDT????
-- Clean up UART code amd other code too
-     -> UART not fully implemented
-     -> Magic numbers everywhere
-     -> naming conventions
-     -> whats funcs are in .h
-     -> UART bit shifts
-     -> etc
-- Add some comment on style + conventions
-- Need general IRQ code
-- Need specific UART serial ISR's
-- Need .config file
+- Clean up uart func / define names
+- Clean up uart bit shifts
+- Add UART FIFO and MCR code / defines
+- Get rid of magic numbers
+- Create coding style standard
 - Documetation!!
+   - io_port
+   - uart
+   - irq
+   - linker
+- Need .config file
+- Need general IRQ code
+- Need specific UART serial ISR'

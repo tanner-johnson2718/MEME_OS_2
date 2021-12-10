@@ -1,11 +1,21 @@
 #include "irq.h"
 
-void idt_load()
+struct idt_entry idt[256];
+struct idt_ptr idtp;
+
+void irq_idt_load()
 {
-    asm volatile("lidt (%0)" :: "g" (&idtp));
+    asm volatile("lidt (%0)" :: "g" (idtp));
 }
 
-void idt_set_gate(u8 num, u32 base, u8 sel, u8flags)
+void irq_get_curr_idt_ptr(struct idt_ptr *p)
+{
+
+    asm volatile("sidt (%0)" : "=a"(p):);
+}
+
+
+void idt_set_gate(u8 num, u32 base, u8 sel, u8 flags)
 {
     /* The interrupt routine's base address */
     idt[num].base_lo = (base & 0xFFFF);
@@ -23,16 +33,21 @@ void irq_init_idt()
 {
     /* Sets the special IDT pointer up, just like in 'gdt.c' */
     idtp.limit = (sizeof (struct idt_entry) * 256) - 1;
-    idtp.base = &idt;
+    idtp.base = (u32) &idt;
 
     /* Clear out the entire IDT, initializing it to zeros */
     u32 i = 0;
-    for(i = 0; i < sizeof(struct idt_entry) * 256; ++i)
+    for(i = 0; i < 256; ++i)
     {
-        u8* p = (char*) &idt;
-        p[i] = 0;
+        idt[i].base_lo = 0;
+        idt[i].sel = 0;
+        idt[i].always0 = 0;
+        idt[i].flags = 0;
+        idt[i].base_hi = 0;
     }
 
+    // set up the first 32 exception interrupts
+
     /* Points the processor's internal register to the new IDT */
-    idt_load();
+    irq_idt_load();
 }

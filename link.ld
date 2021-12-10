@@ -3,7 +3,7 @@
 ENTRY(start)      /* symbol from entry.S?? */
 
 SECTIONS {
-    . = 0x200000;
+    . = 0x100000;              /* Start at 1MiB */
     kernel_start = .;
     .text ALIGN (0x1000) :     /* Align to 4KB */
     {
