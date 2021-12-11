@@ -54,8 +54,8 @@ void gdt_install()
     gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
 
     // Do the same for userpace code
-    gdt_set_gate(1, 0, 0xFFFFFFFF, 0xFA, 0xCF);
-    gdt_set_gate(2, 0, 0xFFFFFFFF, 0xF2, 0xCF);
+    gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF);
+    gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF);
 
     /* Flush out the old GDT and install the new changes! */
     gdt_flush();

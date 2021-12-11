@@ -9,21 +9,7 @@ extern u32 kernel_end;
 void kernel_main(void) 
 {
     serial_init();
+    gdt_install();
     irq_init_idt();
     irq_raise49();
-
-    gdt_install();
-
-/*
-    struct idt_ptr ip;
-    irq_get_curr_idt_ptr(&ip);
-    serial_puts("\n\r");
-    serial_puts("IDT pointer = ");
-    serial_put_hex(ip.base);
-    serial_puts("\n\r");
-    serial_puts("IDT Size = ");
-    serial_put_hex(ip.limit);
-    serial_puts("\n\r");
-   */
-    
 }
