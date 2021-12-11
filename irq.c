@@ -5,7 +5,7 @@ struct idt_ptr idtp;
 
 void irq_idt_load()
 {
-    asm volatile("lidt (%0)" :: "g" (idtp));
+    asm volatile("lidt %0" :: "m" (idtp));
 }
 
 void irq_get_curr_idt_ptr(struct idt_ptr *p)
@@ -14,9 +14,9 @@ void irq_get_curr_idt_ptr(struct idt_ptr *p)
     asm volatile("sidt (%0)" : "=a"(p):);
 }
 
-void irq_raise33()
+void irq_raise49()
 {
-    asm volatile("int $33" );
+    asm volatile("int $49" );
 }
 
 
@@ -44,6 +44,7 @@ void irq_isr_sink()
 /* Installs the IDT */
 void irq_init_idt()
 {
+
     /* Sets the special IDT pointer up, just like in 'gdt.c' */
     idtp.limit = (sizeof (struct idt_entry) * 256) - 1;
     idtp.base = (u32) &idt;
@@ -65,6 +66,5 @@ void irq_init_idt()
         irq_idt_set_gate(i, (u32) irq_isr_sink, 0x08, 0x8E);
     }
 
-    /* Points the processor's internal register to the new IDT */
     irq_idt_load();
 }
