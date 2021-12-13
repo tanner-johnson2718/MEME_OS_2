@@ -42,7 +42,7 @@ void gdt_set_gate(u32 num, u32 base, u32 limit, u8 access, u8 gran)
 void gdt_install()
 {
     /* Setup the GDT pointer and limit */
-    gp.limit = (sizeof(struct gdt_entry) * 3) - 1;
+    gp.size = (sizeof(struct gdt_entry) * 3) - 1;
     gp.base = (u32) &gdt;
 
     /* Our NULL descriptor */
@@ -50,12 +50,12 @@ void gdt_install()
 
     /* We are just gonna set the entire 4GiB in the same code and data segment.
        Sounds as if the GDT isn't really used anymore. */
-    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
-    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
+    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0x4F);
+    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0x4F);
 
     // Do the same for userpace code
-    gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF);
-    gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF);
+    gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0x4F);
+    gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0x4F);
 
     /* Flush out the old GDT and install the new changes! */
     gdt_flush();

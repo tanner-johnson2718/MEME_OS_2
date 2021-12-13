@@ -8,9 +8,11 @@
 // simply cover the entire 4Gb address space and this mechanism is pretty much
 // by passed.
 
-// It used registers CS,DS, and SS to keep indexes into the GDT. You use the
-// gdt entry format to store entires in this table, and use the lgdt, sgdt to
-// set and get the tables location. 
+// The GDT defines memory regions along with permisions adn extra meta data
+// describing how this segment is used. The registers CS,DS, and SS to keep 
+// indexes (offsets) into the GDT. You use the gdt entry format to store 
+// entires in this table, and use the lgdt, sgdt to set and get the tables 
+// location. 
 
 #include "types.h"
 
@@ -65,10 +67,10 @@
 // GDT entry granularity parameter bit fields
 ///////////////////////////////////////////////////////////
 
-// Granularity Bit [7]
+// Granularity Bit [7] - scaling factor for limit value
 #define GDT_GRANULARITY_SHIFT    7
 #define GDT_4K_GRAN              0x1
-#define GDT_1K_GRAN              0x0
+#define GDT_1b_GRAN              0x0
 
 // Operand size [6]
 #define GDT_OP_SIZE_SHIFT        6
@@ -80,6 +82,13 @@
 // Limit upper 4 bits
 #define GDT_LIMIT_UPPER_SHFT     0
 
+// A GDT entry defines a memory segment w/ the following fields
+//    limit_low   - Lower 16 bits giving size of mem region
+//    base_low    - lower 16 bits giving starting addr of mem region
+//    base_middle - middle 8 bits of base addr
+//    access      - see above
+//    granularity - see above
+//    base_high   - upper 8 bits of memory address
 struct gdt_entry
 {
     u16 limit_low;
@@ -90,9 +99,11 @@ struct gdt_entry
     u8 base_high;
 } __attribute__((packed));
 
+// A GDT pointer. This is the data structure that is used by the lgdt and sgdt
+// instructions to register / return the location of the GDT in memory.
 struct gdt_ptr
 {
-    u16 limit;
+    u16 size;
     u32 base;
 } __attribute__((packed));
 
