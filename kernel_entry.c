@@ -11,5 +11,6 @@ void kernel_main(void)
     serial_init();
     gdt_install();
     irq_init_idt();
-    irq_raise49();
+    irq_raise255();
+    while(1){};
 }

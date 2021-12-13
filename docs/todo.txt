@@ -11,6 +11,7 @@
 - Add UART FIFO and MCR code / defines
 - Get rid of magic numbers
 - Create coding style standard
+- Make sure that only funcs that need to be visable are.
 - Documetation!!
    - io_port
    - uart

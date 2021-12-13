@@ -27,6 +27,6 @@ struct idt_ptr
 
 void irq_get_curr_idt_ptr(struct idt_ptr *p);
 void irq_init_idt();
-void irq_raise49();
+void irq_raise255();
 
 #endif

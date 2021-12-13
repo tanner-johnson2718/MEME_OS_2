@@ -35,7 +35,7 @@ void gdt_set_gate(u32 num, u32 base, u32 limit, u8 access, u8 gran)
 }
 
 /* Should be called by main. This will setup the special GDT
-*  pointer, set up the first 3 entries in our GDT, and then
+*  pointer, set up the first 5 entries in our GDT, and then
 *  finally call gdt_flush() in our assembler file in order
 *  to tell the processor where the new GDT is and update the
 *  new segment registers */

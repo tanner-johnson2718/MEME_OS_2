@@ -14,9 +14,9 @@ void irq_get_curr_idt_ptr(struct idt_ptr *p)
     asm volatile("sidt (%0)" : "=a"(p):);
 }
 
-void irq_raise49()
+void irq_raise255()
 {
-    asm volatile("int $49" );
+    asm volatile("int $255" );
 }
 
 
