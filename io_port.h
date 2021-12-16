@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+// Code to simply send bytes out the IO ports on the x86 CPU
+
 static inline void outb(u32 port, u8 data)
 {
 	asm volatile("outb %0,%w1" : : "a" (data), "d" (port));

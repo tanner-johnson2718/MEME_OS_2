@@ -10,10 +10,12 @@
 - Clean up uart bit shifts
 - Add UART FIFO and MCR code / defines
 - Documetation!!
-   - io_port
    - uart
-   - irq
    - linker
 - Need .config file
-- Need general IRQ code
-- Need specific UART serial ISR'
+
+- Need specific UART serial ISR
+- MAsking funcs for irq
+- Need to figure out how I want to handle registering irqs
+- timer module
+- Key board driver
