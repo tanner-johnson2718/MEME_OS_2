@@ -10,7 +10,9 @@
 // kernel code sector. All interrupts will be treated as interrupt as opposed
 // to a trap.
 
-// 
+// The second main function is to act as a PIC 8259 driver. Module will init
+// this device, remap its interrupts to 32-47, and will initially mask the 
+// timer interrupt until the timer moduler is inited and can handle it. 
 
 // PIC 8259 Ports
 #define PIC_MASTER_CMD_PORT  0x20
@@ -22,6 +24,29 @@
 #define PIC_ICW1_INIT 0x10
 #define PIC_ICW1_ICW4 0x01   // dont need ICW4?
 #define PIC_ICW4_8086 0x01   // 8086 mode?
+
+// PIC Interupts
+#define PIC_MASTER_BASE 0x32
+#define PIC_SLAVE_BASE  0x40
+
+#define PIC_TIMER       PIC_MASTER_BASE + 0x0
+#define PIC_KEY         PIC_MASTER_BASE + 0x1
+#define PIC_SLAVE       PIC_MASTER_BASE + 0x2
+#define PIC_COM1        PIC_MASTER_BASE + 0x3
+#define PIC_COM2        PIC_MASTER_BASE + 0x4
+#define PIC_SOUND       PIC_MASTER_BASE + 0x5
+#define PIC_FLOPPY      PIC_MASTER_BASE + 0x6
+#define PIC_LPT1        PIC_MASTER_BASE + 0x7
+
+#define PIC_RT_CLOCK    PIC_SLAVE_BASE + 0x0
+#define PIC_IRQ2        PIC_SLAVE_BASE + 0x1
+#define PIC_PCI1        PIC_SLAVE_BASE + 0x2
+#define PIC_PCI2        PIC_SLAVE_BASE + 0x3
+#define PIC_MOUSE       PIC_SLAVE_BASE + 0x4
+#define PIC_MATH        PIC_SLAVE_BASE + 0x5
+#define PIC_HD          PIC_SLAVE_BASE + 0x6
+#define PIC_RESV        PIC_SLAVE_BASE + 0x7
+
 
 ///////////////////////////////////////////////////////////
 // IDT entry flag  bit fields
@@ -67,8 +92,15 @@ struct idt_ptr
     u32 base;
 } __attribute__((packed));
 
+// Get the location of the IDT that is registered with the CPU
 void irq_get_curr_idt_ptr(struct idt_ptr *p);
+
+// The main init function that inits the irq module
 void irq_init_idt();
+
+// Register an interrupt handler???? Some thought needs to go here
 void irq_register_handler(void (*handler)(void), u8 entry);
+
+// TODO masking functions
 
 #endif

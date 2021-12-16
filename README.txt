@@ -31,3 +31,4 @@ target will be the x86-64 architecture and will target the qemu virtual env.
 - All modules will have a defined output stream for logging that can be
   redirected as needed.
 - All interrupts are handled in kernel code
+- This implies all drivers will be in kernel which also implies monolithic

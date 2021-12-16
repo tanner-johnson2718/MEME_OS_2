@@ -77,8 +77,6 @@ void irq_isr_sink44(){}
 void irq_isr_sink45(){}
 void irq_isr_sink46(){}
 void irq_isr_sink47(){}
-void irq_isr_sink48(){}
-void irq_isr_sink49(){}
 
 void irq_register_handler(void (*handler)(void), u8 entry)
 {
@@ -94,10 +92,10 @@ void irq_remap(void)
 	outb(PIC_SLAVE_CMD_PORT, PIC_ICW1_INIT | PIC_ICW1_ICW4);
 
     // Map master irqs starting at 32
-	outb(PIC_MASTER_DATA_PORT, 0x20);                 
+	outb(PIC_MASTER_DATA_PORT, PIC_MASTER_BASE);                 
 	
     // Map slave irqs starting at 40
-	outb(PIC_SLAVE_DATA_PORT, 0x28);                 
+	outb(PIC_SLAVE_DATA_PORT, PIC_SLAVE_BASE);                 
 	
     // ICW3: tell Master PIC that there is a slave PIC at IRQ2 (0000 0100)
 	outb(PIC_MASTER_DATA_PORT, 4);                       
@@ -134,7 +132,7 @@ void irq_init_idt()
         idt[i].base_hi = 0;
     }
 
-    // set up the first 50 exception interrupts
+    // set up the first 48 exception interrupts
     irq_register_handler(irq_isr_sink0, 0);
     irq_register_handler(irq_isr_sink1, 1);
     irq_register_handler(irq_isr_sink2, 2);
@@ -183,11 +181,11 @@ void irq_init_idt()
     irq_register_handler(irq_isr_sink45, 45);
     irq_register_handler(irq_isr_sink46, 46);
     irq_register_handler(irq_isr_sink47, 47);
-    irq_register_handler(irq_isr_sink48, 48);
-    irq_register_handler(irq_isr_sink49, 49);
 
+    // point the cpu to our IDT
     irq_idt_load();
 
+    // Remap the PIC 8259 interrupts to 32-47
     irq_remap();
 
     // turn on interrupts
