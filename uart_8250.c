@@ -155,16 +155,3 @@ void serial_puts(u8* s)
         ++i;
     }
 }
-
-u8 serial_getc()
-{
-    // wait till data rx line set high
-    u8 rdy = 0;
-    while(!rdy){
-        rdy = inb((DEFAULT_COM + COM_LSR) & COM_LSR_DATA);
-        serial_putc(rdy + 60);
-    }
-
-    return inb(DEFAULT_COM);
-
-}

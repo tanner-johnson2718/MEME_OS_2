@@ -50,7 +50,6 @@ void serial_puts(u8* s);
 void serial_putc(u8 data);
 void serial_putd(u32 d);
 void serial_put_hex(u32 h);
-u8 serial_getc();
 u32 serial_get_buad();
 void serial_set_buad(u32 r);
 

@@ -1,5 +1,54 @@
 set architecture i386
 target remote localhost:1234
 b kernel_main
-b irq_raise255
-continue
+b irq_isr_sink0
+b irq_isr_sink1
+b irq_isr_sink2
+b irq_isr_sink3
+b irq_isr_sink4
+b irq_isr_sink5
+b irq_isr_sink6
+b irq_isr_sink7
+b irq_isr_sink8
+b irq_isr_sink9
+b irq_isr_sink10
+b irq_isr_sink11
+b irq_isr_sink12
+b irq_isr_sink13
+b irq_isr_sink14
+b irq_isr_sink15
+b irq_isr_sink16
+b irq_isr_sink17
+b irq_isr_sink18
+b irq_isr_sink19
+b irq_isr_sink20
+b irq_isr_sink21
+b irq_isr_sink22
+b irq_isr_sink23
+b irq_isr_sink24
+b irq_isr_sink25
+b irq_isr_sink26
+b irq_isr_sink27
+b irq_isr_sink28
+b irq_isr_sink29
+b irq_isr_sink30
+b irq_isr_sink31
+b irq_isr_sink32
+b irq_isr_sink33
+b irq_isr_sink34
+b irq_isr_sink35
+b irq_isr_sink36
+b irq_isr_sink37
+b irq_isr_sink38
+b irq_isr_sink39
+b irq_isr_sink40
+b irq_isr_sink41
+b irq_isr_sink42
+b irq_isr_sink43
+b irq_isr_sink44
+b irq_isr_sink45
+b irq_isr_sink46
+b irq_isr_sink47
+b irq_isr_sink48
+b irq_isr_sink49
+c
