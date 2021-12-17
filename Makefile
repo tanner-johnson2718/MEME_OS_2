@@ -20,8 +20,11 @@ gdt: gdt.c gdt.h
 irq: irq.c irq.h
 	gcc $(CFLAGS) -c irq.c -o irq.o
 
-kernel.elf: asm_entry kernel_entry uart_8250 gdt irq
-	ld $(LDFLAGS) entry.o kernel_entry.o uart_8250.o gdt.o irq.o -o kernel.elf
+ps2: ps2.c ps2.h
+	gcc $(CFLAGS) -c ps2.c -o ps2.o
+
+kernel.elf: asm_entry kernel_entry uart_8250 gdt irq ps2
+	ld $(LDFLAGS) entry.o kernel_entry.o uart_8250.o gdt.o irq.o ps2.o -o kernel.elf
 
 clean:
 	rm -f *.o *.elf

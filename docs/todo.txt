@@ -5,6 +5,8 @@
 - mmu / tlb and address translation??
 - Do i want a device struct / device table?
 - How do i know if Im in "real mode"
+- How do PS2 and USB interop?
+- Should probably seperate the first 32 ISRs from the last 15 IRQs
 
 - Clean up uart func / define names
 - Clean up uart bit shifts
@@ -19,3 +21,5 @@
 - Need to figure out how I want to handle registering irqs
 - timer module
 - Key board driver
+- Unified buffered output stream (serial / VGA / network)
+- implement exceptions

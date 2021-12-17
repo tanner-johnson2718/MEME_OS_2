@@ -4,6 +4,7 @@
 
 struct idt_entry idt[256];
 struct idt_ptr idtp;
+void* irq_pic_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 void irq_idt_load()
 {
@@ -29,6 +30,7 @@ void irq_idt_set_gate(u8 num, u32 base, u8 sel, u8 flags)
     idt[num].flags = flags;
 }
 
+// First 32 interrupts are CPU driven i.e. exceptions
 void irq_isr_sink0(){}
 void irq_isr_sink1(){}
 void irq_isr_sink2(){}
@@ -61,26 +63,148 @@ void irq_isr_sink28(){}
 void irq_isr_sink29(){}
 void irq_isr_sink30(){}
 void irq_isr_sink31(){}
-void irq_isr_sink32(){}
-void irq_isr_sink33(){}
-void irq_isr_sink34(){}
-void irq_isr_sink35(){}
-void irq_isr_sink36(){}
-void irq_isr_sink37(){}
-void irq_isr_sink38(){}
-void irq_isr_sink39(){}
-void irq_isr_sink40(){}
-void irq_isr_sink41(){}
-void irq_isr_sink42(){}
-void irq_isr_sink43(){}
-void irq_isr_sink44(){}
-void irq_isr_sink45(){}
-void irq_isr_sink46(){}
-void irq_isr_sink47(){}
+
+// IRQs driven by pic
+void irq_common_pic_handler(u8 irq_num)
+{
+    if(irq_pic_handlers[irq_num])
+    {
+        void (*handler)() = irq_pic_handlers[irq_num];
+        handler();
+    }
+
+    if(irq_num >= 8)
+    {
+        outb(PIC_SLAVE_CMD_PORT, PIC_EOI);
+    }
+
+    outb(PIC_MASTER_CMD_PORT, PIC_EOI);
+}
+
+void irq_isr_sink32()
+{
+    irq_common_pic_handler(0);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink33()
+{
+    irq_common_pic_handler(1);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink34()
+{
+    irq_common_pic_handler(2);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink35()
+{
+    irq_common_pic_handler(3);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink36()
+{
+    irq_common_pic_handler(4);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink37()
+{
+    irq_common_pic_handler(5);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink38()
+{
+    irq_common_pic_handler(6);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink39()
+{
+    irq_common_pic_handler(7);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink40()
+{
+    irq_common_pic_handler(8);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink41()
+{
+    irq_common_pic_handler(9);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink42()
+{
+    irq_common_pic_handler(10);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink43()
+{
+    irq_common_pic_handler(11);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink44()
+{
+    irq_common_pic_handler(12);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink45()
+{
+    irq_common_pic_handler(13);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink46()
+{
+    irq_common_pic_handler(14);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink47()
+{
+    irq_common_pic_handler(15);
+    asm volatile("leave");
+    asm volatile("iret");
+}
 
 void irq_register_handler(void (*handler)(void), u8 entry)
 {
     irq_idt_set_gate(entry, (u32) handler, KERNEL_CODE_SECTOR, 0x8E);
+}
+
+void irq_register_PIC_handler(void (*handler)(void), u8 entry)
+{
+    if(entry >= 0x20 && entry <= 0x2F)
+    {
+        // registering a PIC handler
+        irq_pic_handlers[entry - 0x20] = handler;
+    }
 }
 
 // The first 32 exceptions are reserved but the 8259 PIC wants to generate
@@ -111,11 +235,8 @@ void irq_remap(void)
 	outb(PIC_SLAVE_DATA_PORT, 1);
 }
 
-void irq_init_idt()
+void irq_init()
 {
-
-    // Allow interrupts
-    asm volatile("sti");
 
     /* Sets the special IDT pointer up, just like in 'gdt.c' */
     idtp.limit = (sizeof (struct idt_entry) * 256) - 1;

@@ -24,10 +24,11 @@
 #define PIC_ICW1_INIT 0x10
 #define PIC_ICW1_ICW4 0x01   // dont need ICW4?
 #define PIC_ICW4_8086 0x01   // 8086 mode?
+#define PIC_EOI       0x20
 
 // PIC Interupts
-#define PIC_MASTER_BASE 0x32
-#define PIC_SLAVE_BASE  0x40
+#define PIC_MASTER_BASE 0x20
+#define PIC_SLAVE_BASE  0x28
 
 #define PIC_TIMER       PIC_MASTER_BASE + 0x0
 #define PIC_KEY         PIC_MASTER_BASE + 0x1
@@ -96,11 +97,11 @@ struct idt_ptr
 void irq_get_curr_idt_ptr(struct idt_ptr *p);
 
 // The main init function that inits the irq module
-void irq_init_idt();
+void irq_init();
 
 // Register an interrupt handler???? Some thought needs to go here
 void irq_register_handler(void (*handler)(void), u8 entry);
-
+void irq_register_PIC_handler(void (*handler)(void), u8 entry);
 // TODO masking functions
 
 #endif
