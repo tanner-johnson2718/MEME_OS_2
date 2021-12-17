@@ -1,6 +1,6 @@
 // See gdt.h for documentation
 
-#include "gdt.h"
+#include "core/gdt.h"
 
 // Globals
 struct gdt_entry gdt[3];

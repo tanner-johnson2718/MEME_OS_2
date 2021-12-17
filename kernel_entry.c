@@ -1,17 +1,15 @@
 // Entry point for the kernel
-#include "serial.h"
-#include "gdt.h"
-#include "types.h"
-#include "irq.h"
-#include "ps2.h"
-
-extern u32 kernel_end;
+#include "core/gdt.h"
+#include "core/types.h"
+#include "core/irq.h"
+#include "drivers/serial.h"
+#include "drivers/ps2.h"
 
 void kernel_main(void) 
 {
-    serial_init();
     gdt_install();
     irq_init();
+    serial_init();
     ps2_init();
 
     // asm volatile("int $0x20");

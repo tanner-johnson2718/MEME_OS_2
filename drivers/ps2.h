@@ -1,7 +1,7 @@
 #ifndef MEME_PS2
 #define MEME_PS2
 
-#include "types.h"
+#include "core/types.h"
 
 #define PS2_DATA_PORT 0x60
 #define PS2_STAT_PORT 0x64   // read

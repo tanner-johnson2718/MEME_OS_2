@@ -1,7 +1,7 @@
 #ifndef MEME_IRQ
 #define MEME_IRQ
 
-#include "types.h"
+#include "core/types.h"
 
 // The IRQ module is the MEME OS 2 interrupt handler. This module first
 // handles allocating and gives public functions for manipulating the IDT. The

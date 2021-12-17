@@ -31,8 +31,9 @@ target will be the x86-64 architecture and will target the qemu virtual env.
   etc.
 - All interrupts are handled in kernel code
 - This implies all drivers will be in kernel which also implies monolithic
-- Will NOT be interoperable, will only target x86 (i386) arch.
-- ?? Some notion of a unified and buffered io stream.
+- Core will not be interoperable and will target the i386 arch.
+- Drivers should be interoperable and should be able to target any arch
+- ?? Some notion of a unified and buffered io streams
 
 # Modules
 - GDT

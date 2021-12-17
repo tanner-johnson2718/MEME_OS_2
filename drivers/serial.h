@@ -1,7 +1,7 @@
 #ifndef MEME_SERIAL
 #define MEME_SERIAL
 
-#include "types.h"
+#include "core/types.h"
 
 // Standard 8250 UART SERIAL IO port and registers
 #define SERIAL_COM1		  0x3F8

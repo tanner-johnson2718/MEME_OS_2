@@ -1,7 +1,7 @@
 #ifndef MEME_IO_PORT
 #define MEME_IO_PORT
 
-#include "types.h"
+#include "core/types.h"
 
 // Code to simply send bytes out the IO ports on the x86 CPU
 

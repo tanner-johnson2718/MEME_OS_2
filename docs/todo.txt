@@ -26,4 +26,3 @@ Actually need todo to move forward)
 - VGA driver
 - PCI driver
 - Network driver
-- Network stack implementation

@@ -1,7 +1,7 @@
 CC = gcc
 
 LDFLAGS = -T link.ld -melf_i386
-CFLAGS = -m32 -fno-pie -fno-stack-protector
+CFLAGS = -m32 -fno-pie -fno-stack-protector -I./
 
 all: kernel.elf
 
@@ -11,17 +11,17 @@ kernel_entry: kernel_entry.c
 asm_entry: entry.S
 	gcc $(CFLAGS)  -c entry.S -o entry.o
 
-serial: serial.h serial.c
-	gcc $(CFLAGS) -c serial.c -o serial.o
+serial: drivers/serial.h drivers/serial.c
+	gcc $(CFLAGS) -c drivers/serial.c -o serial.o
 
-gdt: gdt.c gdt.h
-	gcc $(CFLAGS) -c gdt.c -o gdt.o
+gdt: core/gdt.c core/gdt.h
+	gcc $(CFLAGS) -c core/gdt.c -o gdt.o
 
-irq: irq.c irq.h
-	gcc $(CFLAGS) -c irq.c -o irq.o
+irq: core/irq.c core/irq.h
+	gcc $(CFLAGS) -c core/irq.c -o irq.o
 
-ps2: ps2.c ps2.h
-	gcc $(CFLAGS) -c ps2.c -o ps2.o
+ps2: drivers/ps2.c drivers/ps2.h
+	gcc $(CFLAGS) -c drivers/ps2.c -o ps2.o
 
 kernel.elf: asm_entry kernel_entry serial gdt irq ps2
 	ld $(LDFLAGS) entry.o kernel_entry.o serial.o gdt.o irq.o ps2.o -o kernel.elf
