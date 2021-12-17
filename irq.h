@@ -100,8 +100,8 @@ void irq_get_curr_idt_ptr(struct idt_ptr *p);
 void irq_init();
 
 // Register an interrupt handler???? Some thought needs to go here
-void irq_register_handler(void (*handler)(void), u8 entry);
 void irq_register_PIC_handler(void (*handler)(void), u8 entry);
+
 // TODO masking functions
 
 #endif
