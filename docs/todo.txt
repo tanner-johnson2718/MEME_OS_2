@@ -1,3 +1,4 @@
+Wish List)
 - How to get devices?
 - Understand EXACT boot processs
 - What is qemu doing before it boots the kernel?
@@ -6,22 +7,23 @@
 - Do i want a device struct / device table?
 - How do i know if Im in "real mode"
 - How do PS2 and USB interop?
-- Clean up uart func / define names
-- Clean up uart bit shifts
-- Add UART FIFO and MCR code / defines
+- Add UART FIFO and MCR code
 - Documetation!!
    - uart
    - linker
    - PS2
-   - Boot processs
-   - README
+   - Boot processs (README)
 - Need .config file
 - Actually pass processer state to irqs
+- implement + test isr exceptions 0-31
 
+Actually need todo to move forward)
 - MAsking funcs for irq
 - timer module
 - Unified buffered output stream (serial / VGA / network)
 - Unified buffered input stream (serial / keyboard)
-- implement + test isr exceptions 0-31
-
 - reorg dirs
+- VGA driver
+- PCI driver
+- Network driver
+- Network stack implementation

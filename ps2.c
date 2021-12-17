@@ -51,16 +51,16 @@ struct keyboard_state state = {0};
 
 void update_caps_state()
 {
-    u8 shift_held = (state.state >> KEYBOARD_STATE_SHIFT_HELD_SHIFT) & 0x1;
-    u8 caps_on = (state.state >> KEYBOARD_STATE_CAPSL_SHIFT) & 0x1;
+    u8 shift_held = (state.state >> PS2_KEYBOARD_STATE_SHIFT_HELD_SHIFT) & 0x1;
+    u8 caps_on = (state.state >> PS2_KEYBOARD_STATE_CAPSL_SHIFT) & 0x1;
     u8 caps = caps_on ^ shift_held;
 
     if(caps){
-        state.state |=  (0x1 << KEYBOARD_STATE_OUT_CAPS);
+        state.state |=  (0x1 << PS2_KEYBOARD_STATE_OUT_CAPS);
     }
     else
     {
-        state.state &= KEYBOARD_STATE_CAPS_OFF_MASK;
+        state.state &= PS2_KEYBOARD_STATE_CAPS_OFF_MASK;
     }
     
 }
@@ -88,7 +88,7 @@ void ps2_keyboard_irq(void)
         if(in == PS2_KEYBOARD_LSHIFT_RELES || in == PS2_KEYBOARD_RSHIFT_RELES)
         {
             // update shfit held bit in state
-            state.state &= KEYBOARD_STATE_SHIFT_RELE_MASK;
+            state.state &= PS2_KEYBOARD_STATE_SHIFT_RELE_MASK;
         }
 
         update_caps_state();
@@ -101,20 +101,20 @@ void ps2_keyboard_irq(void)
         if(in == PS2_KEYBOARD_LSHIFT_PRESS || in == PS2_KEYBOARD_RSHIFT_PRESS)
         {
             // update shfit held bit in state
-            state.state |= (0x1 << KEYBOARD_STATE_SHIFT_HELD_SHIFT);
+            state.state |= (0x1 << PS2_KEYBOARD_STATE_SHIFT_HELD_SHIFT);
         }
 
         // check if caps lock pressed
         if(in == PS2_KEYBOARD_CAPSLOCK)
         {
-            u8 caps_on = (state.state >> KEYBOARD_STATE_CAPSL_SHIFT) & 0x1;
+            u8 caps_on = (state.state >> PS2_KEYBOARD_STATE_CAPSL_SHIFT) & 0x1;
 
             if(!caps_on){
-                state.state |=  (0x1 << KEYBOARD_STATE_CAPSL_SHIFT);
+                state.state |=  (0x1 << PS2_KEYBOARD_STATE_CAPSL_SHIFT);
             }
             else
             {
-                state.state &= KEYBOARD_STATE_SHIFT_CAPSL_MASK;
+                state.state &= PS2_KEYBOARD_STATE_SHIFT_CAPSL_MASK;
             }
         }
 
@@ -124,7 +124,7 @@ void ps2_keyboard_irq(void)
         u8 in_ascii = key_ascii_map[in];
 
         // output caps if caps bit set in state and output char is a-z
-        if(( (state.state >> KEYBOARD_STATE_OUT_CAPS) & 0x1) && is_alphabet_char(in_ascii))
+        if(( (state.state >> PS2_KEYBOARD_STATE_OUT_CAPS) & 0x1) && is_alphabet_char(in_ascii))
         {
             in_ascii -= 0x20;
         }
@@ -136,5 +136,5 @@ void ps2_keyboard_irq(void)
 
 void ps2_init(void)
 {
-    irq_register_PIC_handler(ps2_keyboard_irq, PIC_KEY);
+    irq_register_PIC_handler(ps2_keyboard_irq, IRQ_PIC_KEY);
 }

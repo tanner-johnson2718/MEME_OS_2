@@ -15,38 +15,38 @@
 // timer interrupt until the timer moduler is inited and can handle it. 
 
 // PIC 8259 Ports
-#define PIC_MASTER_CMD_PORT  0x20
-#define PIC_MASTER_DATA_PORT 0x21
-#define PIC_SLAVE_CMD_PORT   0xA0
-#define PIC_SLAVE_DATA_PORT  0xA1
+#define IRQ_PIC_MASTER_CMD_PORT  0x20
+#define IRQ_PIC_MASTER_DATA_PORT 0x21
+#define IRQ_PIC_SLAVE_CMD_PORT   0xA0
+#define IRQ_PIC_SLAVE_DATA_PORT  0xA1
 
 // PIC 8259 Commands
-#define PIC_ICW1_INIT 0x10
-#define PIC_ICW1_ICW4 0x01   // dont need ICW4?
-#define PIC_ICW4_8086 0x01   // 8086 mode?
-#define PIC_EOI       0x20
+#define IRQ_PIC_ICW1_INIT 0x10
+#define IRQ_PIC_ICW1_ICW4 0x01   // dont need ICW4?
+#define IRQ_PIC_ICW4_8086 0x01   // 8086 mode?
+#define IRQ_PIC_EOI       0x20
 
 // PIC Interupts
-#define PIC_MASTER_BASE 0x20
-#define PIC_SLAVE_BASE  0x28
+#define IRQ_PIC_MASTER_BASE 0x20
+#define IRQ_PIC_SLAVE_BASE  0x28
 
-#define PIC_TIMER       PIC_MASTER_BASE + 0x0
-#define PIC_KEY         PIC_MASTER_BASE + 0x1
-#define PIC_SLAVE       PIC_MASTER_BASE + 0x2
-#define PIC_COM1        PIC_MASTER_BASE + 0x3
-#define PIC_COM2        PIC_MASTER_BASE + 0x4
-#define PIC_SOUND       PIC_MASTER_BASE + 0x5
-#define PIC_FLOPPY      PIC_MASTER_BASE + 0x6
-#define PIC_LPT1        PIC_MASTER_BASE + 0x7
+#define IRQ_PIC_TIMER       IRQ_PIC_MASTER_BASE + 0x0
+#define IRQ_PIC_KEY         IRQ_PIC_MASTER_BASE + 0x1
+#define IRQ_PIC_SLAVE       IRQ_PIC_MASTER_BASE + 0x2
+#define IRQ_PIC_COM1        IRQ_PIC_MASTER_BASE + 0x3
+#define IRQ_PIC_COM2        IRQ_PIC_MASTER_BASE + 0x4
+#define IRQ_PIC_SOUND       IRQ_PIC_MASTER_BASE + 0x5
+#define IRQ_PIC_FLOPPY      IRQ_PIC_MASTER_BASE + 0x6
+#define IRQ_PIC_LPT1        IRQ_PIC_MASTER_BASE + 0x7
 
-#define PIC_RT_CLOCK    PIC_SLAVE_BASE + 0x0
-#define PIC_IRQ2        PIC_SLAVE_BASE + 0x1
-#define PIC_PCI1        PIC_SLAVE_BASE + 0x2
-#define PIC_PCI2        PIC_SLAVE_BASE + 0x3
-#define PIC_MOUSE       PIC_SLAVE_BASE + 0x4
-#define PIC_MATH        PIC_SLAVE_BASE + 0x5
-#define PIC_HD          PIC_SLAVE_BASE + 0x6
-#define PIC_RESV        PIC_SLAVE_BASE + 0x7
+#define IRQ_PIC_RT_CLOCK    IRQ_PIC_SLAVE_BASE + 0x0
+#define IRQ_PIC_IRQ2        IRQ_PIC_SLAVE_BASE + 0x1
+#define IRQ_PIC_PCI1        IRQ_PIC_SLAVE_BASE + 0x2
+#define IRQ_PIC_PCI2        IRQ_PIC_SLAVE_BASE + 0x3
+#define IRQ_PIC_MOUSE       IRQ_PIC_SLAVE_BASE + 0x4
+#define IRQ_PIC_MATH        IRQ_PIC_SLAVE_BASE + 0x5
+#define IRQ_PIC_HD          IRQ_PIC_SLAVE_BASE + 0x6
+#define IRQ_PIC_RESV        IRQ_PIC_SLAVE_BASE + 0x7
 
 
 ///////////////////////////////////////////////////////////
@@ -54,22 +54,22 @@
 ///////////////////////////////////////////////////////////
 
 // flags byte [7] - Present bit. 
-#define IDT_ENTRY_PRESENT_SHIFT 0x7
-#define IDT_ENTRY_PRESENT       0x1
-#define IDT_ENTRY_NOT_PRESENT   0x0
+#define IRQ_IDT_ENTRY_PRESENT_SHIFT 0x7
+#define IRQ_IDT_ENTRY_PRESENT       0x1
+#define IRQ_IDT_ENTRY_NOT_PRESENT   0x0
 
 // flags byte [5-6] - Privelege 
-#define IDT_ENTRY_PRIVILEGE            0x5
-#define IDT_ENTRY_KERNEL_PRIVLEGE      0x0
-#define IDT_ENTRY_USER_PRIVLEGE        0x3
+#define IRQ_IDT_ENTRY_PRIVILEGE            0x5
+#define IRQ_IDT_ENTRY_KERNEL_PRIVLEGE      0x0
+#define IRQ_IDT_ENTRY_USER_PRIVLEGE        0x3
 
 // flags byte [4] - Always 0
 
 // flags byte [0-3] - Gate Type
-#define IDT_ENTRY_TYPE_SHIFT 0x0
-#define IDT_ENTRY_TASK       0x5
-#define IDT_ENTRY_INTERRUPT  0xE
-#define IDT_ENTRY_TRAP       0xF
+#define IRQ_IDT_ENTRY_TYPE_SHIFT 0x0
+#define IRQ_IDT_ENTRY_TASK       0x5
+#define IRQ_IDT_ENTRY_INTERRUPT  0xE
+#define IRQ_IDT_ENTRY_TRAP       0xF
 
 // IDT entry which maps a specific interrupt to an interrupt handler
 //    base_lo   - Lower 16 bits giving location of handler

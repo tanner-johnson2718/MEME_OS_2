@@ -5,30 +5,30 @@
 void serial_input_irq_handler()
 {
     // called when data available
-    u8 in = inb(DEFAULT_COM);
+    u8 in = inb(SERIAL_DEFAULT_COM);
     serial_putc(in);
 }
 
 void serial_init()
 {
     // Set defualt baud rate set in configs
-    serial_set_buad(DEFAULT_COM_BAUD);
+    serial_set_buad(SERIAL_DEFAULT_COM_BAUD);
 
     // Enable inturrepts we want to handle
-    u8 ier = inb(DEFAULT_COM + COM_IER);
-    ier = ier | (DEFAULT_COM_DATA_RDY_IRQ);
-    ier = ier | (DEFAULT_COM_DATA_SENT_IRQ << 1);
-    ier = ier | (DEFAULT_COM_LSR_IRQ << 2);
-    ier = ier | (DEFAULT_COM_MSR_IRQ << 3);
-    outb(DEFAULT_COM + COM_IER, ier);
+    u8 ier = inb(SERIAL_DEFAULT_COM + SERIAL_COM_IER);
+    ier = ier | (SERIAL_DEFAULT_COM_DATA_RDY_IRQ);
+    ier = ier | (SERIAL_DEFAULT_COM_DATA_SENT_IRQ << 1);
+    ier = ier | (SERIAL_DEFAULT_COM_LSR_IRQ << 2);
+    ier = ier | (SERIAL_DEFAULT_COM_MSR_IRQ << 3);
+    outb(SERIAL_DEFAULT_COM + SERIAL_COM_IER, ier);
 
     // Set LCR values
     u8 lcr = 0;
-    lcr = lcr | DEFAULT_COM_WORD_LEN;
-    lcr = lcr | (DEFAULT_COM_STOP_BIT << 2);
-    lcr = lcr | (DEFAULT_COM_PARITY << 3);
-    lcr = lcr | (DEFAULT_COM_BREAK_COND << 6);
-    outb(DEFAULT_COM + COM_LCR, lcr) ;
+    lcr = lcr | SERIAL_DEFAULT_COM_WORD_LEN;
+    lcr = lcr | (SERIAL_DEFAULT_COM_STOP_BIT << 2);
+    lcr = lcr | (SERIAL_DEFAULT_COM_PARITY << 3);
+    lcr = lcr | (SERIAL_DEFAULT_COM_BREAK_COND << 6);
+    outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, lcr) ;
 
     // Set FIFO ??
 
@@ -39,60 +39,60 @@ void serial_init()
     serial_puts("\n\r   BAUD : ");
     serial_put_hex(serial_get_buad());
     serial_puts("\n\r   IER  : ");
-    serial_put_hex(inb(DEFAULT_COM + COM_IER));
+    serial_put_hex(inb(SERIAL_DEFAULT_COM + SERIAL_COM_IER));
     serial_puts("\n\r   IIR  : ");
-    serial_put_hex(inb(DEFAULT_COM + COM_IIR));
+    serial_put_hex(inb(SERIAL_DEFAULT_COM + SERIAL_COM_IIR));
     serial_puts("\n\r   LCR  : ");
-    serial_put_hex(inb(DEFAULT_COM + COM_LCR));
+    serial_put_hex(inb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR));
     serial_puts("\n\r   MCR  : ");
-    serial_put_hex(inb(DEFAULT_COM + COM_MCR));
+    serial_put_hex(inb(SERIAL_DEFAULT_COM + SERIAL_COM_MCR));
     serial_puts("\n\r   LSR  : ");
-    serial_put_hex(inb(DEFAULT_COM + COM_LSR));
+    serial_put_hex(inb(SERIAL_DEFAULT_COM + SERIAL_COM_LSR));
     serial_puts("\n\r   MSR  : ");
-    serial_put_hex(inb(DEFAULT_COM + COM_MSR));
+    serial_put_hex(inb(SERIAL_DEFAULT_COM + SERIAL_COM_MSR));
 
     // register input irq handler
-    if(DEFAULT_COM ==  COM1 || DEFAULT_COM == COM3)
+    if(SERIAL_DEFAULT_COM ==  SERIAL_COM1 || SERIAL_DEFAULT_COM == SERIAL_COM3)
     {
-        irq_register_PIC_handler(serial_input_irq_handler, PIC_COM2);
+        irq_register_PIC_handler(serial_input_irq_handler, IRQ_PIC_COM2);
     }
     else
     {
-        irq_register_PIC_handler(serial_input_irq_handler, PIC_COM1);
+        irq_register_PIC_handler(serial_input_irq_handler, IRQ_PIC_COM1);
     }
 }
 
 u32 serial_get_buad()
 {
     // read the ctl register, turn on the DLAB, write it back
-    outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) | 0x80);
+    outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, inb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR) | 0x80);
 
     // get upper and lower DL value
-    u32 ret = (inb(DEFAULT_COM + COM_DLH) << 8) + inb(DEFAULT_COM + COM_DLL);
+    u32 ret = (inb(SERIAL_DEFAULT_COM + SERIAL_COM_DLH) << 8) + inb(SERIAL_DEFAULT_COM + SERIAL_COM_DLL);
 
     // Clear DLAB
-    outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) & 0x7f);
+    outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, inb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR) & 0x7f);
 
-    return MAX_BAUD / ret;
+    return SERIAL_MAX_BAUD / ret;
 }
 
 void serial_set_buad(u32 rate)
 {
-    u32 dl = MAX_BAUD / rate;
+    u32 dl = SERIAL_MAX_BAUD / rate;
 
     // read the ctl register, turn on the DLAB, write it back
-    outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) | 0x80);
+    outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, inb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR) | 0x80);
 
-    outb(DEFAULT_COM + COM_DLH, dl >> 8);
-    outb(DEFAULT_COM + COM_DLL, dl & 0xff);
+    outb(SERIAL_DEFAULT_COM + SERIAL_COM_DLH, dl >> 8);
+    outb(SERIAL_DEFAULT_COM + SERIAL_COM_DLL, dl & 0xff);
 
     // Clear DLAB
-    outb(DEFAULT_COM + COM_LCR, inb(DEFAULT_COM + COM_LCR) & 0x7f);
+    outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, inb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR) & 0x7f);
 }
 
 void serial_putc(u8 data)
 {
-    outb(DEFAULT_COM, data);
+    outb(SERIAL_DEFAULT_COM, data);
 }
 
 void serial_putd(u32 d)

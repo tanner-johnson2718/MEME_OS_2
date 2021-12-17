@@ -17,10 +17,10 @@
 #include "types.h"
 
 #define GDT_NULL_SECTOR 0x0
-#define KERNEL_CODE_SECTOR 0x8
-#define KERNEL_DATA_SECTOR 0x10
-#define USER_CODE_SECTOR 0x8
-#define USER_DATA_SECTOR 0x10
+#define GDT_KERNEL_CODE_SECTOR 0x8
+#define GDT_KERNEL_DATA_SECTOR 0x10
+#define GDT_USER_CODE_SECTOR 0x8
+#define GDT_USER_DATA_SECTOR 0x10
 
 ///////////////////////////////////////////////////////////
 // GDT entry access parameter bit fields

@@ -75,10 +75,10 @@ void irq_common_pic_handler(u8 irq_num)
 
     if(irq_num >= 8)
     {
-        outb(PIC_SLAVE_CMD_PORT, PIC_EOI);
+        outb(IRQ_PIC_SLAVE_CMD_PORT, IRQ_PIC_EOI);
     }
 
-    outb(PIC_MASTER_CMD_PORT, PIC_EOI);
+    outb(IRQ_PIC_MASTER_CMD_PORT, IRQ_PIC_EOI);
 }
 
 void irq_isr_sink32()
@@ -195,7 +195,7 @@ void irq_isr_sink47()
 
 void irq_register_handler(void (*handler)(void), u8 entry)
 {
-    irq_idt_set_gate(entry, (u32) handler, KERNEL_CODE_SECTOR, 0x8E);
+    irq_idt_set_gate(entry, (u32) handler, GDT_KERNEL_CODE_SECTOR, 0x8E);
 }
 
 void irq_register_PIC_handler(void (*handler)(void), u8 entry)
@@ -212,27 +212,27 @@ void irq_register_PIC_handler(void (*handler)(void), u8 entry)
 void irq_remap(void)
 {
     // starts the initialization sequence (in cascade mode)
-	outb(PIC_MASTER_CMD_PORT, PIC_ICW1_INIT | PIC_ICW1_ICW4);  
-	outb(PIC_SLAVE_CMD_PORT, PIC_ICW1_INIT | PIC_ICW1_ICW4);
+	outb(IRQ_PIC_MASTER_CMD_PORT, IRQ_PIC_ICW1_INIT | IRQ_PIC_ICW1_ICW4);  
+	outb(IRQ_PIC_SLAVE_CMD_PORT, IRQ_PIC_ICW1_INIT | IRQ_PIC_ICW1_ICW4);
 
     // Map master irqs starting at 32
-	outb(PIC_MASTER_DATA_PORT, PIC_MASTER_BASE);                 
+	outb(IRQ_PIC_MASTER_DATA_PORT, IRQ_PIC_MASTER_BASE);                 
 	
     // Map slave irqs starting at 40
-	outb(PIC_SLAVE_DATA_PORT, PIC_SLAVE_BASE);                 
+	outb(IRQ_PIC_SLAVE_DATA_PORT, IRQ_PIC_SLAVE_BASE);                 
 	
     // ICW3: tell Master PIC that there is a slave PIC at IRQ2 (0000 0100)
-	outb(PIC_MASTER_DATA_PORT, 4);                       
+	outb(IRQ_PIC_MASTER_DATA_PORT, 4);                       
 	
     // ICW3: tell Slave PIC its cascade identity (0000 0010)
-	outb(PIC_SLAVE_DATA_PORT, 2);                       
+	outb(IRQ_PIC_SLAVE_DATA_PORT, 2);                       
  
-	outb(PIC_MASTER_DATA_PORT, PIC_ICW4_8086);
-	outb(PIC_SLAVE_DATA_PORT, PIC_ICW4_8086);
+	outb(IRQ_PIC_MASTER_DATA_PORT, IRQ_PIC_ICW4_8086);
+	outb(IRQ_PIC_SLAVE_DATA_PORT, IRQ_PIC_ICW4_8086);
  
     // clear saved masks.
-	outb(PIC_MASTER_DATA_PORT, 1);   
-	outb(PIC_SLAVE_DATA_PORT, 1);
+	outb(IRQ_PIC_MASTER_DATA_PORT, 1);   
+	outb(IRQ_PIC_SLAVE_DATA_PORT, 1);
 }
 
 void irq_init()
