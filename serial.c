@@ -1,4 +1,4 @@
-#include "uart_8250.h"
+#include "serial.h"
 #include "io_port.h"
 #include "irq.h"
 

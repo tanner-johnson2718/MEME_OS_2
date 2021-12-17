@@ -18,12 +18,10 @@
 - Need .config file
 - Actually pass processer state to irqs
 
-- Need specific UART serial ISR
 - MAsking funcs for irq
 - timer module
 - Unified buffered output stream (serial / VGA / network)
 - Unified buffered input stream (serial / keyboard)
 - implement + test isr exceptions 0-31
 
-- How do PS2 and USB interop?
 - reorg dirs

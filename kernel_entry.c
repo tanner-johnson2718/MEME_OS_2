@@ -1,5 +1,5 @@
 // Entry point for the kernel
-#include "uart_8250.h"
+#include "serial.h"
 #include "gdt.h"
 #include "types.h"
 #include "irq.h"

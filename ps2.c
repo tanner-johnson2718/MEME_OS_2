@@ -1,7 +1,7 @@
 #include "ps2.h"
 #include "types.h"
 #include "io_port.h"
-#include "uart_8250.h"
+#include "serial.h"
 #include "irq.h"
 
 // ASCII map to trasnlate keys to ascii text

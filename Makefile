@@ -11,8 +11,8 @@ kernel_entry: kernel_entry.c
 asm_entry: entry.S
 	gcc $(CFLAGS)  -c entry.S -o entry.o
 
-uart_8250: uart_8250.h uart_8250.c
-	gcc $(CFLAGS) -c uart_8250.c -o uart_8250.o
+serial: serial.h serial.c
+	gcc $(CFLAGS) -c serial.c -o serial.o
 
 gdt: gdt.c gdt.h
 	gcc $(CFLAGS) -c gdt.c -o gdt.o
@@ -23,8 +23,8 @@ irq: irq.c irq.h
 ps2: ps2.c ps2.h
 	gcc $(CFLAGS) -c ps2.c -o ps2.o
 
-kernel.elf: asm_entry kernel_entry uart_8250 gdt irq ps2
-	ld $(LDFLAGS) entry.o kernel_entry.o uart_8250.o gdt.o irq.o ps2.o -o kernel.elf
+kernel.elf: asm_entry kernel_entry serial gdt irq ps2
+	ld $(LDFLAGS) entry.o kernel_entry.o serial.o gdt.o irq.o ps2.o -o kernel.elf
 
 clean:
 	rm -f *.o *.elf
