@@ -1,5 +1,13 @@
 #include "uart_8250.h"
 #include "io_port.h"
+#include "irq.h"
+
+void serial_input_irq_handler()
+{
+    // called when data available
+    u8 in = inb(DEFAULT_COM);
+    serial_putc(in);
+}
 
 void serial_init()
 {
@@ -42,6 +50,16 @@ void serial_init()
     serial_put_hex(inb(DEFAULT_COM + COM_LSR));
     serial_puts("\n\r   MSR  : ");
     serial_put_hex(inb(DEFAULT_COM + COM_MSR));
+
+    // register input irq handler
+    if(DEFAULT_COM ==  COM1 || DEFAULT_COM == COM3)
+    {
+        irq_register_PIC_handler(serial_input_irq_handler, PIC_COM2);
+    }
+    else
+    {
+        irq_register_PIC_handler(serial_input_irq_handler, PIC_COM1);
+    }
 }
 
 u32 serial_get_buad()
