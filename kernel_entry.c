@@ -14,9 +14,7 @@ void kernel_main(void)
     serial_init();
     ps2_init();
     vga_init();
+    console();
 
-    while(1)
-    {
-        console();
-    }
+    // Shouldn't get here
 }

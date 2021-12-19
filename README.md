@@ -26,14 +26,16 @@ target will be the x86-64 architecture and will target the qemu virtual env.
 - Minimize magic numbers using pre-proc macros (as readability dictates)
 - All basic types will be those defined in types.h i.e. u32 or s16.
 
-  # Design
+# Design
 - Kernel will be composed of modules i.e. interrupt handler, serial driver,
   etc.
 - All interrupts are handled in kernel code
 - This implies all drivers will be in kernel which also implies monolithic
 - Core will not be interoperable and will target the i386 arch.
 - Drivers should be interoperable and should be able to target any arch
-- ?? Some notion of a unified and buffered io streams
+
+## Driver Model
+- ??
 
 # Modules
 - GDT

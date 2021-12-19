@@ -41,6 +41,8 @@
 // Bit 0 - Caps lock on?
 // Bit 1 - Shift held?
 // Bit 2 - Ouput caps?
+// Bit 3 - CTRL held?
+// Bit 4 - Alt held?
 struct keyboard_state
 {
     u8 state;

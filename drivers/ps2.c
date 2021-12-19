@@ -75,12 +75,40 @@ u8 is_alphabet_char(u8 in_ascii)
     return 0;
 }
 
+// Takes into account caps state of keyboard
+u8 convert_to_ascii(u8 in)
+{
+    // map input to actual ascii and output
+    u8 in_ascii = key_ascii_map[in];
+
+    // output caps if caps bit set in state and output char is a-z
+    if(( (state.state >> PS2_KEYBOARD_STATE_OUT_CAPS) & 0x1) && is_alphabet_char(in_ascii))
+    {
+        in_ascii -= 0x20;
+    }
+
+    return in_ascii;
+}
+
+// If top bit on, then release event
+u8 is_release_event(u8 in)
+{
+    return in & PS2_KEYBOARD_RELEASE_MASK;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Public functions
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+
 void ps2_keyboard_irq(void)
 {
     u8 in = inb(PS2_DATA_PORT);
 
     // Check if key released
-    if(in & PS2_KEYBOARD_RELEASE_MASK)
+    if( is_release_event(in) )
     {
         // key released event
 
@@ -119,17 +147,7 @@ void ps2_keyboard_irq(void)
         }
 
         update_caps_state();
-
-        // map input to actual ascii and output
-        u8 in_ascii = key_ascii_map[in];
-
-        // output caps if caps bit set in state and output char is a-z
-        if(( (state.state >> PS2_KEYBOARD_STATE_OUT_CAPS) & 0x1) && is_alphabet_char(in_ascii))
-        {
-            in_ascii -= 0x20;
-        }
-
-        serial_putc(in_ascii);
+        serial_putc(convert_to_ascii(in));
     }
     
 }

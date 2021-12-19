@@ -24,6 +24,5 @@ Actually need todo to move forward)
 - timer module
 - Unified buffered output stream (serial / VGA / network)
 - Unified buffered input stream (serial / keyboard)
-- reorg dirs
 - PCI driver
 - Network driver
