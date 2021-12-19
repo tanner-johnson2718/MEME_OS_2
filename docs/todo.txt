@@ -17,6 +17,7 @@ Wish List)
 - Actually pass processer state to irqs
 - implement + test isr exceptions 0-31
 - Implement the color modes beyond text mode for VGA driver
+- unified error handling
 
 Actually need todo to move forward)
 - MAsking funcs for irq

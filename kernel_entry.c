@@ -5,6 +5,7 @@
 #include "drivers/serial.h"
 #include "drivers/ps2.h"
 #include "drivers/vga.h"
+#include "apps/console.h"
 
 void kernel_main(void) 
 {
@@ -14,10 +15,8 @@ void kernel_main(void)
     ps2_init();
     vga_init();
 
-    // asm volatile("int $0x20");
-
     while(1)
     {
-        // IDLE
+        console();
     }
 }

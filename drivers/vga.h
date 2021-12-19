@@ -50,7 +50,14 @@
 #define VGA_LBROWN   0xE
 #define VGA_WHITE    0xF
 
+// VGA ERROR Codes
+#define VGA_OUT_BOUNDS_INDICES 0x1
+#define VGA_INVALID_COLOR      0x2
+
 void vga_init();
 void vga_textmode_putc(u8 x, u8 y, u8 c, u8 fg, u8 bg);
+u8 vga_textmode_getc(u8 x, u8 y);
+u8 vga_textmode_get_fg(u8 x, u8 y);
+u8 vga_textmode_get_bg(u8 x, u8 y);
 
 #endif
