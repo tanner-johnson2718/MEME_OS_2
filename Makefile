@@ -23,8 +23,11 @@ irq: core/irq.c core/irq.h
 ps2: drivers/ps2.c drivers/ps2.h
 	gcc $(CFLAGS) -c drivers/ps2.c -o ps2.o
 
-kernel.elf: asm_entry kernel_entry serial gdt irq ps2
-	ld $(LDFLAGS) entry.o kernel_entry.o serial.o gdt.o irq.o ps2.o -o kernel.elf
+vga: drivers/vga.c drivers/vga.h
+	gcc $(CFLAGS) -c drivers/vga.c -o vga.o
+
+kernel.elf: asm_entry kernel_entry serial gdt irq ps2 vga
+	ld $(LDFLAGS) *.o -o kernel.elf
 
 clean:
 	rm -f *.o *.elf

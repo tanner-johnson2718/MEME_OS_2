@@ -4,6 +4,7 @@
 #include "core/irq.h"
 #include "drivers/serial.h"
 #include "drivers/ps2.h"
+#include "drivers/vga.h"
 
 void kernel_main(void) 
 {
@@ -11,6 +12,7 @@ void kernel_main(void)
     irq_init();
     serial_init();
     ps2_init();
+    vga_init();
 
     // asm volatile("int $0x20");
 

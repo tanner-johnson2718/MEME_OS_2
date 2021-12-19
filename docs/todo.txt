@@ -16,6 +16,7 @@ Wish List)
 - Need .config file
 - Actually pass processer state to irqs
 - implement + test isr exceptions 0-31
+- Implement the color modes beyond text mode for VGA driver
 
 Actually need todo to move forward)
 - MAsking funcs for irq
@@ -23,6 +24,5 @@ Actually need todo to move forward)
 - Unified buffered output stream (serial / VGA / network)
 - Unified buffered input stream (serial / keyboard)
 - reorg dirs
-- VGA driver
 - PCI driver
 - Network driver
