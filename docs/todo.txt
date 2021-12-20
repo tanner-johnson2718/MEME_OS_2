@@ -18,11 +18,12 @@ Wish List)
 - implement + test isr exceptions 0-31
 - Implement the color modes beyond text mode for VGA driver
 - unified error handling
+- MAsking funcs for irq
 
 Actually need todo to move forward)
-- MAsking funcs for irq
 - timer module
 - Unified buffered output stream (serial / VGA / network)
 - Unified buffered input stream (serial / keyboard)
 - PCI driver
 - Network driver
+- CPU idle
