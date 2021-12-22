@@ -100,9 +100,6 @@ u8 is_release_event(u8 in)
 // Public functions
 ///////////////////////////////////////////////////////////////////////////////
 
-
-
-
 void ps2_keyboard_irq(void)
 {
     u8 in = inb(PS2_DATA_PORT);

@@ -22,8 +22,7 @@ Wish List)
 
 Actually need todo to move forward)
 - timer module
-- Unified buffered output stream (serial / VGA / network)
-- Unified buffered input stream (serial / keyboard)
+- Scheduler
 - PCI driver
 - Network driver
 - CPU idle
