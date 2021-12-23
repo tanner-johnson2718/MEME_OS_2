@@ -5,6 +5,7 @@
 struct idt_entry idt[256];
 struct idt_ptr idtp;
 void* irq_pic_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+void* irq_soft_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 void irq_idt_load()
 {
@@ -193,6 +194,127 @@ void irq_isr_sink47()
     asm volatile("iret");
 }
 
+void irq_common_soft_handler(u8 irq_num)
+{
+    if(irq_soft_handlers[irq_num])
+    {
+        void (*handler)() = irq_soft_handlers[irq_num];
+        handler();
+    }
+}
+
+void irq_isr_sink48()
+{
+    irq_common_soft_handler(0);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink49()
+{
+    irq_common_soft_handler(1);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink50()
+{
+    irq_common_soft_handler(2);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink51()
+{
+    irq_common_soft_handler(3);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink52()
+{
+    irq_common_soft_handler(4);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink53()
+{
+    irq_common_soft_handler(5);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink54()
+{
+    irq_common_soft_handler(6);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink55()
+{
+    irq_common_soft_handler(7);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink56()
+{
+    irq_common_soft_handler(8);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink57()
+{
+    irq_common_soft_handler(9);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink58()
+{
+    irq_common_soft_handler(10);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink59()
+{
+    irq_common_soft_handler(11);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink60()
+{
+    irq_common_soft_handler(12);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink61()
+{
+    irq_common_soft_handler(13);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink62()
+{
+    irq_common_soft_handler(14);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
+void irq_isr_sink63()
+{
+    irq_common_soft_handler(15);
+    asm volatile("leave");
+    asm volatile("iret");
+}
+
 void irq_register_handler(void (*handler)(void), u8 entry)
 {
     irq_idt_set_gate(entry, (u32) handler, GDT_KERNEL_CODE_SECTOR, 0x8E);
@@ -205,6 +327,16 @@ void irq_register_PIC_handler(void (*handler)(void), u8 entry)
         // registering a PIC handler
         irq_pic_handlers[entry - 0x20] = handler;
     }
+}
+
+void irq_register_soft(void (*handler)(void), u8 entry)
+{
+    if(entry < 0x30 && entry >= 0x40)
+    {
+        return;   // error
+    }
+
+    irq_soft_handlers[entry - 0x30] = handler;
 }
 
 // The first 32 exceptions are reserved but the 8259 PIC wants to generate
@@ -253,7 +385,7 @@ void irq_init()
         idt[i].base_hi = 0;
     }
 
-    // set up the first 48 exception interrupts
+    // set up the first 32 exception interrupts
     irq_register_handler(irq_isr_sink0, 0);
     irq_register_handler(irq_isr_sink1, 1);
     irq_register_handler(irq_isr_sink2, 2);
@@ -286,6 +418,8 @@ void irq_init()
     irq_register_handler(irq_isr_sink29, 29);
     irq_register_handler(irq_isr_sink30, 30);
     irq_register_handler(irq_isr_sink31, 31);
+
+    // PIC interrupts
     irq_register_handler(irq_isr_sink32, 32);
     irq_register_handler(irq_isr_sink33, 33);
     irq_register_handler(irq_isr_sink34, 34);
@@ -302,6 +436,24 @@ void irq_init()
     irq_register_handler(irq_isr_sink45, 45);
     irq_register_handler(irq_isr_sink46, 46);
     irq_register_handler(irq_isr_sink47, 47);
+
+    // soft interrupts
+    irq_register_handler(irq_isr_sink48, 48);
+    irq_register_handler(irq_isr_sink49, 49);
+    irq_register_handler(irq_isr_sink50, 50);
+    irq_register_handler(irq_isr_sink51, 51);
+    irq_register_handler(irq_isr_sink52, 52);
+    irq_register_handler(irq_isr_sink53, 53);
+    irq_register_handler(irq_isr_sink54, 54);
+    irq_register_handler(irq_isr_sink55, 55);
+    irq_register_handler(irq_isr_sink56, 56);
+    irq_register_handler(irq_isr_sink57, 57);
+    irq_register_handler(irq_isr_sink58, 58);
+    irq_register_handler(irq_isr_sink59, 59);
+    irq_register_handler(irq_isr_sink60, 60);
+    irq_register_handler(irq_isr_sink61, 61);
+    irq_register_handler(irq_isr_sink62, 62);
+    irq_register_handler(irq_isr_sink63, 63);
 
     // point the cpu to our IDT
     irq_idt_load();

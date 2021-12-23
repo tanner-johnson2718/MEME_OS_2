@@ -17,8 +17,8 @@ Wish List)
 - Actually pass processer state to irqs
 - implement + test isr exceptions 0-31
 - Implement the color modes beyond text mode for VGA driver
-- unified error handling
-- MAsking funcs for irq
+- SHould seperate out public apis that drivers export to user space
+- Have user space code actually run in usr space
 
 Actually need todo to move forward)
 - timer module
@@ -26,3 +26,5 @@ Actually need todo to move forward)
 - PCI driver
 - Network driver
 - CPU idle
+- Ways of measuring performance i.e. clock cycles
+- unified error handling

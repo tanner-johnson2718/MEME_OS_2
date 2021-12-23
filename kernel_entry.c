@@ -14,7 +14,6 @@ void kernel_main(void)
     serial_init();
     ps2_init();
     vga_init();
-    console();
 
     // Shouldn't get here
 }

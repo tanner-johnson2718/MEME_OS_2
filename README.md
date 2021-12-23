@@ -44,11 +44,11 @@ target will be the x86 architecture and will target the qemu virtual env.
 - The main CPU thread sits idle
 - Interrupts drive all comptutation and scheduling events
 - The driver / scheuler model follows a PUB / SUB modole where applications 
-  (subs) suncribe to data streams from drivers (publishers).
+  (subs) subcribe to data streams from drivers (publishers).
 - Interrupts 0-31 are CPU generated excpetions and do not follow this model
 - Interrupts 32-47 are PIC generated interrupts for things such as keyboard, 
   serial port, etc.
-- Interrupts 48 - 256 will be reserved for software generated interrupts
+- Interrupts 48 - 63 will be reserved for software generated interrupts
 - For interrupts 32+, the irq base handler is called
 - Drivers register their device specific routines using irq public functions
   which are subsequently called by the base handler. 
