@@ -9,11 +9,17 @@
 
 void kernel_main(void) 
 {
+    // Set up core i.e. GDT and IDT
     gdt_install();
     irq_init();
+
+    // Set up drivers
     serial_init();
     ps2_init();
     vga_init();
+
+    // Turn interrupts on to activate system
+    irq_on();
 
     // Shouldn't get here
 }

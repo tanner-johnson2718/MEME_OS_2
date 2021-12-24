@@ -104,9 +104,10 @@ void irq_register_PIC_handler(void (*handler)(void), u8 entry);
 
 // Register a soft interrupt i.e. irq 48-63
 void irq_register_soft(void (*handler)(void), u8 entry);
+void irq_raise(u8  entry);
 
-// public API funcs to clear or mask certain PIC interrupts
-void irq_mask_PIC(u8 entry);
-void irq_clear_mask_PIC(u8 entry);
+// public API funcs to turn on and off interrupts
+void irq_on();
+void irq_off();
 
 #endif

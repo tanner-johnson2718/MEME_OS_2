@@ -6,6 +6,7 @@ struct idt_entry idt[256];
 struct idt_ptr idtp;
 void* irq_pic_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 void* irq_soft_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+void* irq_soft_raise[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 void irq_idt_load()
 {
@@ -315,6 +316,98 @@ void irq_isr_sink63()
     asm volatile("iret");
 }
 
+void irq_raise48()
+{
+    asm volatile("int $48");
+}
+
+void irq_raise49()
+{
+    asm volatile("int $49");
+}
+
+void irq_raise50()
+{
+    asm volatile("int $50");
+}
+
+void irq_raise51()
+{
+    asm volatile("int $51");
+}
+
+void irq_raise52()
+{
+    asm volatile("int $52");
+}
+
+void irq_raise53()
+{
+    asm volatile("int $53");
+}
+
+void irq_raise54()
+{
+    asm volatile("int $54");
+}
+
+void irq_raise55()
+{
+    asm volatile("int $55");
+}
+
+void irq_raise56()
+{
+    asm volatile("int $56");
+}
+
+void irq_raise57()
+{
+    asm volatile("int $57");
+}
+
+void irq_raise58()
+{
+    asm volatile("int $58");
+}
+
+void irq_raise59()
+{
+    asm volatile("int $59");
+}
+
+void irq_raise60()
+{
+    asm volatile("int $60");
+}
+
+void irq_raise61()
+{
+    asm volatile("int $61");
+}
+
+void irq_raise62()
+{
+    asm volatile("int $62");
+}
+
+void irq_raise63()
+{
+    asm volatile("int $63");
+}
+
+void irq_raise(u8  entry)
+{
+    if(entry >= 0x30 && entry < 0x40)
+    {
+        if(irq_soft_raise[entry - 0x30])
+        {
+            void (*raise)() = irq_soft_raise[entry - 0x30];
+            raise();
+        }
+    }
+}
+
 void irq_register_handler(void (*handler)(void), u8 entry)
 {
     irq_idt_set_gate(entry, (u32) handler, GDT_KERNEL_CODE_SECTOR, 0x8E);
@@ -455,12 +548,38 @@ void irq_init()
     irq_register_handler(irq_isr_sink62, 62);
     irq_register_handler(irq_isr_sink63, 63);
 
+    // set up soft raise code
+    irq_soft_raise[0] = irq_raise48;
+    irq_soft_raise[1] = irq_raise49;
+    irq_soft_raise[2] = irq_raise50;
+    irq_soft_raise[3] = irq_raise51;
+    irq_soft_raise[4] = irq_raise52;
+    irq_soft_raise[5] = irq_raise53;
+    irq_soft_raise[6] = irq_raise54;
+    irq_soft_raise[7] = irq_raise55;
+    irq_soft_raise[8] = irq_raise56;
+    irq_soft_raise[9] = irq_raise57;
+    irq_soft_raise[10] = irq_raise58;
+    irq_soft_raise[11] = irq_raise59;
+    irq_soft_raise[12] = irq_raise60;
+    irq_soft_raise[13] = irq_raise61;
+    irq_soft_raise[14] = irq_raise62;
+    irq_soft_raise[15] = irq_raise63;
+
     // point the cpu to our IDT
     irq_idt_load();
 
     // Remap the PIC 8259 interrupts to 32-47
     irq_remap();
+    
+}
 
-    // turn on interrupts
+void irq_on()
+{
     asm volatile("sti");
+}
+
+void irq_off()
+{
+    asm volatile("cli");
 }
