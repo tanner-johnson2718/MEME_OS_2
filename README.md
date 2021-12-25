@@ -3,12 +3,6 @@ First MEME OS repository will be used to examine the Linux kernel. This project
 will be the actual creation of an OS from as scratch as possible. For now
 target will be the x86 architecture and will target the qemu virtual env.
 
-# Boot / Build Process (Pre-Kernel)
-- Linker Map
-- Build Process
-- ELF file
-- Multiboot spec + magic number header
-
 # Coding Style
 - Distinct Modules will have their own .c and .h file(s) whose name the 
   Modules name i.e. serial.h
@@ -38,26 +32,32 @@ target will be the x86 architecture and will target the qemu virtual env.
 ## Driver / Scheduler Model (The Completely Event Driven Scheduler)
 - The main CPU thread sits idle
 - Interrupts drive all comptutation and scheduling events
-- The driver / scheuler model follows a PUB / SUB modole where applications 
+- The driver / scheduler follows a PUB / SUB model where applications 
   (subs) subcribe to data streams from drivers (publishers).
 - Interrupts 0-31 are CPU generated excpetions and do not follow this model
 - Interrupts 32-47 are PIC generated interrupts for things such as keyboard, 
   serial port, etc.
-- Interrupts 48 - 63 will be reserved for software generated interrupts
-- For interrupts 32+, the irq base handler is called
-- Drivers register their device specific routines using irq public functions
-  which are subsequently called by the base handler. 
-- Drivers are responsible for publishing data
+- Interrupts 48-63 are reserved for software interrupts.
+- Drivers register their device specific routines w/ the irq module
+- Drivers are responsible for publishing data w/ the scheduler module
 - Scheduler has public functions for pushing driver events onto scheduler
   maintained buffers
-- Driver returns to irq base handler, which subsequently returns
-- Main CPU thread resumes execution and is kicked out of its idle
-- Main CPU thread invokes scheduler to check for any new publications
-- Scheduler invokes any applications that are subscribed to the new pubs
-- When all applications yield the scheduler will check if any more data pubs
-  came in and if not will idle.
-- ?????? the irq base handler and driver handler cannot be interrupted, but the
-  scheduler and applications can make sure this is handled.
+
+## Interrupt Table
+
+| Interrupt #      | Description                    | Driver |
+| -----------      | -----------                    | ----------- |
+| 0-31             | CPU Generated Exceptions       | None  |
+| 32               | Timer                          | Timer |
+| 33               | Keyboard input                 | ps2   |
+| 34               | Slave PIC                      | None  |
+| 35               | COM 1                          | serial |
+| 36               | COM 2                          | serial |
+| 37 - 63          | Unimplemented                  | None   |
+
+## Data IN Model
+
+## Data OUT Model
 
 # Modules
 - GDT
@@ -67,3 +67,4 @@ target will be the x86 architecture and will target the qemu virtual env.
 - VGA
 - Timer
 - Console
+- Scheduler
