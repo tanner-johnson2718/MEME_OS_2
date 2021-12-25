@@ -23,19 +23,8 @@ void kernel_main(void)
     // Turn interrupts on to activate system
     irq_on();
 
-    u32 time_prev = 0;
-    u32 i = 0;
     while(1)
     {
-        u32 time = timer_get_time_ms();
-        
-        if( (time % 1000 == 0) && (time != time_prev) )
-        {
-            vga_textmode_putc(i, 0, 'a', VGA_BLUE, VGA_RED);
-            ++i;
-        }
-
-        time_prev = time;
         
     }
 }

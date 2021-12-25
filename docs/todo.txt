@@ -25,10 +25,10 @@ Wish List)
 - Have API more distinct and well defined.
 
 Actually need todo to move forward)
-- timer module
 - Scheduler
 - PCI driver
 - Network driver
 - CPU idle
 - Ways of measuring performance i.e. clock cycles
 - unified error handling
+- Locks / other sync primitives

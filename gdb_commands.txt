@@ -1,5 +1,4 @@
 set architecture i386
 target remote localhost:1234
 b kernel_main
-b irq_isr_sink32
 continue
