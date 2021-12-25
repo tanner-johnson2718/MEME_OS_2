@@ -38,7 +38,7 @@ target will be the x86 architecture and will target the qemu virtual env.
 - Drivers should be interoperable and should be able to target any arch
 - For know will be sinlge core (TODO add SMP support)
 - Non-Pre-emptive : applications are expected to yield and will not be 
-  interrupted
+  interrupted for scheduling purposes
 
 ## Driver / Scheduler Model (The Completely Event Driven Scheduler)
 - The main CPU thread sits idle
