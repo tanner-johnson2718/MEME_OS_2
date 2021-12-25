@@ -456,8 +456,8 @@ void irq_remap(void)
 	outb(IRQ_PIC_SLAVE_DATA_PORT, IRQ_PIC_ICW4_8086);
  
     // clear saved masks.
-	outb(IRQ_PIC_MASTER_DATA_PORT, 1);   
-	outb(IRQ_PIC_SLAVE_DATA_PORT, 1);
+	outb(IRQ_PIC_MASTER_DATA_PORT, 0);   
+	outb(IRQ_PIC_SLAVE_DATA_PORT, 0);
 }
 
 void irq_init()

@@ -70,4 +70,5 @@ target will be the x86 architecture and will target the qemu virtual env.
 - SERIAL
 - PS2
 - VGA
+- Timer
 - Console
