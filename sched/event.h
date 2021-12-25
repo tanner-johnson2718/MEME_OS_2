@@ -1,11 +1,16 @@
-#ifndef MEME_EVENT
-#define MEME_EVENT
+#ifndef MEME_SCHED_EVENT
+#define MEME_SCHED_EVENT
 
 #include "core/types.h"
 
 // Set an arbitrary data size limit for an event message
 // set s.t. the overal event_t size is 256 bytes
-#define EVENT_DATA_SIZE 236
+#define EVENT_DATA_SIZE 240
+
+#define SCHED_PS2_ID 0
+#define SCHED_SERIAL_ID 1
+#define SCHED_TIMER_ID 2
+#define SCHED_VGA_ID 3
 
 typedef struct
 {
@@ -13,11 +18,7 @@ typedef struct
     u32 size;
     u32 time_added;
     u32 time_popped;
-    u32 modID_pub;      // Whose pushing this event
-    u32 modID_sub;      // Whose popping and handling the event
+    u32 driverID;      // driver associated with this event
 } event_t;
-
-// returns a module ID
-u32 event_register_module();
 
 #endif

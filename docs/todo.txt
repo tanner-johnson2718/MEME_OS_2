@@ -23,8 +23,10 @@ Wish List)
 - IRQ code should be cleaned up and set standard for all modules
 - Like wise with the scheduler
 - Have API more distinct and well defined.
+- Need to organize shit better
 
 Actually need todo to move forward)
+- Every module needs to call the register module
 - Scheduler
 - PCI driver
 - Network driver

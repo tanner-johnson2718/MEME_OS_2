@@ -29,10 +29,13 @@ vga: drivers/vga.c drivers/vga.h
 timer: drivers/timer.c drivers/timer.h
 	gcc $(CFLAGS) -c drivers/timer.c -o timer.o
 
+sched: sched/*
+	gcc $(CFLAGS) -c sched/sched.c -o sched.o
+
 console: apps/console.c apps/console.h
 	gcc $(CFLAGS) -c apps/console.c -o console.o
 
-kernel.elf: asm_entry kernel_entry serial gdt irq ps2 vga console timer
+kernel.elf: asm_entry kernel_entry serial gdt irq ps2 vga console timer sched
 	ld $(LDFLAGS) *.o -o kernel.elf
 
 clean:
