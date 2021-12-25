@@ -9,11 +9,6 @@ target will be the x86 architecture and will target the qemu virtual env.
 - ELF file
 - Multiboot spec + magic number header
 
-# Boot Process (Kernel)
-- Serial port Init
-- GDT Init
-- IRQ Init
-
 # Coding Style
 - Distinct Modules will have their own .c and .h file(s) whose name the 
   Modules name i.e. serial.h
