@@ -2,6 +2,7 @@
 First MEME OS repository will be used to examine the Linux kernel. This project
 will be the actual creation of an OS from as scratch as possible. For now
 target will be the x86 architecture and will target the qemu virtual env.
+This is sort of a "make it up" as you go, depth first search of OS dev.
 
 # Coding Style
 - Distinct Modules will have their own .c and .h file(s) whose name the 
@@ -30,30 +31,33 @@ target will be the x86 architecture and will target the qemu virtual env.
   interrupted for scheduling purposes
 
 ## Driver / Scheduler Model (The Completely Event Driven Scheduler)
-- The main CPU thread sits idle
 - Interrupts drive all comptutation and scheduling events
-- The driver / scheduler follows a PUB / SUB model where applications 
-  (subs) subcribe to data streams from drivers (publishers).
-- Interrupts 0-31 are CPU generated excpetions and do not follow this model
-- Interrupts 32-47 are PIC generated interrupts for things such as keyboard, 
-  serial port, etc.
-- Interrupts 48-63 are reserved for software interrupts.
+- The driver / scheduler follows a PUB / SUB model.
+  - On input events, an interrupt triggers driver code that publishes data to 
+    be consumed by a publisher i.e. an application.
+  - On output events an application pulishes data and raises an interrupt which
+    triggers driver code (subscriber) which outputs the data on the medium.
 - Drivers register their device specific routines w/ the irq module
-- Drivers are responsible for publishing data w/ the scheduler module
+  - This includes both input and output interrupts.
+- Drivers are responsible for publishing data w/ the scheduler module (on input events)
 - Scheduler has public functions for pushing driver events onto scheduler
-  maintained buffers
+  maintained buffers (on input events)
+- Likewise, Scheduler has public functions for pushing output data onto scheduler
+  maintained buffers (on output events)
+- Scheduler also as public functions for raising output ready interrupts
 
 ## Interrupt Table
 
-| Interrupt #      | Description                    | Driver |
-| -----------      | -----------                    | ----------- |
-| 0-31             | CPU Generated Exceptions       | None  |
-| 32               | Timer                          | Timer |
-| 33               | Keyboard input                 | ps2   |
-| 34               | Slave PIC                      | None  |
-| 35               | COM 1                          | serial |
-| 36               | COM 2                          | serial |
-| 37 - 63          | Unimplemented                  | None   |
+| Interrupt #      | Description                    | Type        | Driver |
+| -----------      | -----------                    | ----------- | ----------- |
+| 0-31             | CPU Generated Exceptions       | Exception   | None  |
+| 32               | Timer                          | PIC         | Timer |
+| 33               | Keyboard input                 | PIC         | ps2   |
+| 34               | Slave PIC                      | PIC         | None  |
+| 35               | COM 1                          | PIC         | serial |
+| 36               | COM 2                          | PIC         | serial |
+| 37 - 47          | Unimplemented                  | PIC         | None   |
+| 48-63            | Unimplemented                  | Soft        | None   |
 
 ## Data IN Model
 
