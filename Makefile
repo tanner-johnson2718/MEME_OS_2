@@ -26,10 +26,13 @@ ps2: drivers/ps2.c drivers/ps2.h
 vga: drivers/vga.c drivers/vga.h
 	gcc $(CFLAGS) -c drivers/vga.c -o vga.o
 
+timer: drivers/timer.c drivers/timer.h
+	gcc $(CFLAGS) -c drivers/timer.c -o timer.o
+
 console: apps/console.c apps/console.h
 	gcc $(CFLAGS) -c apps/console.c -o console.o
 
-kernel.elf: asm_entry kernel_entry serial gdt irq ps2 vga console
+kernel.elf: asm_entry kernel_entry serial gdt irq ps2 vga console timer
 	ld $(LDFLAGS) *.o -o kernel.elf
 
 clean:
