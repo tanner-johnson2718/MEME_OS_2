@@ -3,7 +3,7 @@
 #include "core/io_port.h"
 #include "core/irq.h"
 
-u32 time_ms = 0;
+u32 time_ms = 1;   
 
 void set_timer_phase(u32 hz)
 {
