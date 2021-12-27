@@ -20,6 +20,7 @@ Actually need todo to move forward)
    - DOC!!!
    - unified error handling
    - Add warning output when bad shit happens
+   - Add VGA docs
 - Ways of measuring performance i.e. clock cycles
 - Network driver
 - CPU idle
