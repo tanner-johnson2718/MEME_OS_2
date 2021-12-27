@@ -25,7 +25,7 @@ The work flow for an IO event, and subsequently a scheduler invocation are)
 - Driver code is responible for publishing input data w/ scheduler
   - This puts an event on scheduler maintained buffers
 - Driver code returns, IRQ code cleans up (sends EOI to PIC, etc)
-- ///// The following is interruptable \\\\\
+  - Now entering interruptable territory 
 - Main CPU thread is awoken and the scheduler thread is invoked
 - Scheduler wakes up all applications that are waiting on data that was published
 - Applications execute and publish output data, targeting a driver
