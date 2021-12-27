@@ -6,7 +6,7 @@
 // Test
 #include "drivers/serial.h"
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 64  // Just needs to big enough to clear on an interrupt event
 
 event_t in_buffer[BUFFER_SIZE] = {0};    // 64MB
 event_t out_buffer[BUFFER_SIZE] = {0};   // 64MB
