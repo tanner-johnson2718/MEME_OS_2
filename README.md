@@ -26,11 +26,12 @@ The work flow for an IO event, and subsequently a scheduler invocation are)
 - ///// The following is interruptable \\\\\
 - Main CPU thread is awoken and the scheduler thread is invoked
 - Scheduler wakes up all applications that are waiting on data that was published
-- Applications execut and publish output data, targeting a driver
+- Applications execute and publish output data, targeting a driver
 - All Applications yield (of their own accord)
 - Scheduler ensures all input data is cleared from the buffer and resets the input buffer
-- Scheduler invokes driver code to out put application published data
-- Scheduler ensures buffer is clear and resets it
+- Scheduler invokes driver code to output application published data
+- Scheduler ensures output buffer is clear and resets it
+- Main CPU thread invoked and returns to idle
 
 ## Interrupt Table
 
