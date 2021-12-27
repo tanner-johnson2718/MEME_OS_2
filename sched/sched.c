@@ -3,7 +3,10 @@
 #include "sched/event.h"
 #include "drivers/timer.h"
 
-#define BUFFER_SIZE 256*1024   // in events which are 256b
+// Test
+#include "drivers/serial.h"
+
+#define BUFFER_SIZE 3   // in events which are 256b
 
 event_t in_buffer[BUFFER_SIZE] = {0};    // 64MB
 event_t out_buffer[BUFFER_SIZE] = {0};   // 64MB
@@ -17,12 +20,12 @@ event_t* next_out = out_buffer;
 // helper
 //-----------------------------------------------------------------------------
 
-void inc_pointer(event_t* p, event_t* wrap)
+void inc_pointer(event_t** p, event_t* wrap)
 {
-    ++p;
-    if((event_t*)p == (event_t*)wrap + BUFFER_SIZE)
+    ++(*p);
+    if((event_t*)(*p) == (event_t*)wrap + BUFFER_SIZE)
     {
-        p = wrap;
+        (*p) = wrap;
     }
 }
 
@@ -33,13 +36,25 @@ void clean_buffers()
     // Check if next_in needs updating
     if(next_in->time_added != 0)
     {
-        inc_pointer(next_in, in_buffer);
+        inc_pointer(&next_in, in_buffer);
+
+        // buffer full, pop oldest
+        if(next_in == oldest_in)
+        {
+            inc_pointer(&oldest_in, in_buffer);
+        }
     }
 
     // Check if next_out needs updating
     if(next_out->time_added != 0)
     {
-        inc_pointer(next_out, out_buffer);
+        inc_pointer(&next_out, out_buffer);
+
+        // buffer full, pop oldest
+        if(next_out == oldest_out)
+        {
+            inc_pointer(&oldest_out, out_buffer);
+        }
     }
 
     // check if oldest_in needs updating
@@ -53,7 +68,7 @@ void clean_buffers()
                 break;    // done, found oldest un-popped
             }
 
-            inc_pointer(oldest_in, in_buffer);
+            inc_pointer(&oldest_in, in_buffer);
         }
     }
 
@@ -68,13 +83,18 @@ void clean_buffers()
                 break;    // done, found oldest un-popped
             }
 
-            inc_pointer(oldest_out, out_buffer);
+            inc_pointer(&oldest_out, out_buffer);
         }
     }
 }
 
-void generic_pub(u8* data, u32 size, u32 driverID, event_t* next)
+u8 generic_pub(u8* data, u32 size, u32 driverID, event_t* next)
 {
+    if(size > EVENT_DATA_SIZE)
+    {
+        return 0;
+    }
+
     // Copy data
     u32 i = 0;
     u8* target = (u8*) &(next->data);
@@ -91,6 +111,8 @@ void generic_pub(u8* data, u32 size, u32 driverID, event_t* next)
 
     // Update pointers
     clean_buffers();
+
+    return 1;
 }
 
 u8 generic_pop(u32 driverID, u8* buffer, u32 size, event_t* next, event_t* oldest, event_t* event_buffer)
@@ -107,7 +129,7 @@ u8 generic_pop(u32 driverID, u8* buffer, u32 size, event_t* next, event_t* oldes
             break;
         }
 
-        inc_pointer(temp, event_buffer);
+        inc_pointer(&temp, event_buffer);
     }
 
     if(!ret)
@@ -134,26 +156,92 @@ u8 generic_pop(u32 driverID, u8* buffer, u32 size, event_t* next, event_t* oldes
 // Driver
 //-----------------------------------------------------------------------------
 
-void sched_driver_publish_IN_event(u8* data, u32 size, u32 driverID)
+u8 sched_driver_publish_IN_event(u8* data, u32 size, u32 driverID)
 {   
-    generic_pub(data, size, driverID, next_in);
+    return generic_pub(data, size, driverID, next_in);
 }
 
-void sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
+u8 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
 {
-    return generic_pop(driverID, size, buffer, next_in, oldest_in, in_buffer);
+    return generic_pop(driverID, buffer, size, next_in, oldest_in, in_buffer);
 }
 
 //-----------------------------------------------------------------------------
 // App
 //-----------------------------------------------------------------------------
 
-void sched_app_publish_OUT_event(u8* data, u32 size, u32 driverID)
+u8 sched_app_publish_OUT_event(u8* data, u32 size, u32 driverID)
 {
-    generic_pub(data, size, driverID, next_out);
+    return generic_pub(data, size, driverID, next_out);
 }
 
 u8 sched_app_pop_IN_event(u32 driverID, u8* buffer, u32 size)
 {
-    return generic_pop(driverID, size, buffer, next_in, oldest_in, in_buffer);
+    return generic_pop(driverID, buffer, size, next_in, oldest_in, in_buffer);
+}
+
+//-----------------------------------------------------------------------------
+// Test
+//-----------------------------------------------------------------------------
+
+void dump_buffer(event_t* buffer, event_t* next, event_t* oldest)
+{
+    serial_puts("Base Addr   = ");
+    serial_put_hex((u32) buffer);
+    serial_puts("\n\r");
+    serial_puts("Oldest Addr = ");
+    serial_put_hex((u32) oldest);
+    serial_puts("\n\r");
+    serial_puts("Next Addr   = ");
+    serial_put_hex((u32) next);
+    serial_puts("\n\r");
+    serial_puts("\n\r");
+    
+    event_t* temp = oldest;
+    while(temp != next)
+    {
+        serial_puts("   Addr   = ");
+        serial_put_hex((u32) temp);
+        serial_puts("\n\r");
+
+        serial_puts("   Data   = ");
+        u32 i = 0;
+        u8* target = (u8*) &(temp->data);
+        for(; i < temp->size; ++i)
+        {
+            serial_put_hex((u32) target[i]);
+            serial_puts(" ");
+        }
+        serial_puts("\n\r");
+
+        serial_puts("   Size  = ");
+        serial_put_hex((u32) temp->size);
+        serial_puts("\n\r");
+
+        serial_puts("   Time A = ");
+        serial_put_hex((u32) temp->time_added);
+        serial_puts("\n\r");
+
+        serial_puts("   Time P = ");
+        serial_put_hex((u32) temp->time_popped);
+        serial_puts("\n\r");
+
+        serial_puts("   Dri ID = ");
+        serial_put_hex((u32) temp->driverID);
+        serial_puts("\n\r");
+        serial_puts("\n\r");
+
+        inc_pointer(&temp, in_buffer);
+    }
+}
+
+void sched_dump_event_buffers()
+{
+    serial_puts("In Buffer)\n\r");
+    dump_buffer(in_buffer, next_in, oldest_in);
+    serial_puts("\n\r");
+
+    serial_puts("Out Buffer)\n\r");
+    dump_buffer(out_buffer, next_out, oldest_out);
+    serial_puts("\n\r");
 }

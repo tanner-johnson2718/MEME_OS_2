@@ -24,14 +24,17 @@ Wish List)
 - Like wise with the scheduler
 - Have API more distinct and well defined.
 - Need to organize shit better
-- COuld add a timeout to sched event buffers
 
 Actually need todo to move forward)
 - Every module needs to call the register module
-- Scheduler
 - PCI driver
 - Network driver
 - CPU idle
 - Ways of measuring performance i.e. clock cycles
 - unified error handling
 - Locks / other sync primitives
+
+Scheduler)
+- timeout?
+- actually implement the calling user space code
+- don't allow pubs unless there is a sub?
