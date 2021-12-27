@@ -21,6 +21,8 @@ Actually need todo to move forward)
    - unified error handling
    - Add warning output when bad shit happens
    - Add VGA docs
+   - rethink code stlye doc
+   - rethink module thing
 - Ways of measuring performance i.e. clock cycles
 - Network driver
 - CPU idle
