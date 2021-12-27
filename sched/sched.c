@@ -6,7 +6,7 @@
 // Test
 #include "drivers/serial.h"
 
-#define BUFFER_SIZE 3   // in events which are 256b
+#define BUFFER_SIZE 1024
 
 event_t in_buffer[BUFFER_SIZE] = {0};    // 64MB
 event_t out_buffer[BUFFER_SIZE] = {0};   // 64MB
@@ -115,7 +115,7 @@ u8 generic_pub(u8* data, u32 size, u32 driverID, event_t* next)
     return 1;
 }
 
-u8 generic_pop(u32 driverID, u8* buffer, u32 size, event_t* next, event_t* oldest, event_t* event_buffer)
+u32 generic_pop(u32 driverID, u8* buffer, u32 size, event_t* next, event_t* oldest, event_t* event_buffer)
 {
     u8 ret = 0;
 
@@ -140,7 +140,7 @@ u8 generic_pop(u32 driverID, u8* buffer, u32 size, event_t* next, event_t* oldes
     // found element to pop, copy contents to app buffer and set pop time
     u32 i = 0;
     u8* target = (u8*) &(temp->data);
-    for(; i < size; ++i)
+    for(; i < size && i < temp->size; ++i)
     { 
         buffer[i] = target[i];
     }
@@ -149,7 +149,8 @@ u8 generic_pop(u32 driverID, u8* buffer, u32 size, event_t* next, event_t* oldes
     // clean up buffer to remove popped elements and update pointers
     clean_buffers();
 
-    return ret;
+    // return num bytes read
+    return i;   
 }
 
 //-----------------------------------------------------------------------------
@@ -161,7 +162,7 @@ u8 sched_driver_publish_IN_event(u8* data, u32 size, u32 driverID)
     return generic_pub(data, size, driverID, next_in);
 }
 
-u8 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
+u32 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
 {
     return generic_pop(driverID, buffer, size, next_in, oldest_in, in_buffer);
 }
@@ -175,7 +176,7 @@ u8 sched_app_publish_OUT_event(u8* data, u32 size, u32 driverID)
     return generic_pub(data, size, driverID, next_out);
 }
 
-u8 sched_app_pop_IN_event(u32 driverID, u8* buffer, u32 size)
+u32 sched_app_pop_IN_event(u32 driverID, u8* buffer, u32 size)
 {
     return generic_pop(driverID, buffer, size, next_in, oldest_in, in_buffer);
 }

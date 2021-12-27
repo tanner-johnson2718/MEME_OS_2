@@ -34,6 +34,15 @@ void kernel_main(void)
     sched_driver_publish_IN_event(data, 4, 2);
     sched_driver_publish_IN_event(data, 4, 3);
     sched_dump_event_buffers();
+    serial_puts("------------------------------");
+
+    sched_app_pop_IN_event(1, data, 4);
+    sched_app_pop_IN_event(2, data, 4);
+    sched_dump_event_buffers();
+    serial_puts("------------------------------");
+
+    sched_app_pop_IN_event(0, data, 4);
+    sched_dump_event_buffers();
 
     while(1)
     {

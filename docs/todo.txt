@@ -35,6 +35,6 @@ Actually need todo to move forward)
 - Locks / other sync primitives
 
 Scheduler)
-- timeout?
 - actually implement the calling user space code
-- don't allow pubs unless there is a sub?
+- don't allow pubs unless there is a sub
+- ensure buffers are cleared with each interrupt invocation

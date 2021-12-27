@@ -29,7 +29,7 @@ vga: drivers/vga.c drivers/vga.h
 timer: drivers/timer.c drivers/timer.h
 	gcc $(CFLAGS) -c drivers/timer.c -o timer.o
 
-sched: sched/*
+sched: sched/sched.c sched/app_api.h sched/driver_api.h sched/event.h
 	gcc $(CFLAGS) -c sched/sched.c -o sched.o
 
 console: apps/console.c apps/console.h
