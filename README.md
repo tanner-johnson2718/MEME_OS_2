@@ -8,15 +8,17 @@ This is sort of a "make it up" as you go, depth first search of OS dev.
 - Kernel will be composed of modules i.e. interrupt handler, serial driver,
   etc.
     - eh, is this really even enforced, what about sched?
-- All interrupts are handled in kernel code
-- This implies all drivers will be in kernel mode which also implies monolithic
+- Kernel is monolithic and all drivers and intial IRQ handlers reside in kernel.
 - For know will be sinlge core (TODO add SMP support)
 - Non-Pre-emptive : applications are expected to yield and will not be 
   interrupted for scheduling purposes
-- Interrupts drive all comptutation and scheduling events
-- IO events form the basis of the OS 
+- Interrupts drive all comptutation and scheduling events and IO events form the basis of the OS
+- Kernel space has a public API which includes drivers
+- User space only communciates with the kernel via message passing through the
+  scheduler i.e. the public API the scheduler exports to user space.
+  - The scheduler and eventually the mmu may be bundled into a "middle-ware" layer
 
-## Scheduler Model (The Completely Event Driven Scheduler / IO Scheduler)
+## Scheduler Model (The Completely IO Driven Scheduler)
 The work flow for an IO event, and subsequently a scheduler invocation are)
 - Hardware (TODO software later) generates an interrupt
 - IRQ module catches it and calls driver code registered to handle that interrupt
@@ -32,6 +34,12 @@ The work flow for an IO event, and subsequently a scheduler invocation are)
 - Scheduler invokes driver code to output application published data
 - Scheduler ensures output buffer is clear and resets it
 - Main CPU thread invoked and returns to idle
+- Finally since the scheduler is interruptable, it must be aware of the interrupt
+  depth and this situation accordingly
+
+## Data Model
+
+## Kernel Block Diagram
 
 ## Interrupt Table
 
@@ -46,7 +54,6 @@ The work flow for an IO event, and subsequently a scheduler invocation are)
 | 37 - 47          | Unimplemented                  | PIC         | None   |
 | 48-63            | Unimplemented                  | Soft        | None   |
 
-## Data Model
 
 # Modules??
 - GDT

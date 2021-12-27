@@ -23,6 +23,7 @@ Actually need todo to move forward)
    - Add VGA docs
    - rethink code stlye doc
    - rethink module thing
+   - driver ID needs to be rethunk
 - Ways of measuring performance i.e. clock cycles
 - Network driver
 - CPU idle

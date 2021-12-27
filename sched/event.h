@@ -7,6 +7,7 @@
 // set s.t. the overal event_t size is 256 bytes
 #define EVENT_DATA_SIZE 240
 
+// Driver ID's so that we can target a specific driver
 #define SCHED_PS2_ID 0
 #define SCHED_SERIAL_ID 1
 #define SCHED_TIMER_ID 2
