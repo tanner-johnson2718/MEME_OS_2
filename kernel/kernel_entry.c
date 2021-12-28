@@ -1,15 +1,14 @@
 // Entry point for the kernel
-#include "core/gdt.h"
-#include "core/types.h"
-#include "core/irq.h"
-#include "drivers/serial.h"
-#include "drivers/ps2.h"
-#include "drivers/vga.h"
-#include "drivers/timer.h"
-#include "apps/console.h"
+#include "gdt.h"
+#include "types.h"
+#include "irq.h"
+#include "serial.h"
+#include "ps2.h"
+#include "vga.h"
+#include "timer.h"
 
-#include "sched/driver_api.h"
-#include "sched/app_api.h"
+#include "driver_api.h"
+#include "app_api.h"
 
 void kernel_main(void) 
 {

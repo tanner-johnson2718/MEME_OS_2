@@ -1,11 +1,11 @@
-#include "sched/app_api.h"
-#include "sched/driver_api.h"
-#include "sched/event.h"
-#include "sched/sched.h"
-#include "drivers/timer.h"
+#include "app_api.h"
+#include "driver_api.h"
+#include "event.h"
+#include "sched.h"
+#include "timer.h"
 
 // Test
-#include "drivers/serial.h"
+#include "serial.h"
 
 // Just needs to big enough to clear on an interrupt event. Ideally
 // should fit on a L3 cache line to avoid perf issues of O(n) scans

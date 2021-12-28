@@ -1,6 +1,8 @@
 #ifndef MEME_VGA
 #define MEME_VGA
 
+#include "types.h"
+
 // ?? 
 #define VGA_REG0         0x3C0
 #define VGA_REG1         0x3C1

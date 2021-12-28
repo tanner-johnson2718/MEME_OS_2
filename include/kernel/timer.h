@@ -1,7 +1,7 @@
 #ifndef MEME_TIMER
 #define MEME_TIMER
 
-#include "core/types.h"
+#include "types.h"
 
 #define TIMER_MAX_CLOCK 1193180
 #define TIMER_PORT0 0x40

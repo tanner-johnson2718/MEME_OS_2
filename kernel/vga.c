@@ -1,5 +1,5 @@
-#include "core/types.h"
-#include "drivers/vga.h"
+#include "types.h"
+#include "vga.h"
 
 u16* get_loc_text_buffer(u8 i, u8 j)
 {

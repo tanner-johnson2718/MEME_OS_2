@@ -1,7 +1,7 @@
 #ifndef MEME_SCHED_EVENT
 #define MEME_SCHED_EVENT
 
-#include "core/types.h"
+#include "types.h"
 
 // Set an arbitrary data size limit for an event message
 // set s.t. the overal event_t size is 256 bytes

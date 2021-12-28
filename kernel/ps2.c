@@ -1,8 +1,8 @@
-#include "drivers/ps2.h"
-#include "core/types.h"
-#include "core/io_port.h"
-#include "drivers/serial.h"
-#include "core/irq.h"
+#include "ps2.h"
+#include "types.h"
+#include "io_port.h"
+#include "serial.h"
+#include "irq.h"
 
 // ASCII map to trasnlate keys to ascii text
 u8 key_ascii_map[128] = 

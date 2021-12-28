@@ -1,7 +1,7 @@
-#include "drivers/timer.h"
-#include "core/types.h"
-#include "core/io_port.h"
-#include "core/irq.h"
+#include "timer.h"
+#include "types.h"
+#include "io_port.h"
+#include "irq.h"
 
 u32 time_ms = 1;   
 

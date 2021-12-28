@@ -1,6 +1,6 @@
-#include "core/irq.h"
-#include "core/gdt.h"
-#include "core/io_port.h"
+#include "irq.h"
+#include "gdt.h"
+#include "io_port.h"
 
 struct idt_entry idt[256];
 struct idt_ptr idtp;

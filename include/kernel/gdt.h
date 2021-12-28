@@ -14,7 +14,7 @@
 // entires in this table, and use the lgdt, sgdt to set and get the tables 
 // location. 
 
-#include "core/types.h"
+#include "types.h"
 
 #define GDT_NULL_SECTOR 0x0
 #define GDT_KERNEL_CODE_SECTOR 0x8

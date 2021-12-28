@@ -1,6 +1,6 @@
-#include "drivers/serial.h"
-#include "core/io_port.h"
-#include "core/irq.h"
+#include "serial.h"
+#include "io_port.h"
+#include "irq.h"
 
 void serial_input_irq_handler()
 {
