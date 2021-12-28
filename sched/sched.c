@@ -1,6 +1,7 @@
 #include "sched/app_api.h"
 #include "sched/driver_api.h"
 #include "sched/event.h"
+#include "sched/sched.h"
 #include "drivers/timer.h"
 
 // Test
@@ -234,6 +235,33 @@ void sched_dump_event_buffers()
 }
 
 //-----------------------------------------------------------------------------
-// Test
+// Scheduler execution thread
 //-----------------------------------------------------------------------------
 
+u32 interrupt_depth = 0;
+
+void sched_thread()
+{
+    // am i entering an already interrupted context?
+    interrupt_depth++;
+    if(interrupt_depth > 1)
+    {
+        // I am interrupting an already running scheduler
+    }
+
+    // wake up applications
+
+    // apps done, double check that I haven't interrupted
+
+    // ensure input buffer cleared
+
+    // wake up drivers
+
+    // drivers done
+
+    // ensure output buffer cleared
+
+    // done
+    interrupt_depth--;
+    return;
+}

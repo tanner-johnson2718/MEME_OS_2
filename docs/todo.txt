@@ -10,28 +10,23 @@ Wish List)
 Actually need todo to move forward)
 - Every module needs to call the register module
 - Once scheduler is figured out re-org, doc, and clean
-   - IRQ code is coming more and more central since this is event driven
    - IRQ code should be cleaned up and set standard for all modules
    - Like wise with the scheduler
    - Have API more distinct and well defined.
    - Need to organize shit better
-   - PCI driver
    - SHould seperate out public apis that drivers export to user space
    - DOC!!!
    - unified error handling
    - Add warning output when bad shit happens
    - Add VGA docs
    - rethink code stlye doc
-   - rethink module thing
    - driver ID needs to be rethunk
 - Ways of measuring performance i.e. clock cycles
 - Network driver
 - CPU idle
 - Locks / other sync primitives
 - mmu / tlb and address translation??
+- PCI driver
 
 Scheduler)
 - actually implement the calling user space code
-- don't allow pubs unless there is a sub
-- ensure buffers are cleared with each interrupt invocation
-- schduler should track interrupt context depth
