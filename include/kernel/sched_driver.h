@@ -3,8 +3,8 @@
 
 #include "types.h"
 
-u8 sched_driver_publish_IN_event(u8* data, u32 size, u32 driverID);
-u8 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size);
+u8 sched_driver_publish_IN_event(u8* data, u8 size, u8 driverID);
+u8 sched_driver_pop_OUT_event(u8 driverID, u8* buffer, u8 size);
 u8 sched_driver_register_callback(void (*handler)());
 
 // Test

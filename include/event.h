@@ -5,7 +5,7 @@
 
 // Set an arbitrary data size limit for an event message
 // set s.t. the overal event_t size is 256 bytes
-#define EVENT_DATA_SIZE 240
+#define EVENT_DATA_SIZE 246
 
 // Driver ID's so that we can target a specific driver
 #define SCHED_PS2_ID 0
@@ -16,10 +16,10 @@
 typedef struct
 {
     u8 data[EVENT_DATA_SIZE];
-    u32 size;
+    u8 size;
+    u8 driverID;      // driver associated with this event
     u32 time_added;
     u32 time_popped;
-    u32 driverID;      // driver associated with this event
 } event_t;
 
 #endif

@@ -67,7 +67,7 @@ void inc_pointer(event_t** p, event_t* wrap)
     }
 }
 
-u8 generic_pub(u8* data, u32 size, u32 driverID, event_t** next, event_t** oldest)
+u8 generic_pub(u8* data, u8 size, u8 driverID, event_t** next, event_t** oldest, event_t* buffer)
 {
     if(size > EVENT_DATA_SIZE)
     {
@@ -75,7 +75,7 @@ u8 generic_pub(u8* data, u32 size, u32 driverID, event_t** next, event_t** oldes
     }
 
     // Copy data
-    u32 i = 0;
+    u8 i = 0;
     u8* target = (u8*) &((*next)->data);
     for(; i < size && i < EVENT_DATA_SIZE; ++i)
     {
@@ -91,16 +91,16 @@ u8 generic_pub(u8* data, u32 size, u32 driverID, event_t** next, event_t** oldes
     // On a publish event, the next pointer needs to moved to the right by one,
     // wrapped if nes. and if buffer full, then need to moves oldest to right
     // by one as well
-    inc_pointer(next, in_buffer);
+    inc_pointer(next, buffer);
     if(*next == *oldest)
     {
-        inc_pointer(oldest, in_buffer);
+        inc_pointer(oldest, buffer);
     }
 
     return 1;
 }
 
-u32 generic_pop(u32 driverID, u8* buffer, u32 size, event_t** next, event_t** oldest, event_t* event_buffer)
+u32 generic_pop(u8 driverID, u8* buffer, u8 size, event_t** next, event_t** oldest, event_t* event_buffer)
 {
     u8 ret = 0;
 
@@ -152,12 +152,12 @@ u32 generic_pop(u32 driverID, u8* buffer, u32 size, event_t** next, event_t** ol
 // Driver
 //-----------------------------------------------------------------------------
 
-u8 sched_driver_publish_IN_event(u8* data, u32 size, u32 driverID)
+u8 sched_driver_publish_IN_event(u8* data, u8 size, u8 driverID)
 {   
-    return generic_pub(data, size, driverID, &next_in, &oldest_in);
+    return generic_pub(data, size, driverID, &next_in, &oldest_in, in_buffer);
 }
 
-u8 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
+u8 sched_driver_pop_OUT_event(u8 driverID, u8* buffer, u8 size)
 {
     return generic_pop(driverID, buffer, size, &next_out, &oldest_out, out_buffer);
 }
@@ -178,12 +178,12 @@ u8 sched_driver_register_callback(void (*handler)(void))
 // App
 //-----------------------------------------------------------------------------
 
-u8 sched_app_publish_OUT_event(u8* data, u32 size, u32 driverID)
+u8 sched_app_publish_OUT_event(u8* data, u8 size, u8 driverID)
 {
-    return generic_pub(data, size, driverID, &next_out, &oldest_in);
+    return generic_pub(data, size, driverID, &next_out, &oldest_in, out_buffer);
 }
 
-u8 sched_app_pop_IN_event(u32 driverID, u8* buffer, u32 size)
+u8 sched_app_pop_IN_event(u8 driverID, u8* buffer, u8 size)
 {
     return generic_pop(driverID, buffer, size, &next_in, &oldest_in, in_buffer);
 }

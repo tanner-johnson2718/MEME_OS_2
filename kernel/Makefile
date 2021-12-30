@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -m32 -fno-pie -fno-stack-protector -I../include -I../include/kernel -I../include/user
+CFLAGS = -m32 -fno-pie -fno-stack-protector -I../include -I../include/kernel
 
 SRC=$(wildcard *.c)
 OBJ = $(patsubst %.c, %.o, $(SRC))
