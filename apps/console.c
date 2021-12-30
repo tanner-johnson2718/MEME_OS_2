@@ -24,5 +24,5 @@ void ps2_to_vga()
 
 void console_init()
 {
-    sched_app_register_callback(ps2_to_vga);
+    sched_app_register_callback(serial_loopback);
 }

@@ -10,7 +10,6 @@
 #include "sched_driver.h"
 #include "sched_app.h"
 #include "event.h"
-#include "sched.h"
 
 #include "console.h"
 

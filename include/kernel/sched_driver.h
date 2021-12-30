@@ -10,4 +10,7 @@ u8 sched_driver_register_callback(void (*handler)());
 // Test
 // void sched_dump_event_buffers();
 
+// Main thread
+void sched_thread();
+
 #endif

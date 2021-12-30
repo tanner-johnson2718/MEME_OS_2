@@ -1,7 +1,6 @@
 #include "sched_app.h"
 #include "sched_driver.h"
 #include "event.h"
-#include "sched.h"
 #include "timer.h"
 #include "types.h"
 
