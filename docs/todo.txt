@@ -8,25 +8,23 @@ Wish List)
 - Have user space code actually run in usr space
 
 Actually need todo to move forward)
-- Every module needs to call the register module
-- Once scheduler is figured out re-org, doc, and clean
+- Once scheduler is figured out doc, and clean
    - IRQ code should be cleaned up and set standard for all modules
    - Like wise with the scheduler
-   - Have API more distinct and well defined.
-   - Need to organize shit better
-   - SHould seperate out public apis that drivers export to user space
-   - DOC!!!
+   - DOC!!! Especially api
    - unified error handling
+   - unified error output
    - Add warning output when bad shit happens
-   - Add VGA docs
    - rethink code stlye doc
-   - driver ID needs to be rethunk
+   - add dir output to coding style
 - Ways of measuring performance i.e. clock cycles
 - Network driver
-- CPU idle
 - Locks / other sync primitives
 - mmu / tlb and address translation??
 - PCI driver
 
 Scheduler)
-- actually implement the calling user space code
+- driver ID needs to be rethunk
+- Maybe add a TTL to an event
+- Need to go back over modules idea
+- CPU idle

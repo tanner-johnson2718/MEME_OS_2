@@ -7,8 +7,8 @@
 #include "vga.h"
 #include "timer.h"
 
-#include "driver_api.h"
-#include "app_api.h"
+#include "sched_driver.h"
+#include "sched_app.h"
 
 void kernel_main(void) 
 {
@@ -24,24 +24,6 @@ void kernel_main(void)
 
     // Turn interrupts on to activate system
     irq_on();
-
-    u8 data[4] = {0xff, 0xff,0xff,0xff};
-    sched_dump_event_buffers();
-    serial_puts("------------------------------");
-    sched_driver_publish_IN_event(data, 4, 0);
-    sched_driver_publish_IN_event(data, 4, 1);
-    sched_driver_publish_IN_event(data, 4, 2);
-    sched_driver_publish_IN_event(data, 4, 3);
-    sched_dump_event_buffers();
-    serial_puts("------------------------------");
-
-    sched_app_pop_IN_event(1, data, 4);
-    sched_app_pop_IN_event(2, data, 4);
-    sched_dump_event_buffers();
-    serial_puts("------------------------------");
-
-    sched_app_pop_IN_event(0, data, 4);
-    sched_dump_event_buffers();
 
     while(1)
     {

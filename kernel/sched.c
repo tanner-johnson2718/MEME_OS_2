@@ -1,8 +1,9 @@
-#include "app_api.h"
-#include "driver_api.h"
+#include "sched_app.h"
+#include "sched_driver.h"
 #include "event.h"
 #include "sched.h"
 #include "timer.h"
+#include "types.h"
 
 // Test
 #include "serial.h"
@@ -30,6 +31,13 @@ event_t* oldest_in = in_buffer;
 event_t* next_in = in_buffer;
 event_t* oldest_out = out_buffer;
 event_t* next_out = out_buffer;
+
+// Handlers registered to scheduler by apps and drivers to handle IO events
+#define MAX_REGISTERED_CALLBACKS 32
+void* app_handler[MAX_REGISTERED_CALLBACKS] = {0};
+u8 num_app_handlers = 0;
+void* driver_handler[MAX_REGISTERED_CALLBACKS] = {0};
+u8 num_driver_handlers = 0;
 
 //-----------------------------------------------------------------------------
 // helper
@@ -69,7 +77,7 @@ u8 generic_pub(u8* data, u32 size, u32 driverID, event_t** next, event_t** oldes
     // Copy data
     u32 i = 0;
     u8* target = (u8*) &((*next)->data);
-    for(; i < size; ++i)
+    for(; i < size && i < EVENT_DATA_SIZE; ++i)
     {
         target[i] = data[i];
     }
@@ -154,6 +162,18 @@ u32 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
     return generic_pop(driverID, buffer, size, &next_out, &oldest_out, out_buffer);
 }
 
+u8 sched_driver_register_callback(void (*handler)(void), u32 driverID)
+{
+    if(num_driver_handlers == MAX_REGISTERED_CALLBACKS)
+    {
+        return 1;
+    }
+
+    driver_handler[num_driver_handlers] = (void*) handler;
+    num_driver_handlers++;
+    return 0;
+}
+
 //-----------------------------------------------------------------------------
 // App
 //-----------------------------------------------------------------------------
@@ -166,6 +186,18 @@ u8 sched_app_publish_OUT_event(u8* data, u32 size, u32 driverID)
 u32 sched_app_pop_IN_event(u32 driverID, u8* buffer, u32 size)
 {
     return generic_pop(driverID, buffer, size, &next_in, &oldest_in, in_buffer);
+}
+
+u8 sched_app_register_callback(void (*handler)(void), u32 driverID)
+{
+    if(num_app_handlers == MAX_REGISTERED_CALLBACKS)
+    {
+        return 1;
+    }
+
+    app_handler[num_app_handlers] = (void*) handler;
+    num_app_handlers++;
+    return 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -238,30 +270,22 @@ void sched_dump_event_buffers()
 // Scheduler execution thread
 //-----------------------------------------------------------------------------
 
-u32 interrupt_depth = 0;
-
 void sched_thread()
 {
-    // am i entering an already interrupted context?
-    interrupt_depth++;
-    if(interrupt_depth > 1)
+    // wake up applications
+    u8 i = 0;
+    for(; i < num_app_handlers; ++i)
     {
-        // I am interrupting an already running scheduler
+        void (*handler)() = app_handler[i];
+        handler();
     }
 
-    // wake up applications
-
-    // apps done, double check that I haven't interrupted
-
-    // ensure input buffer cleared
-
     // wake up drivers
+    for(i = 0; i < num_driver_handlers; ++i)
+    {
+        void (*handler)() = driver_handler[i];
+        handler();
+    }
 
-    // drivers done
-
-    // ensure output buffer cleared
-
-    // done
-    interrupt_depth--;
     return;
 }

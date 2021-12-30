@@ -27,15 +27,11 @@ The work flow for an IO event, and subsequently a scheduler invocation are)
 - Driver code returns, IRQ code cleans up (sends EOI to PIC, etc)
   - Now entering interruptable territory 
 - Main CPU thread is awoken and the scheduler thread is invoked
-- Scheduler wakes up all applications that are waiting on data that was published
+- Scheduler calls all registered application call backs waiting on data
 - Applications execute and publish output data, targeting a driver
 - All Applications yield (of their own accord)
-- Scheduler ensures all input data is cleared from the buffer and resets the input buffer
-- Scheduler invokes driver code to output application published data
-- Scheduler ensures output buffer is clear and resets it
+- Scheduler invokes driver callbacks to output application published data
 - Main CPU thread invoked and returns to idle
-- Finally since the scheduler is interruptable, it must be aware of the interrupt
-  depth and this situation accordingly
 
 ## Data Model
 
