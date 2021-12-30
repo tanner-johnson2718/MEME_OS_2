@@ -6,14 +6,15 @@ Wish List)
 - implement + test isr exceptions 0-31
 - Implement the color modes beyond text mode for VGA driver
 - Have user space code actually run in usr space
+- driver ID needs to be rethunk
+- Need to go back over modules idea
+- Maybe add TTL to events on scheduler buffers
 
 Actually need todo to move forward)
 - Once scheduler is figured out doc, and clean
-   - IRQ code should be cleaned up and set standard for all modules
-   - Like wise with the scheduler
-   - DOC!!! Especially api
+   - DOC!!! Especially include files
    - unified error handling
-   - unified error output
+   - unified error / logging output
    - Add warning output when bad shit happens
    - rethink code stlye doc
    - add dir output to coding style
@@ -21,10 +22,4 @@ Actually need todo to move forward)
 - Network driver
 - Locks / other sync primitives
 - mmu / tlb and address translation??
-- PCI driver
-
-Scheduler)
-- driver ID needs to be rethunk
-- Maybe add a TTL to an event
-- Need to go back over modules idea
-- CPU idle
+- PCI drive

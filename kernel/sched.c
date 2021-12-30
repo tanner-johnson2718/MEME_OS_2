@@ -123,7 +123,7 @@ u32 generic_pop(u32 driverID, u8* buffer, u32 size, event_t** next, event_t** ol
     }
 
     // found element to pop, copy contents to app buffer and set pop time
-    u32 i = 0;
+    u8 i = 0;
     u8* target = (u8*) &(temp->data);
     for(; i < size && i < temp->size; ++i)
     { 
@@ -157,7 +157,7 @@ u8 sched_driver_publish_IN_event(u8* data, u32 size, u32 driverID)
     return generic_pub(data, size, driverID, &next_in, &oldest_in);
 }
 
-u32 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
+u8 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
 {
     return generic_pop(driverID, buffer, size, &next_out, &oldest_out, out_buffer);
 }
@@ -183,7 +183,7 @@ u8 sched_app_publish_OUT_event(u8* data, u32 size, u32 driverID)
     return generic_pub(data, size, driverID, &next_out, &oldest_in);
 }
 
-u32 sched_app_pop_IN_event(u32 driverID, u8* buffer, u32 size)
+u8 sched_app_pop_IN_event(u32 driverID, u8* buffer, u32 size)
 {
     return generic_pop(driverID, buffer, size, &next_in, &oldest_in, in_buffer);
 }
@@ -272,6 +272,12 @@ void sched_dump_event_buffers()
 
 void sched_thread()
 {
+    // check if data available
+    if(buffer_is_empty(next_in, oldest_in) && buffer_is_empty(next_out, oldest_out))
+    {
+        return;
+    }
+
     // wake up applications
     u8 i = 0;
     for(; i < num_app_handlers; ++i)

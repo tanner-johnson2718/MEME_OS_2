@@ -7,9 +7,13 @@ FORCE:
 kernel: FORCE
 	make -C kernel/
 
-kernel.elf: kernel
-	ld $(LDFLAGS) kernel/*.o -o kernel.elf
+apps: FORCE
+	make -C apps/
+
+kernel.elf: kernel apps
+	ld $(LDFLAGS) kernel/*.o apps/*.o -o kernel.elf
 
 clean:
 	rm -f *.o *.elf
 	make -C kernel clean
+	make -C apps clean

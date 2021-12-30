@@ -3,7 +3,7 @@
 #include "io_port.h"
 #include "serial.h"
 #include "irq.h"
-#include "sched_driver.h"
+
 
 // ASCII map to trasnlate keys to ascii text
 u8 key_ascii_map[128] = 
@@ -95,11 +95,6 @@ u8 convert_to_ascii(u8 in)
 u8 is_release_event(u8 in)
 {
     return in & PS2_KEYBOARD_RELEASE_MASK;
-}
-
-void ps2_output_callback()
-{
-    
 }
 
 ///////////////////////////////////////////////////////////////////////////////

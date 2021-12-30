@@ -1,12 +1,36 @@
 #include "serial.h"
 #include "io_port.h"
 #include "irq.h"
+#include "sched_driver.h"
+#include "event.h"
+
+void serial_output_callback()
+{
+    // Declare small stack buffers for copying message
+    u32 size = EVENT_DATA_SIZE;
+    u8 data[size];
+    u8 i = 0;
+    u8 num_read = 0;
+
+    // Pop messages off the buffer until no more remain,
+    // for each message loop over the bytes and output
+    while( (num_read = sched_driver_pop_OUT_event(SCHED_SERIAL_ID, data, size)) )
+    {
+        for(i = 0; i < num_read; ++i)
+        {
+            serial_putc(data[i]);
+        }
+    }
+
+}
 
 void serial_input_irq_handler()
 {
     // called when data available
     u8 in = inb(SERIAL_DEFAULT_COM);
-    serial_putc(in);
+    
+    // put data on scheduler buffer
+    sched_driver_publish_IN_event(&in, 1, SCHED_SERIAL_ID);
 }
 
 void serial_init()
@@ -60,6 +84,9 @@ void serial_init()
     {
         irq_register_PIC_handler(serial_input_irq_handler, IRQ_PIC_COM1);
     }
+
+    // register output callback with scheduler
+    sched_driver_register_callback(serial_output_callback, SCHED_SERIAL_ID);
 }
 
 u32 serial_get_buad()

@@ -33,7 +33,7 @@ The work flow for an IO event, and subsequently a scheduler invocation are)
 - Scheduler invokes driver callbacks to output application published data
 - Main CPU thread invoked and returns to idle
 
-## Data Model
+## Data / IO Model
 
 ## Kernel Block Diagram
 

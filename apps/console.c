@@ -1,15 +1,13 @@
-#include "apps/console.h"
-#include "core/types.h"
-#include "drivers/vga.h"
+#include "types.h"
+#include "sched_app.h"
+#include "event.h"
 
-// Internal State
-u8 cur_x = 0;
-u8 cuy_y = 0;
-u8 cur_bg = VGA_BLACK;
-u8 cur_fg = VGA_WHITE;
-
-void console()
+void serial_loopback()
 {
-    // void vga_textmode_putc(u8 x, u8 y, u8 c, u8 fg, u8 bg);
-    while(1){};
+    u8 size = EVENT_DATA_SIZE;
+    u8 data[size];
+    u8 num_read = 0;
+
+    num_read =  sched_app_pop_IN_event(SCHED_SERIAL_ID, data, size);
+    sched_app_publish_OUT_event(data, num_read, SCHED_SERIAL_ID);
 }
