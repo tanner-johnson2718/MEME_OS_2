@@ -162,7 +162,7 @@ u8 sched_driver_pop_OUT_event(u32 driverID, u8* buffer, u32 size)
     return generic_pop(driverID, buffer, size, &next_out, &oldest_out, out_buffer);
 }
 
-u8 sched_driver_register_callback(void (*handler)(void), u32 driverID)
+u8 sched_driver_register_callback(void (*handler)(void))
 {
     if(num_driver_handlers == MAX_REGISTERED_CALLBACKS)
     {
@@ -188,7 +188,7 @@ u8 sched_app_pop_IN_event(u32 driverID, u8* buffer, u32 size)
     return generic_pop(driverID, buffer, size, &next_in, &oldest_in, in_buffer);
 }
 
-u8 sched_app_register_callback(void (*handler)(void), u32 driverID)
+u8 sched_app_register_callback(void (*handler)(void))
 {
     if(num_app_handlers == MAX_REGISTERED_CALLBACKS)
     {

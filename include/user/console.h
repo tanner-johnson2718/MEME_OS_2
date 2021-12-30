@@ -2,6 +2,6 @@
 #define MEM_CONSOLE
 
 // entry
-void serial_loopback();
+void console_init();
 
 #endif

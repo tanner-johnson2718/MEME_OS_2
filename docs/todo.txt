@@ -9,6 +9,7 @@ Wish List)
 - driver ID needs to be rethunk
 - Need to go back over modules idea
 - Maybe add TTL to events on scheduler buffers
+- Fill out VGA driver code
 
 Actually need todo to move forward)
 - Once scheduler is figured out doc, and clean

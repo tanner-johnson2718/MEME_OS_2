@@ -3,7 +3,8 @@
 #include "io_port.h"
 #include "serial.h"
 #include "irq.h"
-
+#include "sched_driver.h"
+#include "event.h"
 
 // ASCII map to trasnlate keys to ascii text
 u8 key_ascii_map[128] = 
@@ -145,7 +146,9 @@ void ps2_keyboard_irq(void)
         }
 
         update_caps_state();
-        serial_putc(convert_to_ascii(in));
+        
+        u8 ascii_in = convert_to_ascii(in);
+        sched_driver_publish_IN_event(&ascii_in, 1, SCHED_PS2_ID);
     }
     
 }

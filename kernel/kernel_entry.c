@@ -26,8 +26,8 @@ void kernel_main(void)
     vga_init();
     timer_init();
 
-    // register application callbacks
-    sched_app_register_callback(serial_loopback, SCHED_SERIAL_ID);
+    // Set up apps
+    console_init();
 
     // Turn interrupts on to activate system
     irq_on();

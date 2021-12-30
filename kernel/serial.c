@@ -86,7 +86,7 @@ void serial_init()
     }
 
     // register output callback with scheduler
-    sched_driver_register_callback(serial_output_callback, SCHED_SERIAL_ID);
+    sched_driver_register_callback(serial_output_callback);
 }
 
 u32 serial_get_buad()
