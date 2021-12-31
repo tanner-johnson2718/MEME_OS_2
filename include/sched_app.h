@@ -4,8 +4,8 @@
 #include "types.h"
 
 // Set an arbitrary data size limit for an event message
-// set s.t. the overal event_t size is 256 bytes
-#define EVENT_DATA_SIZE 246
+// set s.t. the overal event_t size is 64 bytes
+#define EVENT_DATA_SIZE 54
 
 // Driver ID's so that we can target a specific driver
 #define SCHED_PS2_ID 0
@@ -25,5 +25,6 @@ typedef struct
 u8 sched_app_publish_OUT_event(u8* data, u8 size, u8 driverID);
 u8 sched_app_pop_IN_event(u8 driverID, u8* buffer, u8 size);
 u8 sched_app_register_callback(void (*handler)(void));
+
 
 #endif
