@@ -3,8 +3,7 @@
 #include "io_port.h"
 #include "serial.h"
 #include "irq.h"
-#include "sched_driver.h"
-#include "event.h"
+#include "sched_kernel.h"
 
 // ASCII map to trasnlate keys to ascii text
 u8 key_ascii_map[128] = 

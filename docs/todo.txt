@@ -12,7 +12,6 @@ Wish List)
 - Fill out VGA driver code
 
 Actually need todo to move forward)
-- Need to clean up sched includes, too messy
 - need to think about how to define a message between an app and a driver
 - Once scheduler is figured out doc, and clean
    - DOC!!! Especially include files
@@ -20,6 +19,7 @@ Actually need todo to move forward)
    - unified error / logging output
    - Add warning output when bad shit happens
    - rethink code stlye doc, especially this notion of public and private
+     - If exporting app API, kenrel code should be super set of this API
    - add dir config to coding style
 - Ways of measuring performance i.e. clock cycles
 - Network driver

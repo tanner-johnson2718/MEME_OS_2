@@ -7,9 +7,8 @@
 #include "vga.h"
 #include "timer.h"
 
-#include "sched_driver.h"
+#include "sched_kernel.h"
 #include "sched_app.h"
-#include "event.h"
 
 #include "console.h"
 

@@ -1,6 +1,5 @@
 #include "types.h"
 #include "sched_app.h"
-#include "event.h"
 
 void serial_loopback()
 {

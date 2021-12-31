@@ -1,7 +1,6 @@
 #include "types.h"
 #include "vga.h"
-#include "event.h"
-#include "sched_driver.h"
+#include "sched_kernel.h"
 
 u16* get_loc_text_buffer(u8 i, u8 j)
 {

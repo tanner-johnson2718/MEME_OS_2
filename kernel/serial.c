@@ -1,8 +1,7 @@
 #include "serial.h"
 #include "io_port.h"
 #include "irq.h"
-#include "sched_driver.h"
-#include "event.h"
+#include "sched_kernel.h"
 
 void serial_output_callback()
 {
