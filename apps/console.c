@@ -45,7 +45,7 @@ void ps2_to_vga_full()
 
     // Now parse each character from the input event
     u8 i = 0;
-    for(i = 0; i < size; ++i)
+    for(i = 0; i < num_read; ++i)
     {
         if(data[i] == '\n')
         {
@@ -53,6 +53,7 @@ void ps2_to_vga_full()
             if(row == VGA_BUFFER_HEIGHT)
             {
                 row = 0;
+                col = 0;
             }
 
             continue;

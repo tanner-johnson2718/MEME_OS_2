@@ -114,11 +114,12 @@ void simple_vga_output_callback()
             continue;
         }
 
-        int n_msg = num_read / sizeof(vga_msg_t);
+        u8 n_msg = num_read / sizeof(vga_msg_t);
         temp = (vga_msg_t*) data;
         for(i = 0; i < n_msg; ++i)
         {
-            vga_textmode_putc(temp[i].col, temp[i].row, temp[i].c, temp[i].fg, temp[i].bg);
+            vga_textmode_putc(temp->col, temp->row, temp->c, temp->fg, temp->bg);
+            temp++;
         }
     }
 }
