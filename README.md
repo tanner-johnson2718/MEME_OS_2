@@ -74,3 +74,10 @@ The work flow for an IO event, and subsequently a scheduler invocation are)
 - All basic types will be those defined in types.h i.e. u32 or s16.
 - (TODO) Unified error handling i.e. all public functions return an
   error code and all outputs are passed as pointers.
+
+# Deps
+- gcc
+- git
+- qemu
+- qemu-kvm
+- ubuntu build / vm host
