@@ -10,6 +10,8 @@ Wish List)
 - Need to go back over modules idea
 - Maybe add TTL to events on scheduler buffers
 - Fill out VGA driver code
+- String library
+- Circular buffer library
 
 Actually need todo to move forward)
 - DOC!!! Especially include files

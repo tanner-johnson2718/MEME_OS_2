@@ -95,6 +95,18 @@ u8 vga_textmode_get_bg(u8 x, u8 y)
     return ((*entry) >> VGA_BG_SHIFT) & 0xf;
 }
 
+void vga_clear_screen(u8 bg, u8 fg)
+{
+    u32 i, j = 0;
+    for(; i < VGA_BUFFER_HEIGHT; ++i)
+    {
+        for(; j < VGA_BUFFER_WIDTH; ++j)
+        {
+            vga_textmode_putc(j, i, 'a', fg, bg);
+        }
+    }
+}
+
 void simple_vga_output_callback()
 {
     // Declare small stack buffers for copying message
@@ -118,7 +130,15 @@ void simple_vga_output_callback()
         temp = (vga_msg_t*) data;
         for(i = 0; i < n_msg; ++i)
         {
-            vga_textmode_putc(temp->col, temp->row, temp->c, temp->fg, temp->bg);
+            if(temp->c == VGA_CLR_SCREEN_CHAR)
+            {
+                vga_clear_screen(temp->bg, temp->fg);
+            }
+            else
+            {
+                vga_textmode_putc(temp->col, temp->row, temp->c, temp->fg, temp->bg);
+            }
+            
             temp++;
         }
     }

@@ -2,6 +2,7 @@
 #define MEME_VGA_MSG
 
 #include "types.h"
+#include "sched_app.h"
 
 // 16 Bit color values
 #define VGA_BLACK    0x0
@@ -24,6 +25,11 @@
 // How many ascii chars I can fit
 #define VGA_BUFFER_WIDTH  80
 #define VGA_BUFFER_HEIGHT 25
+
+#define VGA_MSG_SIZE 5
+#define VGA_MSG_PER_EVENT (EVENT_DATA_SIZE / VGA_MSG_SIZE)
+
+#define VGA_CLR_SCREEN_CHAR (u8) 1
 
 typedef struct
 {
