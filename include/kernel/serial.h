@@ -7,9 +7,10 @@
 // Documentation
 ///////////////////////////////////////////////////////////////////////////////
 
-/* ..... FILL ME IN 
+/* Bare bones UART 8250 driver. Assumes no FIFO on chip. Does very little
+   besides set the BAUD rate and the predefined defaults.
 
-
+  For more details see "docs/UART 8250 and 8259 PIC.htm".
 */
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,11 +36,103 @@
 // Kernel VGA API
 ///////////////////////////////////////////////////////////////////////////////
 
-void serial_init();
-void serial_puts(u8* s);
-void serial_putd(u32 d);
-void serial_put_hex(u32 h);
-u32 serial_get_buad();
-void serial_set_buad(u32 r);
+
+/******************************************************************************
+NAME)     vga_init
+
+INPUTS)   NONE
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_init();
+
+
+
+/******************************************************************************
+NAME)     serial_register_input_handler
+
+INPUTS)   
+          0) handler - Function pointer that takes no arguments and returns 
+                       nothing.
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_register_input_handler(void (*handler)());
+
+
+
+/******************************************************************************
+NAME)     serial_puts
+
+
+INPUTS)   
+          0) u8* s - c string to output 
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_puts(u8* s);
+
+
+
+/******************************************************************************
+NAME)     serial_putd
+
+
+INPUTS)   
+          0) u32 d- number to output in decimal
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_putd(u32 d);
+
+
+
+/******************************************************************************
+NAME)     serial_put_hex
+
+
+INPUTS)   
+          0) u32 g- number to output in hex
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_put_hex(u32 h);
+
+
+
+/******************************************************************************
+NAME)     serial_getc
+
+
+INPUTS)   NONE
+
+OUTPUTS)  
+          0) u8* c - pointer to one byte buffer to get inputed char
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_getc(u8* c);
 
 #endif

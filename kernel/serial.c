@@ -41,15 +41,6 @@
 // Private Functions
 ///////////////////////////////////////////////////////////////////////////////
 
-void serial_input_irq_handler()
-{
-    // called when data available
-    u8 in = inb(SERIAL_DEFAULT_COM);
-    
-    // for now just loop data back out
-    outb(SERIAL_DEFAULT_COM, in);
-}
-
 void serial_putc(u8 data)
 {
     outb(SERIAL_DEFAULT_COM, data);
@@ -87,7 +78,19 @@ void serial_set_buad(u32 rate)
 // Public Functions
 ///////////////////////////////////////////////////////////////////////////////
 
-void serial_init()
+
+/******************************************************************************
+NAME)     serial_init
+
+INPUTS)   NONE
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_init()
 {
     // Set defualt baud rate set in configs
     serial_set_buad(SERIAL_DEFAULT_COM_BAUD);
@@ -108,18 +111,55 @@ void serial_init()
     lcr = lcr | (SERIAL_DEFAULT_COM_BREAK_COND << 6);
     outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, lcr) ;
 
+    return 0;
+}
+
+
+
+/******************************************************************************
+NAME)     serial_register_input_handler
+
+INPUTS)   
+          0) handler - Function pointer that takes no arguments and returns 
+                       nothing.
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_register_input_handler(void (*handler)())
+{
     // register input irq handler
     if(SERIAL_DEFAULT_COM ==  SERIAL_COM1 || SERIAL_DEFAULT_COM == SERIAL_COM3)
     {
-        irq_register_PIC_handler(serial_input_irq_handler, IRQ_PIC_COM2);
+        irq_register_PIC_handler(handler, IRQ_PIC_COM2);
     }
     else
     {
-        irq_register_PIC_handler(serial_input_irq_handler, IRQ_PIC_COM1);
+        irq_register_PIC_handler(handler, IRQ_PIC_COM1);
     }
+
+    return 0;
 }
 
-void serial_putd(u32 d)
+
+
+/******************************************************************************
+NAME)     serial_putd
+
+
+INPUTS)   
+          0) u32 d- number to output in decimal
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_putd(u32 d)
 {
     u32 m = 10;
     u8 num[m];
@@ -147,10 +187,25 @@ void serial_putd(u32 d)
         i--;
     }
     
-    
+    return 0;
 }
 
-void serial_put_hex(u32 d)
+
+
+/******************************************************************************
+NAME)     serial_put_hex
+
+
+INPUTS)   
+          0) u32 g- number to output in hex
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_put_hex(u32 d)
 {
     u32 m = 8;
     u8 num[m];
@@ -186,9 +241,26 @@ void serial_put_hex(u32 d)
         }
         --i;
     }
+
+    return 0;
 }
 
-void serial_puts(u8* s)
+
+
+/******************************************************************************
+NAME)     serial_puts
+
+
+INPUTS)   
+          0) u8* s - c string to output 
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_puts(u8* s)
 {
     u32 i = 0;
     while(s[i] != 0)
@@ -196,4 +268,26 @@ void serial_puts(u8* s)
         serial_putc(s[i]);
         ++i;
     }
+
+    return 0;
+}
+
+
+/******************************************************************************
+NAME)     serial_getc
+
+
+INPUTS)   NONE
+
+OUTPUTS)  
+          0) u8* c - pointer to one byte buffer to get inputed char
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_getc(u8* c)
+{
+    *c = inb(SERIAL_DEFAULT_COM);
+    return 0;
 }
