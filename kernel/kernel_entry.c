@@ -28,7 +28,7 @@ void kernel_main(void)
     vga_textmode_putc(1, 0, 'e', VGA_WHITE, VGA_BLACK);
     vga_textmode_putc(2, 0, 'l', VGA_WHITE, VGA_BLACK);
     vga_textmode_putc(3, 0, 'l', VGA_WHITE, VGA_BLACK);
-    vga_textmode_putc(4, 0, '0', VGA_WHITE, VGA_BLACK);
+    vga_textmode_putc(4, 0, 'o', VGA_WHITE, VGA_BLACK);
 
     while(1)
     {

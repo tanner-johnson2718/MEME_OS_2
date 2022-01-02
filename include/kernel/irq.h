@@ -3,6 +3,10 @@
 
 #include "types.h"
 
+///////////////////////////////////////////////////////////////////////////////
+// Documentation
+///////////////////////////////////////////////////////////////////////////////
+
 // The IRQ module is the MEME OS 2 interrupt handler. This module first
 // handles allocating and gives public functions for manipulating the IDT. The
 // IDT associates an interrupt with a handler. All interrupts will be handled
@@ -11,20 +15,11 @@
 // to a trap.
 
 // The second main function is to act as a PIC 8259 driver. Module will init
-// this device, remap its interrupts to 32-47, and will initially mask the 
-// timer interrupt until the timer moduler is inited and can handle it. 
+// this device, remap its interrupts to 32-47. TODO FINSISH ME!!!!!!!!!!!!!!!
 
-// PIC 8259 Ports
-#define IRQ_PIC_MASTER_CMD_PORT  0x20
-#define IRQ_PIC_MASTER_DATA_PORT 0x21
-#define IRQ_PIC_SLAVE_CMD_PORT   0xA0
-#define IRQ_PIC_SLAVE_DATA_PORT  0xA1
-
-// PIC 8259 Commands
-#define IRQ_PIC_ICW1_INIT 0x10
-#define IRQ_PIC_ICW1_ICW4 0x01   // dont need ICW4?
-#define IRQ_PIC_ICW4_8086 0x01   // 8086 mode?
-#define IRQ_PIC_EOI       0x20
+///////////////////////////////////////////////////////////////////////////////
+// Kernel Public IRQ defines
+///////////////////////////////////////////////////////////////////////////////
 
 // PIC Interupts
 #define IRQ_PIC_MASTER_BASE 0x20
@@ -92,9 +87,6 @@ struct idt_ptr
     u16 limit;
     u32 base;
 } __attribute__((packed));
-
-// Get the location of the IDT that is registered with the CPU
-void irq_get_curr_idt_ptr(struct idt_ptr *p);
 
 // The main init function that inits the irq module
 void irq_init();

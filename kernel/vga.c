@@ -266,7 +266,11 @@ u8 vga_textmode_clear_screen(u8 fg, u8 bg)
     {
         for(j = 0; j < VGA_BUFFER_WIDTH; ++j)
         {
-            vga_textmode_putc(j, i, ' ', fg, bg);
+            ret = vga_textmode_putc(j, i, ' ', fg, bg);
+            if(ret)
+            {
+                return ret;
+            }
         }
     }
 

@@ -2,11 +2,33 @@
 #include "gdt.h"
 #include "io_port.h"
 
+// See irq.h for high level documentation
+
+///////////////////////////////////////////////////////////////////////////////
+// Private defines and registers
+///////////////////////////////////////////////////////////////////////////////
+
 struct idt_entry idt[256];
 struct idt_ptr idtp;
 void* irq_pic_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 void* irq_soft_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 void* irq_soft_raise[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+// PIC 8259 Ports
+#define IRQ_PIC_MASTER_CMD_PORT  0x20
+#define IRQ_PIC_MASTER_DATA_PORT 0x21
+#define IRQ_PIC_SLAVE_CMD_PORT   0xA0
+#define IRQ_PIC_SLAVE_DATA_PORT  0xA1
+
+// PIC 8259 Commands
+#define IRQ_PIC_ICW1_INIT 0x10
+#define IRQ_PIC_ICW1_ICW4 0x01   // dont need ICW4?
+#define IRQ_PIC_ICW4_8086 0x01   // 8086 mode?
+#define IRQ_PIC_EOI       0x20
+
+///////////////////////////////////////////////////////////////////////////////
+// Private Functions (IDT)
+///////////////////////////////////////////////////////////////////////////////
 
 void irq_idt_load()
 {
@@ -31,6 +53,10 @@ void irq_idt_set_gate(u8 num, u32 base, u8 sel, u8 flags)
     idt[num].always0 = 0;
     idt[num].flags = flags;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// Private Functions (CPU Exception Handlers)
+///////////////////////////////////////////////////////////////////////////////
 
 // First 32 interrupts are CPU driven i.e. exceptions
 void irq_isr_sink0(){}
@@ -65,6 +91,10 @@ void irq_isr_sink28(){}
 void irq_isr_sink29(){}
 void irq_isr_sink30(){}
 void irq_isr_sink31(){}
+
+///////////////////////////////////////////////////////////////////////////////
+// Private Functions (PIC Interrupt Base Handlers)
+///////////////////////////////////////////////////////////////////////////////
 
 // IRQs driven by pic
 void irq_common_pic_handler(u8 irq_num)
@@ -195,6 +225,10 @@ void irq_isr_sink47()
     asm volatile("iret");
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Private Functions (Soft Interrupt Base Handlers)
+///////////////////////////////////////////////////////////////////////////////
+
 void irq_common_soft_handler(u8 irq_num)
 {
     if(irq_soft_handlers[irq_num])
@@ -316,6 +350,10 @@ void irq_isr_sink63()
     asm volatile("iret");
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Private Functions (Raise Soft Interrupts)
+///////////////////////////////////////////////////////////////////////////////
+
 void irq_raise48()
 {
     asm volatile("int $48");
@@ -396,6 +434,42 @@ void irq_raise63()
     asm volatile("int $63");
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Private Functions (MISC)
+///////////////////////////////////////////////////////////////////////////////
+
+// The first 32 exceptions are reserved but the 8259 PIC wants to generate
+// interrupts 0-15. Need to remap these to 32-47.
+void irq_remap(void)
+{
+    // starts the initialization sequence (in cascade mode)
+	outb(IRQ_PIC_MASTER_CMD_PORT, IRQ_PIC_ICW1_INIT | IRQ_PIC_ICW1_ICW4);  
+	outb(IRQ_PIC_SLAVE_CMD_PORT, IRQ_PIC_ICW1_INIT | IRQ_PIC_ICW1_ICW4);
+
+    // Map master irqs starting at 32
+	outb(IRQ_PIC_MASTER_DATA_PORT, IRQ_PIC_MASTER_BASE);                 
+	
+    // Map slave irqs starting at 40
+	outb(IRQ_PIC_SLAVE_DATA_PORT, IRQ_PIC_SLAVE_BASE);                 
+	
+    // ICW3: tell Master PIC that there is a slave PIC at IRQ2 (0000 0100)
+	outb(IRQ_PIC_MASTER_DATA_PORT, 4);                       
+	
+    // ICW3: tell Slave PIC its cascade identity (0000 0010)
+	outb(IRQ_PIC_SLAVE_DATA_PORT, 2);                       
+ 
+	outb(IRQ_PIC_MASTER_DATA_PORT, IRQ_PIC_ICW4_8086);
+	outb(IRQ_PIC_SLAVE_DATA_PORT, IRQ_PIC_ICW4_8086);
+ 
+    // clear saved masks.
+	outb(IRQ_PIC_MASTER_DATA_PORT, 0);   
+	outb(IRQ_PIC_SLAVE_DATA_PORT, 0);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Public Functions
+///////////////////////////////////////////////////////////////////////////////
+
 void irq_raise(u8  entry)
 {
     if(entry >= 0x30 && entry < 0x40)
@@ -430,34 +504,6 @@ void irq_register_soft(void (*handler)(void), u8 entry)
     }
 
     irq_soft_handlers[entry - 0x30] = handler;
-}
-
-// The first 32 exceptions are reserved but the 8259 PIC wants to generate
-// interrupts 0-15. Need to remap these to 32-47.
-void irq_remap(void)
-{
-    // starts the initialization sequence (in cascade mode)
-	outb(IRQ_PIC_MASTER_CMD_PORT, IRQ_PIC_ICW1_INIT | IRQ_PIC_ICW1_ICW4);  
-	outb(IRQ_PIC_SLAVE_CMD_PORT, IRQ_PIC_ICW1_INIT | IRQ_PIC_ICW1_ICW4);
-
-    // Map master irqs starting at 32
-	outb(IRQ_PIC_MASTER_DATA_PORT, IRQ_PIC_MASTER_BASE);                 
-	
-    // Map slave irqs starting at 40
-	outb(IRQ_PIC_SLAVE_DATA_PORT, IRQ_PIC_SLAVE_BASE);                 
-	
-    // ICW3: tell Master PIC that there is a slave PIC at IRQ2 (0000 0100)
-	outb(IRQ_PIC_MASTER_DATA_PORT, 4);                       
-	
-    // ICW3: tell Slave PIC its cascade identity (0000 0010)
-	outb(IRQ_PIC_SLAVE_DATA_PORT, 2);                       
- 
-	outb(IRQ_PIC_MASTER_DATA_PORT, IRQ_PIC_ICW4_8086);
-	outb(IRQ_PIC_SLAVE_DATA_PORT, IRQ_PIC_ICW4_8086);
- 
-    // clear saved masks.
-	outb(IRQ_PIC_MASTER_DATA_PORT, 0);   
-	outb(IRQ_PIC_SLAVE_DATA_PORT, 0);
 }
 
 void irq_init()
