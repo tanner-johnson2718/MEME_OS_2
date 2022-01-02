@@ -2,8 +2,7 @@ Wish List)
 - How do i know if Im in "real mode"
 - How do PS2 and USB interop?
 - Need .config file
-- Actually pass processer state to irqs
-- implement + test isr exceptions 0-31
+- Ways of measuring performance i.e. clock cycles
 - Implement the color modes beyond text mode for VGA driver
 - Need to go back over modules ideas
 - Fill out VGA driver code
@@ -15,11 +14,11 @@ Actually need todo to move forward)
 - unified error / logging output
 - Add warning output when bad shit happens
 - rethink code stlye doc, especially this notion of public and private
-   - If exporting app API, kenrel code should be super set of this API
 - add dir config to coding style
 - Split serial into two init's, low and high
+- implement + test isr exceptions 0-31
 
-- Ways of measuring performance i.e. clock cycles
+
 - Network driver
 - Locks / other sync primitives
 - mmu / tlb and address translation??

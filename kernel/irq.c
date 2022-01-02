@@ -8,11 +8,49 @@
 // Private defines and registers
 ///////////////////////////////////////////////////////////////////////////////
 
-struct idt_entry idt[256];
-struct idt_ptr idtp;
-void* irq_pic_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-void* irq_soft_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-void* irq_soft_raise[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+///////////////////////////////////////////////////////////
+// IDT entry flag  bit fields
+///////////////////////////////////////////////////////////
+
+// flags byte [7] - Present bit. 
+#define IRQ_IDT_ENTRY_PRESENT_SHIFT 0x7
+#define IRQ_IDT_ENTRY_PRESENT       0x1
+#define IRQ_IDT_ENTRY_NOT_PRESENT   0x0
+
+// flags byte [5-6] - Privelege 
+#define IRQ_IDT_ENTRY_PRIVILEGE            0x5
+#define IRQ_IDT_ENTRY_KERNEL_PRIVLEGE      0x0
+#define IRQ_IDT_ENTRY_USER_PRIVLEGE        0x3
+
+// flags byte [4] - Always 0
+
+// flags byte [0-3] - Gate Type
+#define IRQ_IDT_ENTRY_TYPE_SHIFT 0x0
+#define IRQ_IDT_ENTRY_TASK       0x5
+#define IRQ_IDT_ENTRY_INTERRUPT  0xE
+#define IRQ_IDT_ENTRY_TRAP       0xF
+
+// IDT entry which maps a specific interrupt to an interrupt handler
+//    base_lo   - Lower 16 bits giving location of handler
+//    sel       - Offset of GDT entry of code segment handler will be ran in
+//    flags     - See above
+//    base_hi   - Upper 16 bits giing location of handler
+struct idt_entry
+{
+    u16 base_lo;
+    u16 sel;        /* Our kernel segment goes here! */
+    u8 always0;     /* This will ALWAYS be set to 0! */
+    u8 flags;       /* Set using the above table! */
+    u16 base_hi;
+} __attribute__((packed));
+
+// A IDT pointer. This is the data structure that is used by the lidt and sidt
+// instructions to register / return the location of the IDT in memory.
+struct idt_ptr
+{
+    u16 limit;
+    u32 base;
+} __attribute__((packed));
 
 // PIC 8259 Ports
 #define IRQ_PIC_MASTER_CMD_PORT  0x20
@@ -25,6 +63,16 @@ void* irq_soft_raise[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 #define IRQ_PIC_ICW1_ICW4 0x01   // dont need ICW4?
 #define IRQ_PIC_ICW4_8086 0x01   // 8086 mode?
 #define IRQ_PIC_EOI       0x20
+
+///////////////////////////////////////////////////////////////////////////////
+// Globals
+///////////////////////////////////////////////////////////////////////////////
+
+struct idt_entry idt[256];
+struct idt_ptr idtp;
+void* irq_pic_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+void* irq_soft_handlers[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+void* irq_soft_raise[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 ///////////////////////////////////////////////////////////////////////////////
 // Private Functions (IDT)
@@ -466,47 +514,29 @@ void irq_remap(void)
 	outb(IRQ_PIC_SLAVE_DATA_PORT, 0);
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Public Functions
-///////////////////////////////////////////////////////////////////////////////
-
-void irq_raise(u8  entry)
-{
-    if(entry >= 0x30 && entry < 0x40)
-    {
-        if(irq_soft_raise[entry - 0x30])
-        {
-            void (*raise)() = irq_soft_raise[entry - 0x30];
-            raise();
-        }
-    }
-}
-
 void irq_register_handler(void (*handler)(void), u8 entry)
 {
     irq_idt_set_gate(entry, (u32) handler, GDT_KERNEL_CODE_SECTOR, 0x8E);
 }
 
-void irq_register_PIC_handler(void (*handler)(void), u8 entry)
-{
-    if(entry >= 0x20 && entry <= 0x2F)
-    {
-        // registering a PIC handler
-        irq_pic_handlers[entry - 0x20] = handler;
-    }
-}
+///////////////////////////////////////////////////////////////////////////////
+// Public Functions
+///////////////////////////////////////////////////////////////////////////////
 
-void irq_register_soft(void (*handler)(void), u8 entry)
-{
-    if(entry < 0x30 && entry >= 0x40)
-    {
-        return;   // error
-    }
 
-    irq_soft_handlers[entry - 0x30] = handler;
-}
 
-void irq_init()
+/******************************************************************************
+NAME)     vga_init
+
+INPUTS)   NONE
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 irq_init()
 {
 
     /* Sets the special IDT pointer up, just like in 'gdt.c' */
@@ -618,14 +648,131 @@ void irq_init()
     // Remap the PIC 8259 interrupts to 32-47
     irq_remap();
     
+    return 0;
 }
 
-void irq_on()
+
+/******************************************************************************
+NAME)     irq_register_PIC_handler
+
+INPUTS)   
+          0) handler - Function pointer with no input or returns to handle
+                       indicated PIC interrupt. The devices that use the PIC
+                       are defined above.
+          1) entry   - The entry specifying which interrupt your handler is
+                       handling. Must be between 0x20 and 0x2F.
+
+OUTPUTS)  NONE
+
+RETURNS)  0 on success or else non zero error code on failure
+
+COMMENTS) NONE
+******************************************************************************/
+u8 irq_register_PIC_handler(void (*handler)(void), u8 entry)
+{
+    if(entry >= 0x20 && entry <= 0x2F)
+    {
+        // registering a PIC handler
+        irq_pic_handlers[entry - 0x20] = handler;
+        return 0;
+    }
+
+    return IRQ_INVALID_ENTRY;
+}
+
+
+/******************************************************************************
+NAME)     irq_register_soft
+
+INPUTS)   
+          0) handler - Function pointer with no input or returns to handle
+                       indicated soft interrupt.
+          1) entry   - The entry specifying which interrupt your handler is
+                       handling. Must be between 0x30 and 0x3F.
+
+OUTPUTS)  NONE
+
+RETURNS)  0 on success or else non zero error code on failure
+
+COMMENTS) NONE
+******************************************************************************/
+u8 irq_register_soft(void (*handler)(void), u8 entry)
+{
+    if(entry < 0x30 || entry >= 0x40)
+    {
+        return IRQ_INVALID_ENTRY;   // error
+    }
+
+    irq_soft_handlers[entry - 0x30] = handler;
+    return 0;
+}
+
+
+
+/******************************************************************************
+NAME)     irq_raise
+
+INPUTS)   
+          0) entry   - The entry specifying which interrupt your are raising.
+                       Must be between 0x30 and 0x3F.
+
+OUTPUTS)  NONE
+
+RETURNS)  0 on success or else non zero error code on failure
+
+COMMENTS) NONE
+******************************************************************************/
+u8 irq_raise(u8  entry)
+{
+    if(entry >= 0x30 && entry < 0x40)
+    {
+        if(irq_soft_raise[entry - 0x30])
+        {
+            void (*raise)() = irq_soft_raise[entry - 0x30];
+            raise();
+            return 0;
+        }
+
+        return IRQ_RAISER_NOT_IMPLEMENTED;
+    }
+
+    return IRQ_INVALID_ENTRY;
+}
+
+
+
+/******************************************************************************
+NAME)     irq_on
+
+INPUTS)   NONE
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeds
+
+COMMENTS) turn on interrupts
+******************************************************************************/
+u8 irq_on()
 {
     asm volatile("sti");
+    return 0;
 }
 
-void irq_off()
+
+
+/******************************************************************************
+NAME)     irq_off
+
+INPUTS)   NONE
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeds
+
+COMMENTS) turn off interrupts
+******************************************************************************/
+u8 irq_off()
 {
     asm volatile("cli");
+    return 0;
 }

@@ -15,7 +15,9 @@
 // to a trap.
 
 // The second main function is to act as a PIC 8259 driver. Module will init
-// this device, remap its interrupts to 32-47. TODO FINSISH ME!!!!!!!!!!!!!!!
+// this device, remap its interrupts to 32-47.
+
+// TODO FINSISH ME!!!!!!!!!!!!!!!
 
 ///////////////////////////////////////////////////////////////////////////////
 // Kernel Public IRQ defines
@@ -43,63 +45,128 @@
 #define IRQ_PIC_HD          IRQ_PIC_SLAVE_BASE + 0x6
 #define IRQ_PIC_RESV        IRQ_PIC_SLAVE_BASE + 0x7
 
+// Soft Interrupts (unused for now)
+#define IRQ_SOFT_0 0x30
+#define IRQ_SOFT_1 0x31
+#define IRQ_SOFT_2 0x32
+#define IRQ_SOFT_3 0x33
+#define IRQ_SOFT_4 0x34
+#define IRQ_SOFT_5 0x35
+#define IRQ_SOFT_6 0x36
+#define IRQ_SOFT_7 0x37
+#define IRQ_SOFT_8 0x38
+#define IRQ_SOFT_9 0x39
+#define IRQ_SOFT_A 0x3A
+#define IRQ_SOFT_B 0x3B
+#define IRQ_SOFT_C 0x3C
+#define IRQ_SOFT_D 0x3D
+#define IRQ_SOFT_E 0x3E
+#define IRQ_SOFT_F 0x3F
 
-///////////////////////////////////////////////////////////
-// IDT entry flag  bit fields
-///////////////////////////////////////////////////////////
+// Error Codes
+#define IRQ_INVALID_ENTRY 1
+#define IRQ_RAISER_NOT_IMPLEMENTED 2
 
-// flags byte [7] - Present bit. 
-#define IRQ_IDT_ENTRY_PRESENT_SHIFT 0x7
-#define IRQ_IDT_ENTRY_PRESENT       0x1
-#define IRQ_IDT_ENTRY_NOT_PRESENT   0x0
+///////////////////////////////////////////////////////////////////////////////
+// Kernel Public IRQ defines
+///////////////////////////////////////////////////////////////////////////////
 
-// flags byte [5-6] - Privelege 
-#define IRQ_IDT_ENTRY_PRIVILEGE            0x5
-#define IRQ_IDT_ENTRY_KERNEL_PRIVLEGE      0x0
-#define IRQ_IDT_ENTRY_USER_PRIVLEGE        0x3
+/******************************************************************************
+NAME)     irq_init
 
-// flags byte [4] - Always 0
+INPUTS)   NONE
 
-// flags byte [0-3] - Gate Type
-#define IRQ_IDT_ENTRY_TYPE_SHIFT 0x0
-#define IRQ_IDT_ENTRY_TASK       0x5
-#define IRQ_IDT_ENTRY_INTERRUPT  0xE
-#define IRQ_IDT_ENTRY_TRAP       0xF
+OUTPUTS)  NONE
 
-// IDT entry which maps a specific interrupt to an interrupt handler
-//    base_lo   - Lower 16 bits giving location of handler
-//    sel       - Offset of GDT entry of code segment handler will be ran in
-//    flags     - See above
-//    base_hi   - Upper 16 bits giing location of handler
-struct idt_entry
-{
-    u16 base_lo;
-    u16 sel;        /* Our kernel segment goes here! */
-    u8 always0;     /* This will ALWAYS be set to 0! */
-    u8 flags;       /* Set using the above table! */
-    u16 base_hi;
-} __attribute__((packed));
+RETURNS)  0, always succeds
 
-// A IDT pointer. This is the data structure that is used by the lidt and sidt
-// instructions to register / return the location of the IDT in memory.
-struct idt_ptr
-{
-    u16 limit;
-    u32 base;
-} __attribute__((packed));
+COMMENTS) NONE
+******************************************************************************/
+u8 irq_init();
 
-// The main init function that inits the irq module
-void irq_init();
 
-// Register an interrupt handler???? Some thought needs to go here
-void irq_register_PIC_handler(void (*handler)(void), u8 entry);
 
-// Register a soft interrupt i.e. irq 48-63
-void irq_register_soft(void (*handler)(void), u8 entry);
-void irq_raise(u8  entry);
+/******************************************************************************
+NAME)     irq_register_PIC_handler
 
-// public API funcs to turn on and off interrupts
-void irq_on();
-void irq_off();
+INPUTS)   
+          0) handler - Function pointer with no input or returns to handle
+                       indicated PIC interrupt. The devices that use the PIC
+                       are defined above.
+          1) entry   - The entry specifying which interrupt your handler is
+                       handling. Must be between 0x20 and 0x2F.
+
+OUTPUTS)  NONE
+
+RETURNS)  0 on success or else non zero error code on failure
+
+COMMENTS) NONE
+******************************************************************************/
+u8 irq_register_PIC_handler(void (*handler)(void), u8 entry);
+
+
+
+/******************************************************************************
+NAME)     irq_register_soft
+
+INPUTS)   
+          0) handler - Function pointer with no input or returns to handle
+                       indicated soft interrupt.
+          1) entry   - The entry specifying which interrupt your handler is
+                       handling. Must be between 0x30 and 0x3F.
+
+OUTPUTS)  NONE
+
+RETURNS)  0 on success or else non zero error code on failure
+
+COMMENTS) NONE
+******************************************************************************/
+u8 irq_register_soft(void (*handler)(void), u8 entry);
+
+
+
+/******************************************************************************
+NAME)     irq_raise
+
+INPUTS)   
+          0) entry   - The entry specifying which interrupt your are raising.
+                       Must be between 0x30 and 0x3F.
+
+OUTPUTS)  NONE
+
+RETURNS)  0 on success or else non zero error code on failure
+
+COMMENTS) NONE
+******************************************************************************/
+u8 irq_raise(u8  entry);
+
+
+/******************************************************************************
+NAME)     irq_on
+
+INPUTS)   NONE
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeds
+
+COMMENTS) turn on interrupts
+******************************************************************************/
+u8 irq_on();
+
+
+
+/******************************************************************************
+NAME)     irq_off
+
+INPUTS)   NONE
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeds
+
+COMMENTS) turn off interrupts
+******************************************************************************/
+u8 irq_off();
 
 #endif
