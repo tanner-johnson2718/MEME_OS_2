@@ -1,36 +1,63 @@
 #include "serial.h"
 #include "io_port.h"
 #include "irq.h"
-#include "sched_kernel.h"
 
-void serial_output_callback()
-{
-    // Declare small stack buffers for copying message
-    u32 size = EVENT_DATA_SIZE;
-    u8 data[size];
-    u8 i = 0;
-    u8 num_read = 0;
+// See serial.h for "high level" documentation
 
-    // Pop messages off the buffer until no more remain,
-    // for each message loop over the bytes and output
-    while( (num_read = sched_driver_pop_OUT_event(SCHED_SERIAL_ID, data, size)) )
-    {
-        for(i = 0; i < num_read; ++i)
-        {
-            serial_putc(data[i]);
-        }
-    }
+///////////////////////////////////////////////////////////////////////////////
+// Private Register and Macros
+///////////////////////////////////////////////////////////////////////////////
 
-}
+#define SERIAL_COM_RX		  0x0	// In:	Receive buffer (DLAB=0)
+#define SERIAL_COM_TX		  0x0	// Out: Transmit buffer (DLAB=0)
+#define SERIAL_COM_DLL		  0x0	// Out: Divisor Latch Low (DLAB=1)
+#define SERIAL_COM_DLH		  0x1	// Out: Divisor Latch High (DLAB=1)
+#define SERIAL_COM_IER		  0x1	// Out: Interrupt Enable Register
+#define SERIAL_COM_IER_RDI	  0x1	//   Enable receiver data interrupt
+#define SERIAL_COM_IIR		  0x2	// In:	Interrupt ID Register
+#define SERIAL_COM_FCR		  0x2	// Out: FIFO Control Register
+#define SERIAL_COM_LCR		  0x3	// Out: Line Control Register
+#define	SERIAL_COM_LCR_DLAB  0x80	//   Divisor latch access bit
+#define	SERIAL_COM_LCR_WLEN8 0x03	//   Wordlength: 8 bits
+#define SERIAL_COM_MCR		  0x4	// Out: Modem Control Register
+#define	SERIAL_COM_MCR_RTS	  0x02	// RTS complement
+#define	SERIAL_COM_MCR_DTR	  0x01	// DTR complement
+#define	SERIAL_COM_MCR_OUT2  0x08	// Out2 complement
+#define SERIAL_COM_LSR		  0x5	// In:	Line Status Register
+#define SERIAL_COM_LSR_DATA  0x01	//   Data available
+#define SERIAL_COM_LSR_TXRDY 0x20	//   Transmit buffer avail
+#define SERIAL_COM_LSR_TSRE  0x40	//   Transmitter off
+#define SERIAL_COM_MSR       0x6
+
+#define SERIAL_MAX_BAUD      115200   // Maximum Buad rate i.e. Divisor latch = 0x1
+
+// Standard 8250 UART SERIAL IO port and registers
+#define SERIAL_COM1		     0x3F8
+#define SERIAL_COM2          0x2F8
+#define SERIAL_COM3          0x3E8
+#define SERIAL_COM4          0x2E8
+
+///////////////////////////////////////////////////////////////////////////////
+// Private Functions
+///////////////////////////////////////////////////////////////////////////////
 
 void serial_input_irq_handler()
 {
     // called when data available
     u8 in = inb(SERIAL_DEFAULT_COM);
     
-    // put data on scheduler buffer
-    sched_driver_publish_IN_event(&in, 1, SCHED_SERIAL_ID);
+    // for now just loop data back out
+    outb(SERIAL_DEFAULT_COM, in);
 }
+
+void serial_putc(u8 data)
+{
+    outb(SERIAL_DEFAULT_COM, data);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Public Functions
+///////////////////////////////////////////////////////////////////////////////
 
 void serial_init()
 {
@@ -83,9 +110,6 @@ void serial_init()
     {
         irq_register_PIC_handler(serial_input_irq_handler, IRQ_PIC_COM1);
     }
-
-    // register output callback with scheduler
-    sched_driver_register_callback(serial_output_callback);
 }
 
 u32 serial_get_buad()
@@ -116,10 +140,7 @@ void serial_set_buad(u32 rate)
     outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, inb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR) & 0x7f);
 }
 
-void serial_putc(u8 data)
-{
-    outb(SERIAL_DEFAULT_COM, data);
-}
+
 
 void serial_putd(u32 d)
 {

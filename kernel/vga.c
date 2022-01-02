@@ -104,8 +104,6 @@ void vga_init()
 {
     // Maybe verify that the VGA driver is set to text mode?
     // Maybe allow input to allow different color modes? actually set pixels
-
-    vga_text_mode_clear_screen();
 }
 
 
@@ -122,7 +120,7 @@ INPUTS)
         2) u8 c  - The character to place on the character matrix
         3) u8 fg - Foreground color. Must be between min and max color code.
                    see vga_msg.h.
-        3) u8 bg - Background color. Must be between min and max color code.
+        4) u8 bg - Background color. Must be between min and max color code.
                    see vga_msg.h.
 
 OUTPUTS) NONE
@@ -131,7 +129,7 @@ RETURNS) 0 on success or VGA error code on error.
 
 COMMENTS) NONE
 ******************************************************************************/
-u8 vga_textmode_putc(u8 x, u8 y, u8 c, u8 fg, u8 bg);
+u8 vga_textmode_putc(u8 x, u8 y, u8 c, u8 fg, u8 bg)
 {
     u8 ret = check_input(x,y,bg,fg);
     if(ret)
@@ -163,7 +161,7 @@ COMMENTS) NONE
 ******************************************************************************/
 u8 vga_textmode_getc(u8 x, u8 y, u8* c)
 {
-    u8 ret = check_input(x,y,0,0)
+    u8 ret = check_input(x,y,0,0);
     if(ret)
     {
         return ret;
@@ -193,7 +191,7 @@ RETURNS) 0 on success or VGA error code on error.
 
 COMMENTS) NONE
 ******************************************************************************/
-u8 vga_textmode_get_fg(u8 x, u8 y, u8* fg);
+u8 vga_textmode_get_fg(u8 x, u8 y, u8* fg)
 {
     u8 ret = check_input(x,y,0,0); 
     if(ret)
@@ -241,13 +239,13 @@ u8 vga_textmode_get_bg(u8 x, u8 y, u8* bg)
 
 
 /******************************************************************************
-NAME)    vga_textmode_get_bg
+NAME)    vga_textmode_clear_screen
 
 INPUTS)  
-        0) u8 x  - X position in character matrix to put char. Must be between 
-                   0 and VGA_BUFFER_WIDTH
-        1) u8 y  - Y position in character matrix to put char. Must be between 
-                   0 and VGA_BUFFER_HEIGHT
+        0) u8 fg - Foreground color. Must be between min and max color code.
+                   see vga_msg.h.
+        1) u8 bg - Background color. Must be between min and max color code.
+                   see vga_msg.h.
         
 OUTPUTS) NONE
 
@@ -255,18 +253,18 @@ RETURNS) 0 on success or VGA error code on error.
 
 COMMENTS) Just puts a space on every location of char matrix w/ spec. bg and fg
 ******************************************************************************/
-u8 vga_text_mode_clear_screen(u8 bg, u8 fg)
+u8 vga_textmode_clear_screen(u8 fg, u8 bg)
 {
-    u8 ret = check_input(0,0,bg,fg);
+    u8 ret = check_input(0,0,fg,bg);
     if(ret)
     {
         return ret;
     }
 
-    u8 i, j = 0;
-    for(; i < VGA_BUFFER_HEIGHT; ++i)
+    u8 i, j;
+    for(i = 0; i < VGA_BUFFER_HEIGHT; ++i)
     {
-        for(; j < VGA_BUFFER_WIDTH; ++j)
+        for(j = 0; j < VGA_BUFFER_WIDTH; ++j)
         {
             vga_textmode_putc(j, i, ' ', fg, bg);
         }

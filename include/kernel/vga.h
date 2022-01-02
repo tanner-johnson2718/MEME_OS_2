@@ -7,6 +7,11 @@
 // Documentation
 ///////////////////////////////////////////////////////////////////////////////
 
+/* Text mode vga driver - ..... FILL ME IN 
+
+
+*/
+
 ///////////////////////////////////////////////////////////////////////////////
 // Kernel Public VGA defines
 ///////////////////////////////////////////////////////////////////////////////
@@ -70,7 +75,7 @@ INPUTS)
         2) u8 c  - The character to place on the character matrix
         3) u8 fg - Foreground color. Must be between min and max color code.
                    see vga_msg.h.
-        3) u8 bg - Background color. Must be between min and max color code.
+        4) u8 bg - Background color. Must be between min and max color code.
                    see vga_msg.h.
 
 OUTPUTS) NONE
@@ -141,5 +146,25 @@ RETURNS) 0 on success or VGA error code on error.
 COMMENTS) NONE
 ******************************************************************************/
 u8 vga_textmode_get_bg(u8 x, u8 y, u8* bg);
+
+
+
+
+/******************************************************************************
+NAME)    vga_textmode_clear_screen
+
+INPUTS)  
+        0) u8 fg - Foreground color. Must be between min and max color code.
+                   see vga_msg.h.
+        1) u8 bg - Background color. Must be between min and max color code.
+                   see vga_msg.h.
+        
+OUTPUTS) NONE
+
+RETURNS) 0 on success or VGA error code on error.
+
+COMMENTS) Just puts a space on every location of char matrix w/ spec. bg and fg
+******************************************************************************/
+u8 vga_textmode_clear_screen(u8 fg, u8 bg);
 
 #endif
