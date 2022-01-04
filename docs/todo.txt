@@ -7,6 +7,7 @@ Wish List)
 - Need to go back over modules ideas
 - Fill out VGA driver code
 - String library
+- Why is timer in square wave mode?
 
 Actually need todo to move forward)
 - DOC!!! Especially include files
@@ -18,6 +19,7 @@ Actually need todo to move forward)
 - add dir config to coding style
 - implement + test isr exceptions 0-31
     - test soft irqs to make sure leave and iret instructions are nes.
+- Double check timer is making sensible snese
 
 
 - Network driver

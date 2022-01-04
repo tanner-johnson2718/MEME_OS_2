@@ -100,10 +100,12 @@ RETURNS)  NONE
 
 COMMENTS) NONE
 ******************************************************************************/
-void vga_init()
+u8 vga_init()
 {
     // Maybe verify that the VGA driver is set to text mode?
     // Maybe allow input to allow different color modes? actually set pixels
+
+    return 0;
 }
 
 

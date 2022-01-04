@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Programmable Interval Timer - OSDev Wiki</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.18.0">
+<link rel="shortcut icon" href="https://wiki.osdev.org/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.osdev.org/opensearch_desc.php" title="OSDev Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.osdev.org/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="OSDev Wiki Atom feed" href="https://wiki.osdev.org/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/load.css">
+<style type="text/css" media="all">.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+
+/* cache key: wikidb:resourceloader:filter:minify-css:4:4250852ed2349a0d4d0fc6509a3e7d4c */
+</style><style type="text/css" media="all">.js-messagebox{margin:1em 5%;padding:0.5em 2.5%;border:1px solid #ccc;background-color:#fcfcfc;font-size:0.8em}.js-messagebox .js-messagebox-group{margin:1px;padding:0.5em 2.5%;border-bottom:1px solid #ddd}.js-messagebox .js-messagebox-group:last-child{border-bottom:thin none transparent}
+
+/* cache key: wikidb:resourceloader:filter:minify-css:4:8b08bdc91c52a9ffba396dccfb5b473c */
+</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/load_002.css">
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: wikidb:resourceloader:filter:minify-css:4:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+<script src="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/load_006.php"></script><script src="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/load.php"></script>
+<script>if(window.mw){
+	mw.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Programmable_Interval_Timer", "wgTitle": "Programmable Interval Timer", "wgCurRevisionId": 25699, "wgArticleId": 1560, "wgIsArticle": true, "wgAction": "view", "wgUserName": null, "wgUserGroups": ["*"], "wgCategories": ["Common Devices", "Time"], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script><script>if(window.mw){
+	mw.loader.load(["mediawiki.page.startup"]);
+}
+</script><script type="text/javascript" src="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/load_004.php"></script>
+<style type="text/css">/*<![CDATA[*/
+.source-c {line-height: normal;}
+.source-c li, .source-c pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for c
+ * CSS class: source-c, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.c.source-c .de1, .c.source-c .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.c.source-c  {font-family:monospace;}
+.c.source-c .imp {font-weight: bold; color: red;}
+.c.source-c li, .c.source-c .li1 {font-weight: normal; vertical-align:top;}
+.c.source-c .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.c.source-c .li2 {font-weight: bold; vertical-align:top;}
+.c.source-c .kw1 {color: #b1b100;}
+.c.source-c .kw2 {color: #000000; font-weight: bold;}
+.c.source-c .kw3 {color: #000066;}
+.c.source-c .kw4 {color: #993333;}
+.c.source-c .co1 {color: #666666; font-style: italic;}
+.c.source-c .co2 {color: #339933;}
+.c.source-c .coMULTI {color: #808080; font-style: italic;}
+.c.source-c .es0 {color: #000099; font-weight: bold;}
+.c.source-c .es1 {color: #000099; font-weight: bold;}
+.c.source-c .es2 {color: #660099; font-weight: bold;}
+.c.source-c .es3 {color: #660099; font-weight: bold;}
+.c.source-c .es4 {color: #660099; font-weight: bold;}
+.c.source-c .es5 {color: #006699; font-weight: bold;}
+.c.source-c .br0 {color: #009900;}
+.c.source-c .sy0 {color: #339933;}
+.c.source-c .st0 {color: #ff0000;}
+.c.source-c .nu0 {color: #0000dd;}
+.c.source-c .nu6 {color: #208080;}
+.c.source-c .nu8 {color: #208080;}
+.c.source-c .nu12 {color: #208080;}
+.c.source-c .nu16 {color:#800080;}
+.c.source-c .nu17 {color:#800080;}
+.c.source-c .nu18 {color:#800080;}
+.c.source-c .nu19 {color:#800080;}
+.c.source-c .me1 {color: #202020;}
+.c.source-c .me2 {color: #202020;}
+.c.source-c .ln-xtra, .c.source-c li.ln-xtra, .c.source-c div.ln-xtra {background-color: #ffc;}
+.c.source-c span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "/index.php?title=MediaWiki:Geshi.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-asm {line-height: normal;}
+.source-asm li, .source-asm pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for asm
+ * CSS class: source-asm, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.asm.source-asm .de1, .asm.source-asm .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.asm.source-asm  {font-family:monospace;}
+.asm.source-asm .imp {font-weight: bold; color: red;}
+.asm.source-asm li, .asm.source-asm .li1 {font-weight: normal; vertical-align:top;}
+.asm.source-asm .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.asm.source-asm .li2 {font-weight: bold; vertical-align:top;}
+.asm.source-asm .kw1 {color: #00007f; font-weight: bold;}
+.asm.source-asm .kw2 {color: #0000ff; font-weight: bold;}
+.asm.source-asm .kw3 {color: #00007f;}
+.asm.source-asm .kw4 {color: #000000; font-weight: bold;}
+.asm.source-asm .kw5 {color: #000000; font-weight: bold;}
+.asm.source-asm .co1 {color: #666666; font-style: italic;}
+.asm.source-asm .co2 {color: #adadad; font-style: italic;}
+.asm.source-asm .es0 {color: #000099; font-weight: bold;}
+.asm.source-asm .br0 {color: #009900; font-weight: bold;}
+.asm.source-asm .sy0 {color: #339933;}
+.asm.source-asm .st0 {color: #7f007f;}
+.asm.source-asm .nu0 {color: #0000ff;}
+.asm.source-asm .ln-xtra, .asm.source-asm li.ln-xtra, .asm.source-asm div.ln-xtra {background-color: #ffc;}
+.asm.source-asm span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "/index.php?title=MediaWiki:Geshi.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Programmable_Interval_Timer action-view skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;" class="js-messagebox"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Programmable Interval Timer</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From OSDev Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div dir="ltr" class="mw-content-ltr" lang="en"><p>The <b>Programmable Interval Timer</b> (<b>PIT</b>)
+ chip (Intel 8253/8254) basically consists of an oscillator, a prescaler
+ and 3 independent frequency dividers. Each frequency divider has an 
+output, which is used to allow the timer to control external circuitry 
+(for example, IRQ 0).
+</p>
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#The_Oscillator"><span class="tocnumber">1</span> <span class="toctext">The Oscillator</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Frequency_Dividers"><span class="tocnumber">2</span> <span class="toctext">Frequency Dividers</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#PIT_Timer_Accuracy"><span class="tocnumber">3</span> <span class="toctext">PIT Timer Accuracy</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Outputs"><span class="tocnumber">4</span> <span class="toctext">Outputs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Channel_0"><span class="tocnumber">4.1</span> <span class="toctext">Channel 0</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Channel_1"><span class="tocnumber">4.2</span> <span class="toctext">Channel 1</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Channel_2"><span class="tocnumber">4.3</span> <span class="toctext">Channel 2</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#I.2FO_Ports"><span class="tocnumber">5</span> <span class="toctext">I/O Ports</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Operating_Modes"><span class="tocnumber">6</span> <span class="toctext">Operating Modes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Mode_0_.E2.80.93_Interrupt_On_Terminal_Count"><span class="tocnumber">6.1</span> <span class="toctext">Mode 0 – Interrupt On Terminal Count</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Mode_1_.E2.80.93_Hardware_Re-triggerable_One-shot"><span class="tocnumber">6.2</span> <span class="toctext">Mode 1 – Hardware Re-triggerable One-shot</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Mode_2_.E2.80.93_Rate_Generator"><span class="tocnumber">6.3</span> <span class="toctext">Mode 2 – Rate Generator</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Mode_3_.E2.80.93_Square_Wave_Generator"><span class="tocnumber">6.4</span> <span class="toctext">Mode 3 – Square Wave Generator</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Mode_4_.E2.80.93_Software_Triggered_Strobe"><span class="tocnumber">6.5</span> <span class="toctext">Mode 4 – Software Triggered Strobe</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Mode_5_.E2.80.93_Hardware_Triggered_Strobe"><span class="tocnumber">6.6</span> <span class="toctext">Mode 5 – Hardware Triggered Strobe</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Counter_Latch_Command"><span class="tocnumber">7</span> <span class="toctext">Counter Latch Command</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#Read_Back_Command"><span class="tocnumber">8</span> <span class="toctext">Read Back Command</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#Read_Back_Status_Byte"><span class="tocnumber">8.1</span> <span class="toctext">Read Back Status Byte</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Reading_The_Current_Count"><span class="tocnumber">9</span> <span class="toctext">Reading The Current Count</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#Setting_The_Reload_Value"><span class="tocnumber">10</span> <span class="toctext">Setting The Reload Value</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#PIT_Channel_0_Example_Code"><span class="tocnumber">11</span> <span class="toctext">PIT Channel 0 Example Code</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#Uses_for_the_Timer_IRQ"><span class="tocnumber">12</span> <span class="toctext">Uses for the Timer IRQ</span></a>
+<ul>
+<li class="toclevel-2 tocsection-23"><a href="#Using_the_IRQ_to_Implement_sleep"><span class="tocnumber">12.1</span> <span class="toctext">Using the IRQ to Implement sleep</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Using_the_IRQ_for_Preemptive_Multitasking"><span class="tocnumber">12.2</span> <span class="toctext">Using the IRQ for Preemptive Multitasking</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-25"><a href="#See_Also"><span class="tocnumber">13</span> <span class="toctext">See Also</span></a>
+<ul>
+<li class="toclevel-2 tocsection-26"><a href="#Articles"><span class="tocnumber">13.1</span> <span class="toctext">Articles</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#Threads"><span class="tocnumber">13.2</span> <span class="toctext">Threads</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#External_Links"><span class="tocnumber">13.3</span> <span class="toctext">External Links</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></tbody></table>
+<h2> <span class="mw-headline" id="The_Oscillator"> The Oscillator </span></h2>
+<p>The oscillator used by the PIT chip runs at (roughly) 1.193182 MHz. 
+The reason for this requires a trip back into history (to the later half
+ of the 1970's)...
+</p><p>The original PC used a single "base oscillator" to generate a 
+frequency of 14.31818 MHz because this frequency was commonly used in 
+television circuitry at the time. This base frequency was divided by 3 
+to give a frequency of 4.77272666 MHz that was used by the CPU, and 
+divided by 4 to give a frequency of 3.579545 MHz that was used by the 
+CGA video controller. By logically ANDing these signals together a 
+frequency equivalent to the base frequency divided by 12 was created. 
+This frequency is 1.1931816666 MHz (where the 6666 part is recurring). 
+At the time it was a brilliant method of reducing costs, as the 14.31818
+ MHz oscillator was cheap due to mass production and it was cheaper to 
+derive the other frequencies from this than to have several oscillators.
+ In modern computers, where the cost of electronics is much less, and 
+the CPU and video run at much higher frequencies the PIT lives on as a 
+reminder of "the good ole' days".
+</p>
+<h2> <span class="mw-headline" id="Frequency_Dividers"> Frequency Dividers </span></h2>
+<p>The basic principle of a frequency divider is to divide one frequency
+ to obtain a slower frequency. This is typically done by using a 
+counter. Each "pulse" from the input frequency causes the counter to be 
+decreased, and when that counter has reached zero a pulse is generated 
+on the output and the counter is reset. For example, if the input signal
+ is 200 Hz and the counter is reset to a value of ten each time, then 
+the output frequency would be 200/10, or 20 Hz.
+</p><p>The PIT has only 16 bits that are used as frequency divider, 
+which can represent the values from 0 to 65535. Since the frequency 
+can't be divided by 0 in a sane way, many implementations use 0 to 
+represent the value 65536 (or 10000 when programmed in BCD mode).
+</p><p>The PIT chip has three separate frequency dividers (or 3 separate
+ channels) that are programmable, in that the value of the "reset 
+counter" is set by software (the OS). Software also specifies an action 
+to be taken when the counter reaches zero on each individual channel. In
+ this way, each channel can be used in one of several "modes" – for 
+example, as a frequency divider (where the count is automatically reset)
+ or as a "one shot" timer (where the count isn't automatically reset).
+</p><p>Each PIT channel also has a "gate input" pin which can be used to
+ control whether the input signal (the 1.19MHz one) gets to the channel 
+or not. For PIT channels 0 and 1, the associated gate input pin is not 
+connected to anything. The PIT channel 2 gate is controlled by IO port 
+0x61, bit 0.
+</p>
+<h2> <span class="mw-headline" id="PIT_Timer_Accuracy"> PIT Timer Accuracy </span></h2>
+<p>The accuracy of the PIT timer depends on the quality of the 
+oscillator used, and is typically accurate to within +/- 1.73 seconds 
+per day. There are many causes for this inaccuracy, however because of 
+this there isn't much point in specifying times or frequencies to more 
+than five or six digits.
+</p>
+<h2> <span class="mw-headline" id="Outputs"> Outputs </span></h2>
+<p>Channel 0 is connected directly to IRQ0, so it is best to use it only
+ for purposes that should generate interrupts. Channel 1 is unusable, 
+and may not even exist. Channel 2 is connected to the PC speaker, but 
+can be used for other purposes without producing audible speaker tones.
+</p>
+<h3> <span class="mw-headline" id="Channel_0"> Channel 0 </span></h3>
+<p>The output from PIT channel 0 is connected to the PIC chip, so that 
+it generates an "IRQ 0". Typically during boot the BIOS sets channel 0 
+with a count of 65535 or 0 (which translates to 65536), which gives an 
+output frequency of 18.2065 Hz (or an IRQ every 54.9254 ms). Channel 0 
+is probably the most useful PIT channel, as it is the only channel that 
+is connected to an IRQ. It can be used to generate an infinte series of 
+"timer ticks" at a frequency of your choice (as long as it is higher 
+than 18 Hz), or to generate single CPU interrupts (in "one shot" mode) 
+after programmable short delays (less than an 18th of a second).
+</p><p>When choosing <a href="#Operating_Modes">an operating mode</a>, below, it is useful to remember that the IRQ0 is generated by the <i>rising edge</i> of the Channel 0 output voltage (ie. the transition from "low" to "high", only).
+</p>
+<h3> <span class="mw-headline" id="Channel_1"> Channel 1 </span></h3>
+<p>The output for PIT channel 1 was once used (in conjunction with the 
+DMA controller's channel 0) for refreshing the DRAM (Dynamic Random 
+Access Memory) or RAM. Typically, each bit in RAM consists of a 
+capacitor which holds a tiny charge representing the state of that bit, 
+however (due to leakage) these capacitors need to be "refreshed" 
+periodically so that they don't forget their state.
+</p><p>On later machines, the DRAM refresh is done with dedicated 
+hardware and the PIT (and DMA controller) is no longer used. On modern 
+computers where the functionality of the PIT is implemented in a large 
+scale integrated circuit, PIT channel 1 is no longer usable and may not 
+be implemented at all.
+</p>
+<h3> <span class="mw-headline" id="Channel_2"> Channel 2 </span></h3>
+<p>The output of PIT channel 2 is connected to the PC speaker, so the 
+frequency of the output determines the frequency of the sound produced 
+by the speaker. This is the only channel where the gate input can be 
+controlled by software (via bit 0 of I/O port 0x61), and the only 
+channel where its output (a high or low voltage) can be read by software
+ (via bit 5 of I/O port 0x61). Details of how to program the PC speaker 
+can be found <a href="https://wiki.osdev.org/PC_Speaker" title="PC Speaker">here</a>.
+</p>
+<h2> <span class="mw-headline" id="I.2FO_Ports"> I/O Ports </span></h2>
+<p>The PIT chip uses the following I/O ports:
+</p>
+<pre>I/O port     Usage
+0x40         Channel 0 data port (read/write)
+0x41         Channel 1 data port (read/write)
+0x42         Channel 2 data port (read/write)
+0x43         Mode/Command register (write only, a read is ignored)
+</pre>
+<p>Each 8 bit data port is the same, and is used to set the counter's 16
+ bit reload value or read the channel's 16 bit current count (more on 
+this later). The PIT channel's current count and reload value should not
+ be confused. In general, when the current count reaches zero the PIT 
+channel's output is changed and the current count is reloaded with the 
+reload value, however this isn't always the case. How the current count 
+and reload value are used and what they contain depends on which mode 
+the PIT channel is configured to use.
+</p><p>The Mode/Command register at I/O address 0x43 contains the following:
+</p>
+<pre>Bits         Usage
+6 and 7      Select channel&nbsp;:
+                0 0 = Channel 0
+                0 1 = Channel 1
+                1 0 = Channel 2
+                1 1 = Read-back command (8254 only)
+4 and 5      Access mode&nbsp;:
+                0 0 = Latch count value command
+                0 1 = Access mode: lobyte only
+                1 0 = Access mode: hibyte only
+                1 1 = Access mode: lobyte/hibyte
+1 to 3       Operating mode&nbsp;:
+                0 0 0 = Mode 0 (interrupt on terminal count)
+                0 0 1 = Mode 1 (hardware re-triggerable one-shot)
+                0 1 0 = Mode 2 (rate generator)
+                0 1 1 = Mode 3 (square wave generator)
+                1 0 0 = Mode 4 (software triggered strobe)
+                1 0 1 = Mode 5 (hardware triggered strobe)
+                1 1 0 = Mode 2 (rate generator, same as 010b)
+                1 1 1 = Mode 3 (square wave generator, same as 011b)
+0            BCD/Binary mode: 0 = 16-bit binary, 1 = four-digit BCD
+</pre>
+<p>The "Select Channel" bits select which channel is being configured, 
+and must always be valid on every write of the mode/command register, 
+regardless of the other bits or the type of operation being performed. 
+The "read back" (both bits set) is not supported on the old 8253 chips 
+but should be supported on all AT and later computers except for PS/2 
+(i.e. anything that isn't obsolete will support it). The "read back" 
+command is discussed later.
+</p><p>The "Access Mode" bits tell the PIT what access mode you wish to use for the selected channel, and also specify <a href="#Counter_Latch_Command">the "counter latch" command</a> to the CTC. These bits must be valid on every write to the mode/command register. For <a href="#Read_Back_Command">the "read back" command</a>,
+ these bits have a different meaning. For the remaining combinations, 
+these bits specify what order data will be read and written to the data 
+port for the associated PIT channel. Because the data port is an 8 bit 
+I/O port and the values involved are all 16 bit, the PIT chip needs to 
+know what byte each read or write to the data port wants. For "lobyte 
+only", only the lowest 8 bits of the counter value is read or written 
+to/from the data port. For "hibyte only", only the highest 8 bits of the
+ counter value is read or written. For the "lobyte/hibyte" mode, 16 bits
+ are always transferred as a pair, with the lowest 8 bits followed by 
+the highest 8 bits (both 8 bit transfers are to the <b>same</b> IO port, sequentially – a word transfer will not work).
+</p><p>The "Operating Mode" bits specify which mode the selected PIT 
+channel should operate in. For the "read back" command and the "counter 
+latch" command, these bits have different meanings (see the information 
+corresponding to these commands below). There are 6 different <a href="#Operating_Modes">operating modes</a>. Each operating mode will be discussed separately later.
+</p><p>The "BCD/Binary" bit determines if the PIT channel will operate 
+in binary mode or BCD mode (where each 4 bits of the counter represent a
+ decimal digit, and the counter holds values from 0000 to 9999). 80x86 
+PCs only use binary mode (BCD mode is ugly and limits the range of 
+counts/frequencies possible). Although it should still be possible to 
+use BCD mode, it may not work properly on some "compatible" chips. For 
+the "read back" command and the "counter latch" command, this bit has 
+different meanings (see the information corresponding to these commands 
+below).
+</p>
+<h2> <span class="mw-headline" id="Operating_Modes"> Operating Modes </span></h2>
+<p>While each operating mode behaves differently, some things are common to all operating modes. This includes:
+</p>
+<dl><dt> <b>Initial Output State</b>
+</dt><dd> Every time the mode/command register is written to, all 
+internal logic in the selected PIT channel is reset, and the output 
+immediately goes to its initial state (which depends on the mode).
+</dd><dt> <b>Changing Reload Value</b>
+</dt><dd> A new reload value can be written to a PIT channel's data port
+ at any time. The operating mode determines the exact effect that this 
+will have.
+</dd><dt> <b>Current Counter</b>
+</dt><dd> The current counter value is always either decremented or reset to the reload value on the <i>falling</i> edge of the (1.193182 MHz) input signal.
+</dd><dt> <b>Current Counter Reload</b>
+</dt><dd> In modes where the current count is decremented when it is 
+reloaded, the current count is not decremented on the same input clock 
+pulse as the reload – it starts decrementing on the <i>next</i> input clock pulse.
+</dd></dl>
+<h3> <span class="mw-headline" id="Mode_0_.E2.80.93_Interrupt_On_Terminal_Count"> Mode 0 – Interrupt On Terminal Count </span></h3>
+<p>For this mode, when the mode/command register is written the output 
+signal goes low and the PIT waits for the reload register to be set by 
+software, to begin the countdown. After the reload register has been 
+set, the current count will be set to the reload value on the next 
+falling edge of the (1.193182 MHz) input signal. Subsequent falling 
+edges of the input signal will decrement the current count (if the gate 
+input is high on the preceding rising edge of the input signal).
+</p><p>When the current count decrements from one to zero, the output 
+goes high and remains high until another mode/command register is 
+written or the reload register is set again. The current count will wrap
+ around to 0xFFFF (or 0x9999 in BCD mode) and continue to decrement 
+until the mode/command register or the reload register are set, however 
+this will not effect the output pin state.
+</p><p>The reload value can be changed at any time. In "lobyte/hibyte" 
+access mode counting will stop when the first byte of the reload value 
+is set. Once the full reload value is set (in any access mode), the next
+ falling edge of the (1.193182 MHz) input signal will cause the new 
+reload value to be copied into the current count, and the countdown will
+ continue from the new value.
+</p><p>Note: despite the misleading name of this mode, it only generates interrupts on channel 0.
+</p>
+<h3> <span class="mw-headline" id="Mode_1_.E2.80.93_Hardware_Re-triggerable_One-shot"> Mode 1 – Hardware Re-triggerable One-shot </span></h3>
+<p>This mode is similar to mode 0 above, however counting doesn't start 
+until a rising edge of the gate input is detected. For this reason it is
+ not usable for PIT channels 0 or 1 (where the gate input can't be 
+changed).
+</p><p>When the mode/command register is written the output signal goes 
+high and the PIT waits for the reload register to be set by software. 
+After the reload register has been set the PIT will wait for the next 
+rising edge of the gate input. Once this occurs, the output signal will 
+go low and the current count will be set to the reload value on the next
+ falling edge of the (1.193182 MHz) input signal. Subsequent falling 
+edges of the input signal will decrement the current count.
+</p><p>When the current count decrements from one to zero, the output 
+goes high and remains high until another mode/command register is 
+written or the reload register is set again. The current count will wrap
+ around to 0xFFFF (or 0x9999 in BCD mode) and continue to decrement 
+until the mode/command register or the reload register are set, however 
+this will not effect the output pin state.
+</p><p>If the gate input signal goes low during this process it will 
+have no effect. However, if the gate input goes high again it will cause
+ the current count to be reloaded from the reload register on the next 
+falling edge of the input signal, and restart the count again (the same 
+as when counting first started).
+</p><p>The reload value can be changed at any time, however the new 
+value will not affect the current count until the current count is 
+reloaded (on the next rising edge of the gate input). So if you want to 
+do this, clear and then reset bit 0 of IO port 0x61, after modifying the
+ reload value.
+</p>
+<h3> <span class="mw-headline" id="Mode_2_.E2.80.93_Rate_Generator"> Mode 2 – Rate Generator </span></h3>
+<p>This mode operates as a frequency divider.
+</p><p>When the mode/command register is written the output signal goes 
+high and the PIT waits for the reload register to be set by software. 
+After the reload register has been set, the current count will be set to
+ the reload value on the next falling edge of the (1.193182 MHz) input 
+signal. Subsequent falling edges of the input signal will decrement the 
+current count (if the gate input is high on the preceding rising edge of
+ the input signal).
+</p><p>When the current count decrements from two to one, the output 
+goes low, and on the next falling edge of the (1.193182 MHz) input 
+signal it will go high again and the current count will be set to the 
+reload value and counting will continue.
+</p><p>If the gate input goes low, counting stops and the output goes 
+high immediately. Once the gate input has returned high, the next 
+falling edge on input signal will cause the current count to be set to 
+the reload value and operation will continue.
+</p><p>The reload value can be changed at any time, however the new 
+value will not effect the current count until the current count is 
+reloaded (when it is decreased from two to one, or the gate input going 
+low then high). When this occurs counting will continue using the new 
+reload value.
+</p><p>A reload value (or divisor) of one must <i>not</i> be used with this mode.
+</p><p>This mode creates a high output signal that drops low for one 
+input signal cycle (0.8381 uS), which is too fast to make a difference 
+to the PC speaker (see mode 3). For this reason mode 2 is useless for 
+producing sounds with PIT channel 2.
+</p><p>Typically, OSes and BIOSes use mode 3 (see below) for PIT channel
+ 0 to generate IRQ 0 timer ticks, but some use mode 2 instead, to gain 
+frequency accuracy (frequency = 1193182 / reload_value Hz).
+</p>
+<h3> <span class="mw-headline" id="Mode_3_.E2.80.93_Square_Wave_Generator"> Mode 3 – Square Wave Generator </span></h3>
+<p>For mode 3, the PIT channel operates as a frequency divider like mode
+ 2, however the output signal is fed into an internal "flip flop" to 
+produce a square wave (rather than a short pulse). The flip flop changes
+ its output state each time its input state (or the output of the PIT 
+channel's frequency divider) changes. This causes the actual output to 
+change state half as often, so to compensate for this the current count 
+is decremented twice on each falling edge of the input signal (instead 
+of once), and the current count is set to the reload value twice as 
+often.
+</p><p>When the mode/command register is written the output signal goes 
+high and the PIT waits for the reload register to be set by software. 
+After the reload register has been set, the current count will be set to
+ the reload value on the next falling edge of the (1.193182 MHz) input 
+signal. Subsequent falling edges of the input signal will decrement the 
+current count twice (if the gate input is high on the preceding rising 
+edge of the input signal).
+</p><p>Note: under normal circumstances the output state will be low 50%
+ of the time when the mode/command register is written. The output will 
+then go high, which will generate an immediate (perhaps spurious) IRQ0. 
+The other 50% of the time the output will already be high, and there 
+will be no IRQ0 generated.
+</p><p>For even reload values, when the current count decrements from 
+two to zero the output of the flop-flop changes state; the current count
+ will be reset to the reload value and counting will continue.
+</p><p>For odd reload values, the current count is always set to one 
+less than the reload value.
+If the output of the flip flop is low when the current count decrements 
+from two to zero it will behave the same as the equivalent even reload 
+value. However, if the output of the flip flop is high the reload will 
+be delayed for one input signal cycle (0.8381 uS), which causes the 
+"high" pulse to be slightly longer and the duty cycle will not be 
+exactly 50%. Because the reload value is rounded down to the nearest 
+even number anyway, it is recommended that only even reload values be 
+used (which means you should mask the value before sending it to the 
+port).
+</p><p>Note: This even value limitation on the reload value in mode 3 
+reduces the number of possible output frequencies in half. If you want 
+to be able to control the frequency of IRQ0 to a somewhat higher degree,
+ then think about using mode 2 instead for channel 0.
+</p><p>On channel 2, if the gate input goes low, counting stops and the 
+output goes high immediately. Once the gate input has returned high, the
+ next falling edge on input signal will cause the current count to be 
+set to the reload value and operation will continue (with the output 
+left high).
+</p><p>The reload value can be changed at any time, however the new 
+value will not effect the current count until the current count is 
+reloaded (when it is decreased from two to zero, or the gate input going
+ low then high). When this occurs counting will continue using the new 
+reload value.
+</p><p>A reload value (or divisor) of one must <i>not</i> be used with this mode.
+</p>
+<h3> <span class="mw-headline" id="Mode_4_.E2.80.93_Software_Triggered_Strobe"> Mode 4 – Software Triggered Strobe </span></h3>
+<p>Mode four operates as a retriggerable delay, and generates a pulse when the current count reaches zero.
+</p><p>When the mode/command register is written the output signal goes 
+high and the PIT waits for the reload register to be set by software. 
+After the reload register has been set, the current count will be set to
+ the reload value on the next falling edge of the (1.193182 MHz) input 
+signal. Subsequent falling edges of the input signal will decrement the 
+current count (if the gate input is high on the preceding rising edge of
+ the input signal).
+</p><p>When the current count decrements from one to zero, the output 
+goes low for one cycle of the input signal (0.8381 uS). The current 
+count will wrap around to 0xFFFF (or 0x9999 in BCD mode) and continue to
+ decrement until the mode/command register or the reload register are 
+set, however this will not affect the output state.
+</p><p>If the gate input goes low, counting stops but the output will 
+not be affected and the current count will not be reset to the reload 
+value.
+</p><p>The reload value can be changed at any time. When the new value 
+has been set (both bytes for "lobyte/hibyte" access mode) it will be 
+loaded into the current count on the next falling edge of the (1.193182 
+MHz) input signal, and counting will continue using the new reload 
+value.
+</p>
+<h3> <span class="mw-headline" id="Mode_5_.E2.80.93_Hardware_Triggered_Strobe"> Mode 5 – Hardware Triggered Strobe </span></h3>
+<p>Mode 5 is similar to mode 4, except that it waits for the rising edge
+ of the gate input to trigger (or re-trigger) the delay period (like 
+mode 1). For this reason it is not usable for PIT channels 0 or 1 (where
+ the gate input can't be changed).
+</p><p>When the mode/command register is written the output signal goes 
+high and the PIT waits for the reload register to be set by software. 
+After the reload register has been set the PIT will wait for the next 
+rising edge of the gate input. Once this occurs, the current count will 
+be set to the reload value on the next falling edge of the (1.193182 
+MHz) input signal. Subsequent falling edges of the input signal will 
+decrement the current count.
+</p><p>When the current count decrements from one to zero, the output 
+goes low for one cycle of the input signal (0.8381 uS). The current 
+count will wrap around to 0xFFFF (or 0x9999 in BCD mode) and continue to
+ decrement until the mode/command register or the reload register are 
+set, however this will not effect the output state.
+</p><p>If the gate input signal goes low during this process it will 
+have no effect. However, if the gate input goes high again it will cause
+ the current count to be reloaded from the reload register on the next 
+falling edge of the input signal, and restart the count again (the same 
+as when counting first started).
+</p><p>The reload value can be changed at any time, however the new 
+value will not affect the current count until the current count is 
+reloaded (on the next rising edge of the gate input). When this occurs 
+counting will continue using the new reload value.
+</p>
+<h2> <span class="mw-headline" id="Counter_Latch_Command"> Counter Latch Command </span></h2>
+<p>To prevent the current count from being updated, it is possible to 
+"latch" a PIT channel using the latch command. To do this, send the 
+value CC000000 (in binary) to the mode/command register (I/O port 0x43),
+ where 'CC' corresponds to the channel number. When the latch command 
+has been sent, the current count is copied into an internal "latch 
+register" which can then be read via the data port corresponding to the 
+selected channel (I/O ports 0x40 to 0x42). The value kept in the latch 
+register remains the same until it has been fully read, or until a new 
+mode/command register is written.
+</p><p>The main benefit of the latch command is that it allows both 
+bytes of the current count to be read without inconsistencies. For 
+example, if you didn't use the latch command, then the current count may
+ decrease from 0x0200 to 0x01FF after you've read the low byte but 
+before you've read the high byte, so that your software thinks the 
+counter was 0x0100 instead of 0x0200 (or 0x01FF).
+</p><p>While the latch command should not affect the current count, on 
+some (old/dodgy) motherboards sending the latch command can cause a 
+cycle of the input signal to be occasionally missed, which would cause 
+the current count to be decremented 0.8381ms later than it should be. If
+ you're sending the latch command often this could cause accuracy 
+problems (but if you need to send the latch command often you may wish 
+to consider redesigning your code anyway).
+</p>
+<h2> <span class="mw-headline" id="Read_Back_Command"> Read Back Command </span></h2>
+<p>The read back command is a special command sent to the mode/command 
+register (I/O port 0x43). The "read back" is not supported on the old 
+8253 chips but should be supported on all AT and later computers except 
+for PS/2 (i.e. anything that isn't obsolete will support it).
+</p><p>For the read back command, the mode/command register uses the following format:
+</p>
+<pre>Bits         Usage
+7 and 6      Must be set for the read back command
+5            Latch count flag (0 = latch count, 1 = don't latch count)
+4            Latch status flag (0 = latch status, 1 = don't latch status)
+3            Read back timer channel 2 (1 = yes, 0 = no)
+2            Read back timer channel 1 (1 = yes, 0 = no)
+1            Read back timer channel 0 (1 = yes, 0 = no)
+0            Reserved (should be clear)
+</pre>
+<p>Note: Be careful with bits 4 and 5 – they are inverted.
+</p><p>Bits 1 to 3 of the read back command select which PIT channels 
+are affected, and allow multiple channels to be selected at the same 
+time.
+</p><p>If bit 5 is clear, then any/all PIT channels selected with bits 1
+ to 3 will have their current count copied into their latch register 
+(similar to sending the latch command, except it works for multiple 
+channels with one command).
+</p><p>If bit 4 is clear, then for any/all PIT channels selected with 
+bits 1 to 3, the next read of the corresponding data port will return a 
+status byte (discussed below).
+</p>
+<h3> <span class="mw-headline" id="Read_Back_Status_Byte"> Read Back Status Byte </span></h3>
+<p>After sending a read back command with bit 4 clear, reading the data 
+port for each selected channel will return a status value with the 
+following format:
+</p>
+<pre>Bit/s        Usage
+7            Output pin state
+6            Null count flags
+4 and 5      Access mode&nbsp;:
+                0 0 = Latch count value command
+                0 1 = Access mode: lobyte only
+                1 0 = Access mode: hibyte only
+                1 1 = Access mode: lobyte/hibyte
+1 to 3       Operating mode&nbsp;:
+                0 0 0 = Mode 0 (interrupt on terminal count)
+                0 0 1 = Mode 1 (hardware re-triggerable one-shot)
+                0 1 0 = Mode 2 (rate generator)
+                0 1 1 = Mode 3 (square wave generator)
+                1 0 0 = Mode 4 (software triggered strobe)
+                1 0 1 = Mode 5 (hardware triggered strobe)
+                1 1 0 = Mode 2 (rate generator, same as 010b)
+                1 1 1 = Mode 3 (square wave generator, same as 011b)
+0            BCD/Binary mode: 0 = 16-bit binary, 1 = four-digit BCD
+</pre>
+<p>The bottom six bits return the values that where programmed into the 
+mode/command register when the channel was last initialized.
+</p><p>Bit 7 indicates the state of the PIT channel's output pin at the moment that the read-back command was issued.
+</p><p>Bit 6 indicates whether a newly-programmed divisor value has been
+ loaded into the current count yet (if clear) or the channel is still 
+waiting for a trigger signal or for the current count to count down to 
+zero before a newly programmed reload value is loaded into the current 
+count (if set). This bit is set when the mode/command register is 
+initialized or when a new reload value is written, and cleared when the 
+reload value is copied into the current count.
+</p>
+<h2> <span class="mw-headline" id="Reading_The_Current_Count"> Reading The Current Count </span></h2>
+<p>To read the current count using the "lobyte only" or "hibyte only" 
+access modes, you can just do an "in al,0x40" (for PIT channel 0) 
+without problems. For frequencies higher than 4.7 KHz it can be easiest 
+to set the high byte of the reload value to zero, and then use the 
+"lobyte only" access mode to minimize hassles.
+</p><p>For the "lobyte/hibyte" access mode you need to send the latch 
+command (described above) to avoid getting wrong results. If any other 
+code could try set the PIT channel's reload value or read its current 
+count after you've sent the latch command but before you've read the 
+highest 8 bits, then you have to prevent it. Disabling interrupts works 
+for single CPU computers. For example, to read the count of PIT channel 0
+ you could use something like:
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="kw4">unsigned</span> read_pit_count<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span> <span class="br0">{</span>
+	<span class="kw4">unsigned</span> count <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+	<span class="co1">// Disable interrupts</span>
+	cli<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+&nbsp;
+	<span class="co1">// al = channel in bits 6 and 7, remaining bits clear</span>
+	outb<span class="br0">(</span><span class="nu12">0x43</span><span class="sy0">,</span><span class="nu6">0b0000000</span><span class="br0">)</span><span class="sy0">;</span>
+&nbsp;
+	count <span class="sy0">=</span> inb<span class="br0">(</span><span class="nu12">0x40</span><span class="br0">)</span><span class="sy0">;</span>		<span class="co1">// Low byte</span>
+	count <span class="sy0">|=</span> inb<span class="br0">(</span><span class="nu12">0x40</span><span class="br0">)</span><span class="sy0">&lt;&lt;</span><span class="nu0">8</span><span class="sy0">;</span>		<span class="co1">// High byte</span>
+&nbsp;
+	<span class="kw1">return</span> count<span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<h2> <span class="mw-headline" id="Setting_The_Reload_Value"> Setting The Reload Value </span></h2>
+<p>To set the reload value, just send the value/s to the corresponding 
+data port. For the "lobyte only" or "hibyte only" access modes this only
+ takes a single "out 0x40,al" (for PIT channel 0).
+</p><p>For the "lobyte/hibyte" access mode you need to send the low 8 
+bits followed by the high 8 bits. You must prevent other code from 
+setting the PIT channel's reload value or reading its current count once
+ you've sent the lowest 8 bits. Disabling interrupts works for single 
+CPU computers. For example:
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="kw4">void</span> set_pit_count<span class="br0">(</span><span class="kw4">unsigned</span> count<span class="br0">)</span> <span class="br0">{</span>
+	<span class="co1">// Disable interrupts</span>
+	cli<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+&nbsp;
+	<span class="co1">// Set low byte</span>
+	outb<span class="br0">(</span><span class="nu12">0x40</span><span class="sy0">,</span>count<span class="sy0">&amp;</span><span class="nu12">0xFF</span><span class="br0">)</span><span class="sy0">;</span>		<span class="co1">// Low byte</span>
+	outb<span class="br0">(</span><span class="nu12">0x40</span><span class="sy0">,</span><span class="br0">(</span>count<span class="sy0">&amp;</span><span class="nu12">0xFF00</span><span class="br0">)</span><span class="sy0">&gt;&gt;</span><span class="nu0">8</span><span class="br0">)</span><span class="sy0">;</span>	<span class="co1">// High byte</span>
+	<span class="kw1">return</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>It should be noted that a reload value of zero can be used to specify
+ a divisor of 65536. This is how the BIOS gets an IRQ 0 frequency as low
+ as 18.2065 Hz.
+</p>
+<h2> <span class="mw-headline" id="PIT_Channel_0_Example_Code"> PIT Channel 0 Example Code </span></h2>
+<p>The following example code was written for NASM, but hasn't been tested.
+</p><p>The idea is to provide a single routine to initialize PIT channel
+ 0 for any (possible) frequency and use IRQ 0 to accurately keep track 
+of real time in milliseconds since the PIT was configured.
+</p><p>For the sake of accuracy, the initialization code will calculate 
+the number of whole milliseconds to add to the "system timer tick" each 
+IRQ, and the number of "fractions of a millisecond" to avoid drift. This
+ may be important, for example if the PIT is set for 700 Hz it'd work 
+out to (roughly) 1.42857 ms between IRQs, so keeping track of whole 
+milliseconds only would lead to huge inaccuracies.
+</p><p>Hopefully, everyone is familiar with fixed point mathematics. For
+ example, with the "32.32" notation I'll be using, if the high 32-bit 
+value is equal to 0x00000001 and the low 32-bit value is equal to 
+0x80000000 then the combined value would be 1.5. In a similar way, the 
+fraction 0.75 is represented with 0xC000000, 0.125 is represented with 
+0x20000000 and 0.12345 would be represented with 0x1F9A6B50.
+</p><p>To begin with, this following code contains all of the data used 
+by this example. It is assumed that the ".bss" section is filled with 
+zeros.
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="asm source-asm"><pre class="de1">section <span class="sy0">.</span>bss
+system_timer_fractions<span class="sy0">:</span>  resd <span class="nu0">1</span>          <span class="co1">; Fractions of 1 ms since timer initialized</span>
+system_timer_ms<span class="sy0">:</span>         resd <span class="nu0">1</span>          <span class="co1">; Number of whole ms since timer initialized</span>
+IRQ0_fractions<span class="sy0">:</span>          resd <span class="nu0">1</span>          <span class="co1">; Fractions of 1 ms between IRQs</span>
+IRQ0_ms<span class="sy0">:</span>                 resd <span class="nu0">1</span>          <span class="co1">; Number of whole ms between IRQs</span>
+IRQ0_frequency<span class="sy0">:</span>          resd <span class="nu0">1</span>          <span class="co1">; Actual frequency of PIT</span>
+PIT_reload_value<span class="sy0">:</span>        resw <span class="nu0">1</span>          <span class="co1">; Current PIT reload value</span>
+section <span class="sy0">.</span>text</pre></div></div>
+<p>Next is the handler for IRQ 0. It's fairly simple (all it does it add
+ 2 64 bit fixed point values and send an EOI to the PIC chip).
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="asm source-asm"><pre class="de1">IRQ0_handler<span class="sy0">:</span>
+	<span class="kw1">push</span> <span class="kw3">eax</span>
+	<span class="kw1">push</span> <span class="kw3">ebx</span>
+&nbsp;
+	<span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span> <span class="br0">[</span>IRQ0_fractions<span class="br0">]</span>
+	<span class="kw1">mov</span> <span class="kw3">ebx</span><span class="sy0">,</span> <span class="br0">[</span>IRQ0_ms<span class="br0">]</span>                    <span class="co1">; eax.ebx = amount of time between IRQs</span>
+	<span class="kw1">add</span> <span class="br0">[</span>system_timer_fractions<span class="br0">]</span><span class="sy0">,</span> <span class="kw3">eax</span>     <span class="co1">; Update system timer tick fractions</span>
+	<span class="kw1">adc</span> <span class="br0">[</span>system_timer_ms<span class="br0">]</span><span class="sy0">,</span> <span class="kw3">ebx</span>            <span class="co1">; Update system timer tick milli-seconds</span>
+&nbsp;
+	<span class="kw1">mov</span> <span class="kw3">al</span><span class="sy0">,</span> <span class="nu0">0x20</span>
+	<span class="kw1">out</span> <span class="nu0">0x20</span><span class="sy0">,</span> <span class="kw3">al</span>                          <span class="co1">; Send the EOI to the PIC</span>
+&nbsp;
+	<span class="kw1">pop</span> <span class="kw3">ebx</span>
+	<span class="kw1">pop</span> <span class="kw3">eax</span>
+	<span class="kw1">iretd</span></pre></div></div>
+<p>Now for the tricky bit – the initialization routine. The PIT can't 
+generate some frequencies. For example if you want 8000 Hz then you've 
+got a choice of 8007.93 Hz or 7954.544 Hz. In this case the following 
+code will find the nearest possible frequency. Once it has calculated 
+the nearest possible frequency it will reverse the calculation to find 
+the actual frequency selected (rounded to the nearest integer, intended 
+for display purposes only).
+</p><p>For some extra accuracy, I also use "3579545 / 3" instead of 
+1193182 Hz. This is mostly pointless due to inaccurate hardware (I just 
+like being correct).
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="asm source-asm"><pre class="de1"> <span class="co1">;Input</span>
+ <span class="co1">; ebx   Desired PIT frequency in Hz</span>
+&nbsp;
+ init_PIT<span class="sy0">:</span>
+    <span class="kw1">pushad</span>
+&nbsp;
+    <span class="co1">; Do some checking</span>
+&nbsp;
+    <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span><span class="nu0">0x10000</span>                   <span class="co1">;eax = reload value for slowest possible frequency (65536)</span>
+    <span class="kw1">cmp</span> <span class="kw3">ebx</span><span class="sy0">,</span><span class="nu0">18</span>                        <span class="co1">;Is the requested frequency too low?</span>
+    <span class="kw1">jbe</span> <span class="sy0">.</span>gotReloadValue               <span class="co1">; yes, use slowest possible frequency</span>
+&nbsp;
+    <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span><span class="nu0">1</span>                         <span class="co1">;ax = reload value for fastest possible frequency (1)</span>
+    <span class="kw1">cmp</span> <span class="kw3">ebx</span><span class="sy0">,</span><span class="nu0">1193181</span>                   <span class="co1">;Is the requested frequency too high?</span>
+    <span class="kw1">jae</span> <span class="sy0">.</span>gotReloadValue               <span class="co1">; yes, use fastest possible frequency</span>
+&nbsp;
+    <span class="co1">; Calculate the reload value</span>
+&nbsp;
+    <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span><span class="nu0">3579545</span>
+    <span class="kw1">mov</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">0</span>                         <span class="co1">;edx:eax = 3579545</span>
+    <span class="kw1">div</span> <span class="kw3">ebx</span>                           <span class="co1">;eax = 3579545 / frequency, edx = remainder</span>
+    <span class="kw1">cmp</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">3579545</span> <span class="sy0">/</span> <span class="nu0">2</span>               <span class="co1">;Is the remainder more than half?</span>
+    <span class="kw1">jb</span> <span class="sy0">.</span>l1                            <span class="co1">; no, round down</span>
+    <span class="kw1">inc</span> <span class="kw3">eax</span>                           <span class="co1">; yes, round up</span>
+ <span class="sy0">.</span>l1<span class="sy0">:</span>
+    <span class="kw1">mov</span> <span class="kw3">ebx</span><span class="sy0">,</span><span class="nu0">3</span>
+    <span class="kw1">mov</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">0</span>                         <span class="co1">;edx:eax = 3579545 * 256 / frequency</span>
+    <span class="kw1">div</span> <span class="kw3">ebx</span>                           <span class="co1">;eax = (3579545 * 256 / 3 * 256) / frequency</span>
+    <span class="kw1">cmp</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">3</span> <span class="sy0">/</span> <span class="nu0">2</span>                     <span class="co1">;Is the remainder more than half?</span>
+    <span class="kw1">jb</span> <span class="sy0">.</span>l2                            <span class="co1">; no, round down</span>
+    <span class="kw1">inc</span> <span class="kw3">eax</span>                           <span class="co1">; yes, round up</span>
+ <span class="sy0">.</span>l2<span class="sy0">:</span>
+&nbsp;
+&nbsp;
+ <span class="co1">; Store the reload value and calculate the actual frequency</span>
+&nbsp;
+ <span class="sy0">.</span>gotReloadValue<span class="sy0">:</span>
+    <span class="kw1">push</span> <span class="kw3">eax</span>                          <span class="co1">;Store reload_value for later</span>
+    <span class="kw1">mov</span> <span class="br0">[</span>PIT_reload_value<span class="br0">]</span><span class="sy0">,</span><span class="kw3">ax</span>         <span class="co1">;Store the reload value for later</span>
+    <span class="kw1">mov</span> <span class="kw3">ebx</span><span class="sy0">,</span><span class="kw3">eax</span>                       <span class="co1">;ebx = reload value</span>
+&nbsp;
+    <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span><span class="nu0">3579545</span>
+    <span class="kw1">mov</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">0</span>                         <span class="co1">;edx:eax = 3579545</span>
+    <span class="kw1">div</span> <span class="kw3">ebx</span>                           <span class="co1">;eax = 3579545 / reload_value, edx = remainder</span>
+    <span class="kw1">cmp</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">3579545</span> <span class="sy0">/</span> <span class="nu0">2</span>               <span class="co1">;Is the remainder more than half?</span>
+    <span class="kw1">jb</span> <span class="sy0">.</span>l3                            <span class="co1">; no, round down</span>
+    <span class="kw1">inc</span> <span class="kw3">eax</span>                           <span class="co1">; yes, round up</span>
+ <span class="sy0">.</span>l3<span class="sy0">:</span>
+    <span class="kw1">mov</span> <span class="kw3">ebx</span><span class="sy0">,</span><span class="nu0">3</span>
+    <span class="kw1">mov</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">0</span>                         <span class="co1">;edx:eax = 3579545 / reload_value</span>
+    <span class="kw1">div</span> <span class="kw3">ebx</span>                           <span class="co1">;eax = (3579545 / 3) / frequency</span>
+    <span class="kw1">cmp</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">3</span> <span class="sy0">/</span> <span class="nu0">2</span>                     <span class="co1">;Is the remainder more than half?</span>
+    <span class="kw1">jb</span> <span class="sy0">.</span>l4                            <span class="co1">; no, round down</span>
+    <span class="kw1">inc</span> <span class="kw3">eax</span>                           <span class="co1">; yes, round up</span>
+ <span class="sy0">.</span>l4<span class="sy0">:</span>
+    <span class="kw1">mov</span> <span class="br0">[</span>IRQ0_frequency<span class="br0">]</span><span class="sy0">,</span><span class="kw3">eax</span>          <span class="co1">;Store the actual frequency for displaying later</span>
+&nbsp;
+&nbsp;
+ <span class="co1">; Calculate the amount of time between IRQs in 32.32 fixed point</span>
+ <span class="co1">;</span>
+ <span class="co1">; Note: The basic formula is:</span>
+ <span class="co1">;           time in ms = reload_value / (3579545 / 3) * 1000</span>
+ <span class="co1">;       This can be rearranged in the following way:</span>
+ <span class="co1">;           time in ms = reload_value * 3000 / 3579545</span>
+ <span class="co1">;           time in ms = reload_value * 3000 / 3579545 * (2^42)/(2^42)</span>
+ <span class="co1">;           time in ms = reload_value * 3000 * (2^42) / 3579545 / (2^42)</span>
+ <span class="co1">;           time in ms * 2^32 = reload_value * 3000 * (2^42) / 3579545 / (2^42) * (2^32)</span>
+ <span class="co1">;           time in ms * 2^32 = reload_value * 3000 * (2^42) / 3579545 / (2^10)</span>
+&nbsp;
+    <span class="kw1">pop</span> <span class="kw3">ebx</span>                           <span class="co1">;ebx = reload_value</span>
+    <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span><span class="nu0">0xDBB3A062</span>                <span class="co1">;eax = 3000 * (2^42) / 3579545</span>
+    <span class="kw1">mul</span> <span class="kw3">ebx</span>                           <span class="co1">;edx:eax = reload_value * 3000 * (2^42) / 3579545</span>
+    <span class="kw1">shrd</span> <span class="kw3">eax</span><span class="sy0">,</span><span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">10</span>
+    <span class="kw1">shr</span> <span class="kw3">edx</span><span class="sy0">,</span><span class="nu0">10</span>                        <span class="co1">;edx:eax = reload_value * 3000 * (2^42) / 3579545 / (2^10)</span>
+&nbsp;
+    <span class="kw1">mov</span> <span class="br0">[</span>IRQ0_ms<span class="br0">]</span><span class="sy0">,</span><span class="kw3">edx</span>                 <span class="co1">;Set whole ms between IRQs</span>
+    <span class="kw1">mov</span> <span class="br0">[</span>IRQ0_fractions<span class="br0">]</span><span class="sy0">,</span><span class="kw3">eax</span>          <span class="co1">;Set fractions of 1 ms between IRQs</span>
+&nbsp;
+&nbsp;
+ <span class="co1">; Program the PIT channel</span>
+&nbsp;
+    <span class="kw1">pushfd</span>
+    <span class="kw1">cli</span>                               <span class="co1">;Disabled interrupts (just in case)</span>
+&nbsp;
+    <span class="kw1">mov</span> <span class="kw3">al</span><span class="sy0">,</span><span class="nu0">00110100b</span>                  <span class="co1">;channel 0, lobyte/hibyte, rate generator</span>
+    <span class="kw1">out</span> <span class="nu0">0x43</span><span class="sy0">,</span> <span class="kw3">al</span>
+&nbsp;
+    <span class="kw1">mov</span> <span class="kw3">ax</span><span class="sy0">,</span><span class="br0">[</span>PIT_reload_value<span class="br0">]</span>         <span class="co1">;ax = 16 bit reload value</span>
+    <span class="kw1">out</span> <span class="nu0">0x40</span><span class="sy0">,</span><span class="kw3">al</span>                       <span class="co1">;Set low byte of PIT reload value</span>
+    <span class="kw1">mov</span> <span class="kw3">al</span><span class="sy0">,</span><span class="kw3">ah</span>                         <span class="co1">;ax = high 8 bits of reload value</span>
+    <span class="kw1">out</span> <span class="nu0">0x40</span><span class="sy0">,</span><span class="kw3">al</span>                       <span class="co1">;Set high byte of PIT reload value</span>
+&nbsp;
+    <span class="kw1">popfd</span>
+&nbsp;
+    <span class="kw1">popad</span>
+    <span class="kw1">ret</span></pre></div></div>
+<p>Note: you also need to install an IDT entry for IRQ 0, and unmask it in the PIC chip (or I/O APIC).
+</p><p>Of course it's easier to configure the PIT to a fixed value, but where's the fun in that?&nbsp;:-)
+</p>
+<h2> <span class="mw-headline" id="Uses_for_the_Timer_IRQ">Uses for the Timer IRQ</span></h2>
+<h3> <span class="mw-headline" id="Using_the_IRQ_to_Implement_sleep">Using the IRQ to Implement <tt>sleep</tt></span></h3>
+<p>The PIT's generating a hardware interrupt every <i>n</i> milliseconds allows you to create a simple timer. Start with a global variable x that contains the delay:
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="asm source-asm"><pre class="de1"> section <span class="kw4">.data</span>
+ CountDown<span class="sy0">:</span> <span class="kw4">dd</span> <span class="nu0">0</span></pre></div></div>
+<p>Next, every time the timer interrupt is called, decrement this variable until 0 is stored.
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="asm source-asm"><pre class="de1"> section <span class="sy0">.</span>text
+ global TimerIRQ
+ TimerIRQ<span class="sy0">:</span>
+     <span class="kw1">push</span> <span class="kw3">eax</span>
+     <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span> <span class="br0">[</span>CountDown<span class="br0">]</span>
+     <span class="kw1">or</span> <span class="kw3">eax</span><span class="sy0">,</span> <span class="kw1">or</span> <span class="kw3">eax</span> <span class="co1">; quick way to compare to 0</span>
+     <span class="kw1">jz</span> TimerDone
+     <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span> <span class="br0">[</span>CountDown<span class="br0">]</span>
+     <span class="kw1">dec</span> <span class="kw3">eax</span>
+     <span class="kw1">mov</span> <span class="br0">[</span>CountDown<span class="br0">]</span><span class="sy0">,</span> <span class="kw3">eax</span>
+ TimerDone<span class="sy0">:</span>
+     <span class="kw1">pop</span> <span class="kw3">eax</span>
+     <span class="kw1">iretd</span></pre></div></div>
+<p>Finally, create a function <tt>sleep</tt> that waits the interval, in milliseconds.
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="asm source-asm"><pre class="de1"> <span class="br0">[</span>GLOBAL sleep<span class="br0">]</span>
+ sleep<span class="sy0">:</span>
+     <span class="kw1">push</span> <span class="kw3">ebp</span>
+     <span class="kw1">mov</span> <span class="kw3">ebp</span><span class="sy0">,</span> <span class="kw3">esp</span>
+     <span class="kw1">push</span> <span class="kw3">eax</span>
+     <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span> <span class="br0">[</span><span class="kw3">ebp</span> <span class="sy0">+</span> <span class="nu0">8</span><span class="br0">]</span> <span class="co1">; eax has value of sole argument</span>
+     <span class="kw1">mov</span> <span class="br0">[</span>CountDown<span class="br0">]</span><span class="sy0">,</span> <span class="kw3">eax</span>
+ SleepLoop<span class="sy0">:</span>
+     <span class="kw1">cli</span> <span class="co1">; can't be interrupted for test</span>
+     <span class="kw1">mov</span> <span class="kw3">eax</span><span class="sy0">,</span> <span class="br0">[</span>CountDown<span class="br0">]</span>
+     <span class="kw1">or</span> <span class="kw3">eax</span><span class="sy0">,</span> <span class="kw3">eax</span>
+     <span class="kw1">jz</span> SleepDone
+     <span class="kw1">sti</span>
+     <span class="kw1">nop</span> <span class="co1">; nop a few times so the interrupt can get handled</span>
+     <span class="kw1">nop</span>
+     <span class="kw1">nop</span>
+     <span class="kw1">nop</span>
+     <span class="kw1">nop</span>
+     <span class="kw1">nop</span>
+     <span class="kw1">jmp</span> SleepLoop
+ SleepDone<span class="sy0">:</span>
+     <span class="kw1">sti</span>
+     <span class="kw1">pop</span> <span class="kw3">eax</span>
+     <span class="kw1">pop</span> <span class="kw3">ebp</span>
+     <span class="kw1">ret</span></pre></div></div>
+<p>In a multitasking system, consider using a linked list or array of 
+these CountDown variables. If your multitasking system supports 
+interprocess communication, you can also store the semaphore/exchange 
+where two processes can talk to, have the interrupt send a message to 
+the waiting process when the timer is done, and have the waiting process
+ block all execution until that message comes:
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="co2">#define COUNTDOWN_DONE_MSG 1</span>
+<span class="kw4">struct</span> TimerBlock <span class="br0">{</span>
+    EXCHANGE e<span class="sy0">;</span>
+    <span class="kw4">uint32_t</span> CountDown<span class="sy0">;</span>
+<span class="br0">}</span> timerblocks<span class="br0">[</span><span class="nu0">20</span><span class="br0">]</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw4">void</span> TimerIRQ<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span> <span class="coMULTI">/* called from Assembly */</span>
+<span class="br0">{</span>
+    <span class="kw4">uint8_t</span> i<span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">(</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> <span class="nu0">20</span><span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span>
+        <span class="kw1">if</span> <span class="br0">(</span>timerblocks<span class="br0">[</span>i<span class="br0">]</span>.<span class="me1">CountDown</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">)</span> <span class="br0">{</span>
+            timerblocks<span class="br0">[</span>i<span class="br0">]</span>.<span class="me1">CountDown</span><span class="sy0">--;</span>
+            <span class="kw1">if</span> <span class="br0">(</span>timerblocks<span class="br0">[</span>i<span class="br0">]</span>.<span class="me1">CountDown</span> <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">)</span>
+                SendMessage<span class="br0">(</span>timerblocks<span class="br0">[</span>i<span class="br0">]</span>.<span class="me1">e</span><span class="sy0">,</span> COUNTDOWN_DONE_MESSAGE<span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+<span class="br0">}</span>
+&nbsp;
+<span class="kw4">void</span> Sleep<span class="br0">(</span><span class="kw4">uint32_t</span> delay<span class="br0">)</span>
+<span class="br0">{</span>
+    <span class="kw4">struct</span> TimerBlock <span class="sy0">*</span>t<span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span>t <span class="sy0">=</span> findTimerBlock<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="sy0">==</span> nil<span class="br0">)</span>
+        <span class="kw1">return</span><span class="sy0">;</span>
+    t<span class="sy0">-&gt;</span>CountDown <span class="sy0">=</span> delay<span class="sy0">;</span>
+    WaitForMessageFrom<span class="br0">(</span>t<span class="sy0">-&gt;</span>e <span class="sy0">=</span> getCrntExch<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>In your documentation, note the interval of the timer. For example, 
+if the timer interval is 10 milliseconds per tick, tell the programmer 
+to issue
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1">Sleep<span class="br0">(</span><span class="nu0">100</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<p>to sleep for a single second.
+</p>
+<h3> <span class="mw-headline" id="Using_the_IRQ_for_Preemptive_Multitasking">Using the IRQ for Preemptive Multitasking</span></h3>
+<p>The timer IRQ can also be used to perform preemptive multitasking. To
+ give the currently running task some time to run, set a threshold, for 
+example of 3 ticks. Use a global variable like the one before but go up 
+from 0, and when that variable hits 3, switch tasks. How you do so is up
+ to you.
+</p>
+<h2> <span class="mw-headline" id="See_Also"> See Also </span></h2>
+<h3> <span class="mw-headline" id="Articles"> Articles </span></h3>
+<ul><li> <a href="https://wiki.osdev.org/Time_And_Date" title="Time And Date">Time And Date</a>
+</li><li> <a href="https://wiki.osdev.org/RTC" title="RTC">RTC</a>
+</li></ul>
+<h3> <span class="mw-headline" id="Threads"> Threads </span></h3>
+<h3> <span class="mw-headline" id="External_Links"> External Links </span></h3>
+<ul><li><a href="http://wikipedia.org/wiki/Programmable_Interval_Timer" class="extiw" title="wikipedia:Programmable Interval Timer"> Programmable Interval Timer</a> on Wikipedia
+</li><li><a rel="nofollow" class="external text" href="http://www.osdever.net/bkerndev/Docs/pit.htm">The PIT: A System Clock</a> on osdever
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 244/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:1560-0!*!0!!en!*!* and timestamp 20220104101307 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "<a href="https://wiki.osdev.org/index.php?title=Programmable_Interval_Timer&amp;oldid=25699">https://wiki.osdev.org/index.php?title=Programmable_Interval_Timer&amp;oldid=25699</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="https://wiki.osdev.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.osdev.org/Category:Common_Devices" title="Category:Common Devices">Common Devices</a></li><li><a href="https://wiki.osdev.org/Category:Time" title="Category:Time">Time</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+		<li id="pt-login"><a href="https://wiki.osdev.org/index.php?title=Special:UserLogin&amp;returnto=Programmable_Interval_Timer" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="https://wiki.osdev.org/Programmable_Interval_Timer" title="View the content page [alt-shift-c]" accesskey="c">Page</a></span></li>
+					<li id="ca-talk"><span><a href="https://wiki.osdev.org/Talk:Programmable_Interval_Timer" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="https://wiki.osdev.org/Programmable_Interval_Timer">Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="https://wiki.osdev.org/index.php?title=Programmable_Interval_Timer&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="https://wiki.osdev.org/index.php?title=Programmable_Interval_Timer&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="/index.php" id="searchform">
+		<input type="hidden" name="title" value="Special:Search">
+				<input type="search" name="search" title="Search OSDev Wiki [alt-shift-f]" accesskey="f" id="searchInput">		<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton">		<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton">			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/skins/common/images/osdev.png);" href="https://wiki.osdev.org/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="https://wiki.osdev.org/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main Page</a></li>
+			<li id="n-portal"><a href="http://forum.osdev.org/" rel="nofollow" title="About the project, what you can do, where to find things">Forums</a></li>
+			<li id="n-FAQ"><a href="https://wiki.osdev.org/Category:FAQ">FAQ</a></li>
+			<li id="n-OS-Projects"><a href="https://wiki.osdev.org/Projects">OS Projects</a></li>
+			<li id="n-randompage"><a href="https://wiki.osdev.org/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- about -->
+<div class="portal" id="p-about">
+	<h5>About</h5>
+	<div class="body">
+		<ul>
+			<li id="n-This-site"><a href="https://wiki.osdev.org/OSDevWiki:About">This site</a></li>
+			<li id="n-Joining"><a href="https://wiki.osdev.org/OSDevWiki:Joining">Joining</a></li>
+			<li id="n-Editing-help"><a href="https://wiki.osdev.org/OSDevWiki:Editing">Editing help</a></li>
+			<li id="n-recentchanges"><a href="https://wiki.osdev.org/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /about -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="https://wiki.osdev.org/Special:WhatLinksHere/Programmable_Interval_Timer" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="https://wiki.osdev.org/Special:RecentChangesLinked/Programmable_Interval_Timer" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="https://wiki.osdev.org/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li><a href="https://wiki.osdev.org/index.php?title=Programmable_Interval_Timer&amp;printable=yes" rel="alternate">Printable version</a></li>
+			<li id="t-permalink"><a href="https://wiki.osdev.org/index.php?title=Programmable_Interval_Timer&amp;oldid=25699" title="Permanent link to this revision of the page">Permanent link</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+<div class="portal" id="p-lang">
+	<h5>In other languages</h5>
+	<div class="body">
+		<ul>
+			<li class="interwiki-de"><a href="http://www.lowlevel.eu/wiki/Programmable_Interval_Timer" title="Programmable Interval Timer">Deutsch</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 17 February 2021, at 18:27.</li>
+											<li id="footer-info-viewcount">This page has been accessed 206,360 times.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wiki.osdev.org/OSDev_Wiki:Privacy_policy" title="OSDev Wiki:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="https://wiki.osdev.org/OSDev_Wiki:About" title="OSDev Wiki:About">About OSDev Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="https://wiki.osdev.org/OSDev_Wiki:General_disclaimer" title="OSDev Wiki:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<script src="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/load_003.php"></script>
+<script>if(window.mw){
+	mw.loader.load(["mediawiki.user", "mediawiki.util", "mediawiki.page.ready", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+}
+</script><script type="text/javascript" src="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/load_005.php"></script>
+<script src="Programmable%20Interval%20Timer%20-%20OSDev%20Wiki_files/load_002.php"></script>
+<script>if(window.mw){
+	mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,
+	"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mw.user.tokens.set({"editToken":"+\\","watchToken":false});;mw.loader.state({"user.options":"ready","user.tokens":"ready"});
+	
+	/* cache key: wikidb:resourceloader:filter:minify-js:4:19a4b18a9ac79a6b8c60b24af4668814 */
+}
+</script><!-- Served in 0.094 secs. -->
+	
+
+</body></html>

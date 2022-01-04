@@ -7,9 +7,15 @@
 // Documentation
 ///////////////////////////////////////////////////////////////////////////////
 
-/* Text mode vga driver - ..... FILL ME IN 
+/* Text mode vga driver - The following driver uses the VGA in the 25x80 char.
+   mode. It assume the bootloader set the VGA controller to operate in this way.
+   There is a char. matrix stored at 0xB8000 storing 16 bit values in a 25 by 
+   80 matrix array. The upper 4 bits specify the background, the next 4 the
+   foreground and the lower 8 bits the ascii character. The driver simply 
+   exposes kernel public API functions for setting entries in this matrix.
 
-
+   See docs/BKD_VGA.htm and "docs/VGA Hardware - OSDev Wiki.html" for the
+   relevant documentation.
 */
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -55,11 +61,11 @@ INPUTS)   NONE
 
 OUTPUTS)  NONE
 
-RETURNS)  NONE
+RETURNS)  0 always succeeds
 
 COMMENTS) NONE
 ******************************************************************************/
-void vga_init();
+u8 vga_init();
 
 
 
