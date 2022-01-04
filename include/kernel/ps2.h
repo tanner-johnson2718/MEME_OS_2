@@ -3,62 +3,48 @@
 
 #include "types.h"
 
-#define PS2_DATA_PORT 0x60
-#define PS2_STAT_PORT 0x64   // read
-#define PS2_CMND_PORT 0x64   // write
+///////////////////////////////////////////////////////////////////////////////
+// Documentation
+///////////////////////////////////////////////////////////////////////////////
 
-// Bit map breakout for stat register
-#define PS2_OUT_BUFF_SHIFT 0x0
-#define PS2_OUT_BUFF_EMPTY 0x0
-#define PS2_OUT_BUFF_FULL  0x1
+/* PS2 keyboard driver will interface with the PS2 controller and handler key
+   board input. It will keep track of caps like, shift held, etc. and return
+   only the appropiate ascii char to a handler register with this driver.
 
-#define PS2_IN_BUFF_SHIFT 0x1
-#define PS2_IN_BUFF_EMPTY 0x0
-#define PS2_IN_BUFF_FULL  0x1
+   For more doc on PS2 see "docs/PS_2 Keyboard - OSDev Wiki.html".
+*/
 
-#define PS2_SYS_FLAG_SHIFT 0x2    // for bios
+///////////////////////////////////////////////////////////////////////////////
+// Public functions
+///////////////////////////////////////////////////////////////////////////////
 
-#define PS2_CMD_SHIFT  0x3
-#define PS2_CMD_DEVICE 0x0
-#define PS2_CMD_CTLR   0x1
+/******************************************************************************
+NAME)     ps2_init
 
-#define PS2_TIMEOUT_ERROR 0x6
-#define PS2_TIMEOUT       0x1
-#define PS2_NO_TIMEMOUT   0x0
+INPUTS)   NONE
 
-#define PS2_PARITY_ERROR_SHIFT 0x7
-#define PS2_PARITY_ERROR       0x1
-#define PS2_PARITY_NO_ERROR    0x0
+OUTPUTS)  NONE
 
-// Macros to parse kb input
-#define PS2_KEYBOARD_RELEASE_MASK 0x80
-#define PS2_KEYBOARD_LSHIFT_PRESS 0x2A
-#define PS2_KEYBOARD_RSHIFT_PRESS 0x36
-#define PS2_KEYBOARD_LSHIFT_RELES 0xAA
-#define PS2_KEYBOARD_RSHIFT_RELES 0xB6
-#define PS2_KEYBOARD_CAPSLOCK     0x3A
+RETURNS)  0, always succeeds
 
-// Bit 0 - Caps lock on?
-// Bit 1 - Shift held?
-// Bit 2 - Ouput caps?
-// Bit 3 - CTRL held?
-// Bit 4 - Alt held?
-struct keyboard_state
-{
-    u8 state;
-};
-
-#define PS2_KEYBOARD_STATE_CAPSL_SHIFT    0
-#define PS2_KEYBOARD_STATE_SHIFT_HELD_SHIFT 1
-#define PS2_KEYBOARD_STATE_OUT_CAPS         2
-#define PS2_KEYBOARD_STATE_SHIFT_CAPSL_MASK 0xfe
-#define PS2_KEYBOARD_STATE_SHIFT_RELE_MASK  0xfd
-#define PS2_KEYBOARD_STATE_CAPS_OFF_MASK    0xfb
+COMMENTS) NONE
+******************************************************************************/
+u8 ps2_init(void);
 
 
-#define KEY_BOARD_STATE
 
-// init the ps2 module and register device handlers
-void ps2_init(void);
+/******************************************************************************
+NAME)     ps2_register_handler
+
+INPUTS)   
+          0) handler - function pointer that takes ascii byte as input
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 ps2_register_hanlder(void (*handler)(u8));
 
 #endif
