@@ -1,7 +1,6 @@
 #include "ps2.h"
 #include "types.h"
 #include "io_port.h"
-#include "serial.h"
 #include "irq.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -110,7 +109,7 @@ struct keyboard_state
 struct keyboard_state state = {0};
 
 // Registered input handler
-void (*internal_handler)(u8) = {0};
+void (*ps2_internal_handler)(u8) = {0};
 
 ///////////////////////////////////////////////////////////////////////////////
 // Private functions
@@ -209,9 +208,9 @@ void ps2_keyboard_irq(void)
         update_caps_state();
         u8 ascii_in = convert_to_ascii(in);
 
-        if(internal_handler)
+        if(ps2_internal_handler)
         {
-            internal_handler(ascii_in);
+            ps2_internal_handler(ascii_in);
         }
         else
         {
@@ -259,6 +258,6 @@ COMMENTS) NONE
 ******************************************************************************/
 u8 ps2_register_hanlder(void (*handler)(u8))
 {
-    internal_handler = handler;
+    ps2_internal_handler = handler;
     return 0;
 }

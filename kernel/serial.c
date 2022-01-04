@@ -37,6 +37,9 @@
 #define SERIAL_COM3          0x3E8
 #define SERIAL_COM4          0x2E8
 
+// registered input handler
+void (*serial_internal_handler)(u8) = {0};
+
 ///////////////////////////////////////////////////////////////////////////////
 // Private Functions
 ///////////////////////////////////////////////////////////////////////////////
@@ -72,6 +75,19 @@ void serial_set_buad(u32 rate)
 
     // Clear DLAB
     outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, inb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR) & 0x7f);
+}
+
+void serial_irq()
+{
+    u8 in = inb(SERIAL_DEFAULT_COM);
+    if(serial_internal_handler)
+    {
+        serial_internal_handler(in);
+    }
+    else
+    {
+        // log failuer
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -111,6 +127,16 @@ u8 serial_init()
     lcr = lcr | (SERIAL_DEFAULT_COM_BREAK_COND << 6);
     outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, lcr) ;
 
+    // register input irq handler
+    if(SERIAL_DEFAULT_COM ==  SERIAL_COM1 || SERIAL_DEFAULT_COM == SERIAL_COM3)
+    {
+        irq_register_PIC_handler(serial_irq, IRQ_PIC_COM2);
+    }
+    else
+    {
+        irq_register_PIC_handler(serial_irq, IRQ_PIC_COM1);
+    }
+
     return 0;
 }
 
@@ -120,8 +146,7 @@ u8 serial_init()
 NAME)     serial_register_input_handler
 
 INPUTS)   
-          0) handler - Function pointer that takes no arguments and returns 
-                       nothing.
+          0) handler - Function pointer that takes in the inputed ascii char
 
 OUTPUTS)  NONE
 
@@ -129,18 +154,9 @@ RETURNS)  0, always succeeds
 
 COMMENTS) NONE
 ******************************************************************************/
-u8 serial_register_input_handler(void (*handler)())
+u8 serial_register_input_handler(void (*handler)(u8))
 {
-    // register input irq handler
-    if(SERIAL_DEFAULT_COM ==  SERIAL_COM1 || SERIAL_DEFAULT_COM == SERIAL_COM3)
-    {
-        irq_register_PIC_handler(handler, IRQ_PIC_COM2);
-    }
-    else
-    {
-        irq_register_PIC_handler(handler, IRQ_PIC_COM1);
-    }
-
+    serial_internal_handler = handler;
     return 0;
 }
 

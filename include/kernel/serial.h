@@ -56,8 +56,7 @@ u8 serial_init();
 NAME)     serial_register_input_handler
 
 INPUTS)   
-          0) handler - Function pointer that takes no arguments and returns 
-                       nothing.
+          0) handler - Function pointer that takes in the inputed ascii char
 
 OUTPUTS)  NONE
 
@@ -65,7 +64,7 @@ RETURNS)  0, always succeeds
 
 COMMENTS) NONE
 ******************************************************************************/
-u8 serial_register_input_handler(void (*handler)());
+u8 serial_register_input_handler(void (*handler)(u8));
 
 
 

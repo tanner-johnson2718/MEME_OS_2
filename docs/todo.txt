@@ -10,11 +10,6 @@ Wish List)
 - Why is timer in square wave mode?
 
 Actually need todo to move forward)
-- DOC!!! Especially include files
-- unified error handling
-- Drivers that handle input allow registering of a user handler that takes
-as input w/e the input is structered as (i.e. a byte)??
-
 - unified error / logging output
 - Add warning output when bad shit happens
 - rethink code stlye doc, especially this notion of public and private
