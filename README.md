@@ -40,7 +40,7 @@ well documentated, and always returns error codes. Will move on from there.
 - Timer
 
 # Coding Style
-- ... Fill me in
+- 
 
 # Deps
 - gcc
