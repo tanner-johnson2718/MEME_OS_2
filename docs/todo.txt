@@ -6,7 +6,7 @@ Wish List)
 - Implement the color modes beyond text mode for VGA driver
 - Need to go back over modules ideas
 - Fill out VGA driver code
-- String library
+- String library (could fac this out)
 - Why is timer in square wave mode?
 
 Actually need todo to move forward)
