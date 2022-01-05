@@ -96,7 +96,7 @@ void serial_irq()
 
 
 /******************************************************************************
-NAME)     serial_init
+NAME)     serial_init_output
 
 INPUTS)   NONE
 
@@ -106,7 +106,7 @@ RETURNS)  0, always succeeds
 
 COMMENTS) NONE
 ******************************************************************************/
-u8 serial_init()
+u8 serial_init_output()
 {
     // Set defualt baud rate set in configs
     serial_set_buad(SERIAL_DEFAULT_COM_BAUD);
@@ -127,6 +127,24 @@ u8 serial_init()
     lcr = lcr | (SERIAL_DEFAULT_COM_BREAK_COND << 6);
     outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, lcr) ;
 
+    return 0;
+}
+
+
+
+/******************************************************************************
+NAME)     serial_init_input
+
+INPUTS)   NONE
+
+OUTPUTS)  NONE
+
+RETURNS)  0, always succeeds
+
+COMMENTS) NONE
+******************************************************************************/
+u8 serial_init_input()
+{
     // register input irq handler
     if(SERIAL_DEFAULT_COM ==  SERIAL_COM1 || SERIAL_DEFAULT_COM == SERIAL_COM3)
     {
@@ -136,10 +154,7 @@ u8 serial_init()
     {
         irq_register_PIC_handler(serial_irq, IRQ_PIC_COM1);
     }
-
-    return 0;
 }
-
 
 
 /******************************************************************************

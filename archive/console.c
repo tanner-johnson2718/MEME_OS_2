@@ -38,31 +38,7 @@ u8 col = 0;
 u8 line_index = 0;
 u8 line_buffer[MAX_LINE_SIZE];
 
-void update_screen_index(u8 c)
-{
-    col++;
-    if(col == VGA_BUFFER_WIDTH)
-    {
-        row++;
-        col = 0;
-    }
 
-    if(row == VGA_BUFFER_HEIGHT)
-    {
-        row = 0;
-        col = 0;
-    }
-
-    if(c == '\n')
-    {
-        row++;
-        col = 0;
-        if(row == VGA_BUFFER_HEIGHT)
-        {
-            row = 0;
-        }
-    }
-}
 
 void output_c(u8 c)
 {

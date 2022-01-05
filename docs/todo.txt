@@ -17,6 +17,7 @@ Actually need todo to move forward)
 - implement + test isr exceptions 0-31
     - test soft irqs to make sure leave and iret instructions are nes.
 - Create test drivers for like every module
+- CPU IDLE
 
 
 - Network driver

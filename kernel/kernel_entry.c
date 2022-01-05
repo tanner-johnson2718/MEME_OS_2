@@ -7,14 +7,74 @@
 #include "vga.h"
 #include "timer.h"
 
+///////////////////////////////////////////////////////////////////////////////
+// Basic Console Code
+///////////////////////////////////////////////////////////////////////////////
+
+u8 bg = VGA_BLACK;
+u8 fg = VGA_WHITE;
+u8 row = 0;
+u8 col = 0;
+
+#define MAX_LINE_SIZE 256
+u8 line_index = 0;
+u8 line_buffer[MAX_LINE_SIZE];
+
+void update_screen_index(u8 c)
+{
+    col++;
+    if(col == VGA_BUFFER_WIDTH)
+    {
+        row++;
+        col = 0;
+    }
+
+    if(row == VGA_BUFFER_HEIGHT)
+    {
+        row = 0;
+        col = 0;
+    }
+
+    if(c == '\n')
+    {
+        row++;
+        col = 0;
+        if(row == VGA_BUFFER_HEIGHT)
+        {
+            row = 0;
+        }
+    }
+}
+
+void kb_hanle(u8 in)
+{
+    if(in != '\n')
+    {
+        vga_textmode_putc(col, row, in, VGA_WHITE, VGA_BLACK);
+    }
+    else
+    {
+        // enter pressed
+    }
+    
+    update_screen_index(in);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Main
+///////////////////////////////////////////////////////////////////////////////
+
 void kernel_main(void) 
 {
+    // Do serial init first
+    serial_init_output();
+
     // Set up core i.e. GDT and IDT
     gdt_install();
     irq_init();
 
     // Set up drivers
-    serial_init();
+    serial_init_input();
     ps2_init();
     vga_init();
     timer_init();
@@ -23,15 +83,11 @@ void kernel_main(void)
     irq_on();
 
     // Some test code
-    vga_textmode_clear_screen(VGA_WHITE, VGA_BLACK);
-    vga_textmode_putc(0, 0, 'h', VGA_WHITE, VGA_BLACK);
-    vga_textmode_putc(1, 0, 'e', VGA_WHITE, VGA_BLACK);
-    vga_textmode_putc(2, 0, 'l', VGA_WHITE, VGA_BLACK);
-    vga_textmode_putc(3, 0, 'l', VGA_WHITE, VGA_BLACK);
-    vga_textmode_putc(4, 0, 'o', VGA_WHITE, VGA_BLACK);
+    vga_textmode_clear_screen(fg, bg);
+    ps2_register_hanlder(kb_hanle);
 
     while(1)
     {
-        
+        // IDLE
     }
 }
