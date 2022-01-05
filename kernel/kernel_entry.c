@@ -44,6 +44,8 @@ void update_screen_index(u8 c)
             row = 0;
         }
     }
+
+    vga_textmode_update_cursor(col,row);
 }
 
 void kb_hanle(u8 in)
@@ -84,6 +86,7 @@ void kernel_main(void)
 
     // Some test code
     vga_textmode_clear_screen(fg, bg);
+    vga_textmode_update_cursor(col,row);
     ps2_register_hanlder(kb_hanle);
 
     while(1)

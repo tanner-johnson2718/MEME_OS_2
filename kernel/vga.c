@@ -1,5 +1,6 @@
 #include "types.h"
 #include "vga.h"
+#include "io_port.h"
 
 // See vga.h for "high level" documentation
 
@@ -275,6 +276,44 @@ u8 vga_textmode_clear_screen(u8 fg, u8 bg)
             }
         }
     }
+
+    return 0;
+}
+
+
+
+/******************************************************************************
+NAME)    vga_textmode_update_cursor
+
+
+INPUTS)  
+        0) u8 x  - X position in character matrix to put char. Must be between 
+                   0 and VGA_BUFFER_WIDTH
+        1) u8 y  - Y position in character matrix to put char. Must be between 
+                   0 and VGA_BUFFER_HEIGHT
+        
+OUTPUTS)
+         2) u8* bg  - Pointer to a 1 byte buffer to store fg at spec. loc.
+
+RETURNS) 0 on success or VGA error code on error.
+
+COMMENTS) NONE
+******************************************************************************/
+u8 vga_textmode_update_cursor(u8 x, u8 y)
+{
+
+    u8 ret = check_input(x,y,0,0);
+    if(ret)
+    {
+        return ret;
+    }
+
+	u16 pos = y * VGA_BUFFER_WIDTH + x;
+ 
+	outb(0x3D4, 0x0F);
+	outb(0x3D5, (u8) (pos & 0xFF));
+	outb(0x3D4, 0x0E);
+	outb(0x3D5, (u8) ((pos >> 8) & 0xFF));
 
     return 0;
 }

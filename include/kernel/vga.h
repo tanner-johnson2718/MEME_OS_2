@@ -173,4 +173,25 @@ COMMENTS) Just puts a space on every location of char matrix w/ spec. bg and fg
 ******************************************************************************/
 u8 vga_textmode_clear_screen(u8 fg, u8 bg);
 
+
+
+/******************************************************************************
+NAME)    vga_textmode_update_cursor
+
+
+INPUTS)  
+        0) u8 x  - X position in character matrix to put char. Must be between 
+                   0 and VGA_BUFFER_WIDTH
+        1) u8 y  - Y position in character matrix to put char. Must be between 
+                   0 and VGA_BUFFER_HEIGHT
+        
+OUTPUTS)
+         2) u8* bg  - Pointer to a 1 byte buffer to store fg at spec. loc.
+
+RETURNS) 0 on success or VGA error code on error.
+
+COMMENTS) NONE
+******************************************************************************/
+u8 vga_textmode_update_cursor(u8 x, u8 y);
+
 #endif
