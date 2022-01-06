@@ -1,26 +1,19 @@
 Wish List)
-- How do i know if Im in "real mode"
 - How do PS2 and USB interop?
 - Need .config file
 - Ways of measuring performance i.e. clock cycles
-- Implement the color modes beyond text mode for VGA driver
 - Need to go back over modules ideas
 - Fill out VGA driver code
 - String library (could fac this out)
 - Why is timer in square wave mode?
+- For each driver read HID from device and log it
 
 Actually need todo to move forward)
-- unified error / logging output
-- Add warning output when bad shit happens
-- rethink code stlye doc, especially this notion of public and private
-- add dir config to coding style
-- implement + test isr exceptions 0-31
-    - test soft irqs to make sure leave and iret instructions are nes.
-- Create test drivers for like every module
-- CPU IDLE
-
-
+- Legit console
 - Network driver
 - Locks / other sync primitives
 - mmu / tlb and address translation??
 - PCI drive
+- implement + test isr exceptions 0-31
+    - test soft irqs to make sure leave and iret instructions are nes.
+- CPU IDLE

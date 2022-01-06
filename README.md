@@ -4,12 +4,6 @@ will be the actual creation of an OS from as scratch as possible. For now
 target will be the x86 architecture and will target the qemu virtual env.
 This is sort of a "make it up" as you go, depth first search of OS dev.
 
-**Jan 1 2022** - Big refactor. Message passing scheduler made things way too
-complicated. Removing schduler, adding a kernel logger, and really really
-cleaning driver code, especially making sure that 1) error codes checked, 2) 
-errors are logged, 3) all kernel public functions a driver exports is clean,
-well documentated, and always returns error codes. Will move on from there.
-
 # Design
 - Kernel will be composed of modules i.e. interrupt handler, serial driver,
   etc. (Maybe )
@@ -51,7 +45,7 @@ well documentated, and always returns error codes. Will move on from there.
 - Segment code using code segment below
 - All public functions should have a comment block as shown below
 - Curly braces on newline
-- 
+- Log any caught errors
 - See vga.c and vga.h for an example of coding style
 ~~~C
 ///////////////////////////////////////////////////////////////////////////////
