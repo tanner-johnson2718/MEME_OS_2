@@ -2,6 +2,7 @@
 #include "types.h"
 #include "io_port.h"
 #include "irq.h"
+#include "log.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Private defines, macros and types
@@ -214,7 +215,7 @@ void ps2_keyboard_irq(void)
         }
         else
         {
-            // log failuer
+            log_msg(__FILE__,__LINE__,"PS2 IRQ recieved but no handler is registered");
         }
         
     }
@@ -232,13 +233,19 @@ INPUTS)   NONE
 
 OUTPUTS)  NONE
 
-RETURNS)  0, always succeeds
+RETURNS)  0 on success, otherwise error code
 
 COMMENTS) NONE
 ******************************************************************************/
 u8 ps2_init(void)
 {
-    irq_register_PIC_handler(ps2_keyboard_irq, IRQ_PIC_KEY);
+    if( irq_register_PIC_handler(ps2_keyboard_irq, IRQ_PIC_KEY) )
+    {
+        log_msg(__FILE__,__LINE__,"Failed to register PS2 IRQ handler");
+        return PS2_IRQ_REG_FAILED;
+    }
+
+    log_msg(__FILE__,__LINE__,"PS2 successfully init-ed");
     return 0;
 }
 

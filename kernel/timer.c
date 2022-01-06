@@ -2,6 +2,7 @@
 #include "types.h"
 #include "io_port.h"
 #include "irq.h"
+#include "log.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Private MACROs, registers, and functions
@@ -20,6 +21,10 @@ u32 time_ms = 1;
 void timer_interrupt_handler()
 {
     time_ms++;
+    if(time_ms % 1000 == 0)
+    {
+        log_msg(__FILE__, __LINE__, "System heartbeat");
+    }
 }
 
 void set_timer_phase(u32 hz)
@@ -49,7 +54,14 @@ COMMENTS) NONE
 u8 timer_init()
 {
     set_timer_phase(1000);
-    irq_register_PIC_handler(timer_interrupt_handler, IRQ_PIC_TIMER);
+    
+    if( irq_register_PIC_handler(timer_interrupt_handler, IRQ_PIC_TIMER) )
+    {
+        log_msg(__FILE__, __LINE__, "Failed to register timer IRQ handler");
+        return TIMER_FAIL_REG_IRQ;
+    }
+
+    log_msg(__FILE__, __LINE__, "System heartbeat");
 
     return 0;
 }

@@ -14,6 +14,8 @@
    For more doc on PS2 see "docs/PS_2 Keyboard - OSDev Wiki.html".
 */
 
+#define PS2_IRQ_REG_FAILED 1
+
 ///////////////////////////////////////////////////////////////////////////////
 // Public functions
 ///////////////////////////////////////////////////////////////////////////////
@@ -25,7 +27,7 @@ INPUTS)   NONE
 
 OUTPUTS)  NONE
 
-RETURNS)  0, always succeeds
+RETURNS)  0 on success, otherwise error code
 
 COMMENTS) NONE
 ******************************************************************************/

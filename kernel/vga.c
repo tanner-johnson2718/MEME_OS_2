@@ -1,6 +1,7 @@
 #include "types.h"
 #include "vga.h"
 #include "io_port.h"
+#include "log.h"
 
 // See vga.h for "high level" documentation
 
@@ -106,6 +107,8 @@ u8 vga_init()
     // Maybe verify that the VGA driver is set to text mode?
     // Maybe allow input to allow different color modes? actually set pixels
 
+    log_msg(__FILE__,__LINE__,"VGA successfully init-ed");
+
     return 0;
 }
 
@@ -137,6 +140,7 @@ u8 vga_textmode_putc(u8 x, u8 y, u8 c, u8 fg, u8 bg)
     u8 ret = check_input(x,y,bg,fg);
     if(ret)
     {
+        log_msg(__FILE__,__LINE__,"VGA bad input");
         return ret;
     }
 
@@ -167,6 +171,7 @@ u8 vga_textmode_getc(u8 x, u8 y, u8* c)
     u8 ret = check_input(x,y,0,0);
     if(ret)
     {
+        log_msg(__FILE__,__LINE__,"VGA bad input");
         return ret;
     }
 
@@ -199,6 +204,7 @@ u8 vga_textmode_get_fg(u8 x, u8 y, u8* fg)
     u8 ret = check_input(x,y,0,0); 
     if(ret)
     {
+        log_msg(__FILE__,__LINE__,"VGA bad input");
         return ret;
     }
 
@@ -231,6 +237,7 @@ u8 vga_textmode_get_bg(u8 x, u8 y, u8* bg)
     u8 ret = check_input(x,y,0,0);
     if(ret)
     {
+        log_msg(__FILE__,__LINE__,"VGA bad input");
         return ret;
     }
 
@@ -261,6 +268,7 @@ u8 vga_textmode_clear_screen(u8 fg, u8 bg)
     u8 ret = check_input(0,0,fg,bg);
     if(ret)
     {
+        log_msg(__FILE__,__LINE__,"VGA bad input");
         return ret;
     }
 
@@ -272,6 +280,7 @@ u8 vga_textmode_clear_screen(u8 fg, u8 bg)
             ret = vga_textmode_putc(j, i, ' ', fg, bg);
             if(ret)
             {
+                log_msg(__FILE__,__LINE__,"VGA bad input");
                 return ret;
             }
         }
@@ -305,6 +314,7 @@ u8 vga_textmode_update_cursor(u8 x, u8 y)
     u8 ret = check_input(x,y,0,0);
     if(ret)
     {
+        log_msg(__FILE__,__LINE__,"VGA bad input");
         return ret;
     }
 
