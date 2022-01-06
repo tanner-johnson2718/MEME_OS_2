@@ -9,10 +9,6 @@
 // and error output to the serial console. Will allow for passing of the file
 // and line macro. 
 
-///////////////////////////////////////////////////////////////////////////////
-// Kernel Public Macros
-///////////////////////////////////////////////////////////////////////////////
-#define LOG_ERROR_1 1   // unsued for now
 
 ///////////////////////////////////////////////////////////////////////////////
 // Kernel Public API functions
@@ -29,9 +25,9 @@ INPUTS)
 
 OUTPUTS)  NONE
 
-RETURNS)  0 on sucess and valid error code on error
+RETURNS)  0, always succedds
 
-COMMENTS) If the resultant log is >255 bytes, message will be truncated
+COMMENTS) NONE
 ******************************************************************************/
 u8 log_msg(u8* file, u32 line, u8* c_str);
 
