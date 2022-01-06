@@ -1,6 +1,7 @@
 #include "serial.h"
 #include "io_port.h"
 #include "irq.h"
+#include "log.h"
 
 // See serial.h for "high level" documentation
 
@@ -63,6 +64,7 @@ u32 serial_get_buad()
     return SERIAL_MAX_BAUD / ret;
 }
 
+// Only called from within, assume rate good
 void serial_set_buad(u32 rate)
 {
     u32 dl = SERIAL_MAX_BAUD / rate;
@@ -86,7 +88,7 @@ void serial_irq()
     }
     else
     {
-        // log failuer
+        log_msg(__FILE__, __LINE__, "Serial IRQ generated w/ no internal handler registered");
     }
 }
 
@@ -127,6 +129,8 @@ u8 serial_init_output()
     lcr = lcr | (SERIAL_DEFAULT_COM_BREAK_COND << 6);
     outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, lcr) ;
 
+    log_msg(__FILE__, __LINE__, "Serial output init-ed");
+
     return 0;
 }
 
@@ -148,12 +152,21 @@ u8 serial_init_input()
     // register input irq handler
     if(SERIAL_DEFAULT_COM ==  SERIAL_COM1 || SERIAL_DEFAULT_COM == SERIAL_COM3)
     {
-        irq_register_PIC_handler(serial_irq, IRQ_PIC_COM2);
+        if(irq_register_PIC_handler(serial_irq, IRQ_PIC_COM2))
+        {
+            log_msg(__FILE__, __LINE__, "serial failed to register IRQ handler");
+        }
     }
     else
     {
-        irq_register_PIC_handler(serial_irq, IRQ_PIC_COM1);
+        if(irq_register_PIC_handler(serial_irq, IRQ_PIC_COM1))
+        {
+            log_msg(__FILE__, __LINE__, "serial failed to register IRQ handler");
+        }
     }
+
+    log_msg(__FILE__, __LINE__, "Serial input init-ed");
+    return 0;
 }
 
 

@@ -1,6 +1,7 @@
 #include "irq.h"
 #include "gdt.h"
 #include "io_port.h"
+#include "log.h"
 
 // See irq.h for high level documentation
 
@@ -89,6 +90,7 @@ void irq_get_curr_idt_ptr(struct idt_ptr *p)
     asm volatile("sidt (%0)" : "=a"(p):);
 }
 
+// Only called internally with hardcoded inputs, not checking input
 void irq_idt_set_gate(u8 num, u32 base, u8 sel, u8 flags)
 {
     /* The interrupt routine's base address */
@@ -107,50 +109,182 @@ void irq_idt_set_gate(u8 num, u32 base, u8 sel, u8 flags)
 ///////////////////////////////////////////////////////////////////////////////
 
 // First 32 interrupts are CPU driven i.e. exceptions
-void irq_isr_sink0(){}
-void irq_isr_sink1(){}
-void irq_isr_sink2(){}
-void irq_isr_sink3(){}
-void irq_isr_sink4(){}
-void irq_isr_sink5(){}
-void irq_isr_sink6(){}
-void irq_isr_sink7(){}
-void irq_isr_sink8(){}
-void irq_isr_sink9(){}
-void irq_isr_sink10(){}
-void irq_isr_sink11(){}
-void irq_isr_sink12(){}
-void irq_isr_sink13(){}
-void irq_isr_sink14(){}
-void irq_isr_sink15(){}
-void irq_isr_sink16(){}
-void irq_isr_sink17(){}
-void irq_isr_sink18(){}
-void irq_isr_sink19(){}
-void irq_isr_sink20(){}
-void irq_isr_sink21(){}
-void irq_isr_sink22(){}
-void irq_isr_sink23(){}
-void irq_isr_sink24(){}
-void irq_isr_sink25(){}
-void irq_isr_sink26(){}
-void irq_isr_sink27(){}
-void irq_isr_sink28(){}
-void irq_isr_sink29(){}
-void irq_isr_sink30(){}
-void irq_isr_sink31(){}
+void irq_isr_sink0()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink1()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink2()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink3()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink4()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink5()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink6()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink7()
+{  
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink8()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink9()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink10()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink11()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink12()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink13()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink14()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink15()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink16()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink17()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink18()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink19()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink20()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink21()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink22()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink23()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink24()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink25()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink26()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink27()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink28()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink29()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink30()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
+
+void irq_isr_sink31()
+{
+    log_msg(__FILE__,__LINE__,"Unimplemented ISR");
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Private Functions (PIC Interrupt Base Handlers)
 ///////////////////////////////////////////////////////////////////////////////
 
-// IRQs driven by pic
+// IRQs driven by pic.
+// no need to check input as only called internally w/ hard inputs
 void irq_common_pic_handler(u8 irq_num)
 {
     if(irq_pic_handlers[irq_num])
     {
         void (*handler)() = irq_pic_handlers[irq_num];
         handler();
+    }
+    else
+    {
+        log_msg(__FILE__,__LINE__, "PIC IRQ with unregisted handler caught");
     }
 
     if(irq_num >= 8)
@@ -283,6 +417,10 @@ void irq_common_soft_handler(u8 irq_num)
     {
         void (*handler)() = irq_soft_handlers[irq_num];
         handler();
+    }
+    else
+    {
+        log_msg(__FILE__,__LINE__, "Soft IRQ with unregisted handler caught");
     }
 }
 
@@ -514,6 +652,7 @@ void irq_remap(void)
 	outb(IRQ_PIC_SLAVE_DATA_PORT, 0);
 }
 
+// Only called internally w/ hard coded inputs, no need to check input
 void irq_register_handler(void (*handler)(void), u8 entry)
 {
     irq_idt_set_gate(entry, (u32) handler, GDT_KERNEL_CODE_SECTOR, 0x8E);
@@ -526,7 +665,7 @@ void irq_register_handler(void (*handler)(void), u8 entry)
 
 
 /******************************************************************************
-NAME)     vga_init
+NAME)     irq_init
 
 INPUTS)   NONE
 
@@ -647,6 +786,8 @@ u8 irq_init()
 
     // Remap the PIC 8259 interrupts to 32-47
     irq_remap();
+
+    log_msg(__FILE__, __LINE__, "IDT installed, IRQ nums remapped, and base handlers mapped");
     
     return 0;
 }
@@ -677,6 +818,7 @@ u8 irq_register_PIC_handler(void (*handler)(void), u8 entry)
         return 0;
     }
 
+    log_msg(__FILE__, __LINE__, "Attempt to register invalid PIC handler number");
     return IRQ_INVALID_ENTRY;
 }
 
@@ -700,6 +842,7 @@ u8 irq_register_soft(void (*handler)(void), u8 entry)
 {
     if(entry < 0x30 || entry >= 0x40)
     {
+        log_msg(__FILE__, __LINE__, "Attempt to register invalid Soft handler number");
         return IRQ_INVALID_ENTRY;   // error
     }
 
@@ -732,10 +875,11 @@ u8 irq_raise(u8  entry)
             raise();
             return 0;
         }
-
+        // Never gonna get here
         return IRQ_RAISER_NOT_IMPLEMENTED;
     }
 
+    log_msg(__FILE__, __LINE__, "Attempt to raise invalid Soft IRQ");
     return IRQ_INVALID_ENTRY;
 }
 
@@ -754,6 +898,7 @@ COMMENTS) turn on interrupts
 ******************************************************************************/
 u8 irq_on()
 {
+    log_msg(__FILE__, __LINE__, "Interrupts enabled");
     asm volatile("sti");
     return 0;
 }
@@ -773,6 +918,7 @@ COMMENTS) turn off interrupts
 ******************************************************************************/
 u8 irq_off()
 {
+    log_msg(__FILE__, __LINE__, "Interrupts disabled");
     asm volatile("cli");
     return 0;
 }

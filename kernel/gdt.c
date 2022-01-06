@@ -1,4 +1,5 @@
 #include "gdt.h"
+#include "log.h"
 
 // See gdt.h for documentation
 
@@ -119,7 +120,7 @@ void gdt_get_curr_gdt_ptr(struct gdt_ptr *p)
     asm volatile("sgdt (%0)" : "=a"(p):);
 }
 
-/* Setup a descriptor in the Global Descriptor Table */
+// input assumed to be good as only internal calls with hardcoded inputs
 void gdt_set_gate(u32 num, u32 base, u32 limit, u8 access, u8 gran)
 {
     /* Setup the descriptor base address */
@@ -171,6 +172,8 @@ u8 gdt_install()
 
     /* Flush out the old GDT and install the new changes! */
     gdt_flush();
+
+    log_msg(__FILE__, __LINE__, "GDT installed");
 
     return 0;
 }

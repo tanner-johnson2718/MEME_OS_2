@@ -69,6 +69,9 @@ void kb_hanle(u8 in)
 
 void kernel_main(void) 
 {
+    // turn off interrupts while system is brought up
+    irq_off();
+    
     // Do serial init first
     serial_init_output();
 
