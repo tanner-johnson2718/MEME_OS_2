@@ -43,17 +43,17 @@ well documentated, and always returns error codes. Will move on from there.
 
 # Coding Style
 - Drivers export public API's
-- All public functions return an error code with these codes being defined the
-  drivers header
+- All public functions return an error code with these codes being defined in
+  the drivers header
 - All private functions, macros, types, registers, etc. should be defined in
   the c file
 - Maximize private and make only public what makes sense to use the driver
 - Segment code using code segment below
 - All public functions should have a comment block as shown below
 - Curly braces on newline
+- 
 - See vga.c and vga.h for an example of coding style
-- Public comment block and code segment template:
-~~~
+~~~C
 ///////////////////////////////////////////////////////////////////////////////
 // Public Functions
 ///////////////////////////////////////////////////////////////////////////////
@@ -74,6 +74,7 @@ RETURNS) 0 on success or VGA error code on error.
 
 COMMENTS) NONE
 ******************************************************************************/
+u8 vga_textmode_putc(u8 x, u8 y, u8 c, u8 fg, u8 bg);
 ~~~
 
 # Deps
