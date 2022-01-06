@@ -16,7 +16,9 @@ well documentated, and always returns error codes. Will move on from there.
 - Kernel is monolithic and all drivers and IRQ handlers reside in kernel.
 - Single core
 - For now everything resides in kernel
-- Functionality will be created by simply calling driver public API's.
+- Functionality will be created by simply calling a drivers public API.
+- For now just a collection of drivers with a main that acts as a minimal
+  console
 
 # Interrupt Table
 
@@ -40,11 +42,43 @@ well documentated, and always returns error codes. Will move on from there.
 - Timer
 
 # Coding Style
-- 
+- Drivers export public API's
+- All public functions return an error code with these codes being defined the
+  drivers header
+- All private functions, macros, types, registers, etc. should be defined in
+  the c file
+- Maximize private and make only public what makes sense to use the driver
+- Segment code using code segment below
+- All public functions should have a comment block as shown below
+- Curly braces on newline
+- See vga.c and vga.h for an example of coding style
+- Public comment block and code segment template:
+~~~
+///////////////////////////////////////////////////////////////////////////////
+// Public Functions
+///////////////////////////////////////////////////////////////////////////////
+
+/******************************************************************************
+NAME)    vga_textmode_getc
+
+INPUTS)  
+        0) u8 x  - X position in character matrix to put char. Must be between 
+                   0 and VGA_BUFFER_WIDTH
+        1) u8 y  - Y position in character matrix to put char. Must be between 
+                   0 and VGA_BUFFER_HEIGHT
+        
+OUTPUTS)
+         2) u8* c  - Pointer to a 1 byte buffer to store char at spec. loc.
+
+RETURNS) 0 on success or VGA error code on error.
+
+COMMENTS) NONE
+******************************************************************************/
+~~~
 
 # Deps
 - gcc
 - git
 - qemu
 - qemu-kvm
-- ubuntu build / vm host
+- ubuntu build and vm host
