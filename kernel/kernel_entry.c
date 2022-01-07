@@ -7,6 +7,7 @@
 #include "vga.h"
 #include "timer.h"
 #include "log.h"
+#include "pci.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Basic Console Code
@@ -84,6 +85,7 @@ void kernel_main(void)
     ps2_init();
     vga_init();
     timer_init();
+    pci_init();
 
     // Turn interrupts on
     irq_on();
