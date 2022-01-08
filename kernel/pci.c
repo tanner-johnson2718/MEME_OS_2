@@ -249,6 +249,46 @@ u32 pci_get_bar5_size(u32 bus, u32 device, u32 func)
     return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
 }
 
+u32 pci_get_cardbus_pointer(u32 bus, u32 device, u32 func)
+{
+    return pci_read_config(bus, device, func, 0x28, 0, 0xffffffff);
+}
+
+u16 pci_get_subsystemID(u32 bus, u32 device, u32 func)
+{
+    return (u16) pci_read_config(bus, device, func, 0x2c, 16, 0xffff);
+}
+
+u16 pci_get_subsystem_vendorID(u32 bus, u32 device, u32 func)
+{
+    return (u16) pci_read_config(bus, device, func, 0x2c, 0, 0xffff);
+}
+
+u32 pci_get_expansion_rom_addr(u32 bus, u32 device, u32 func)
+{
+    return pci_read_config(bus, device, func, 0x30, 0, 0xffffffff);
+}
+
+u8 pci_get_capabilities_pointer(u32 bus, u32 device, u32 func)
+{
+    return (u8) pci_read_config(bus, device, func, 0x34, 0 , 0xff);
+}
+
+u8 pci_get_max_latency(u32 bus, u32 device, u32 func)
+{
+    return (u8) pci_read_config(bus, device, func, 0x3c, 24 , 0xff);
+}
+
+u8 pci_get_min_grant(u32 bus, u32 device, u32 func)
+{
+    return (u8) pci_read_config(bus, device, func, 0x3c, 16 , 0xff);
+}
+
+u8 pci_get_int_pin(u32 bus, u32 device, u32 func)
+{
+    return (u8) pci_read_config(bus, device, func, 0x3c, 16 , 0xff);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Public API
 ///////////////////////////////////////////////////////////////////////////////
