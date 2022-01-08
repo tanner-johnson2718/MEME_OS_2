@@ -22,7 +22,7 @@
 #define PCI_CONFIG_BUS_SHIFT 16
 #define PCI_CONFIG_ENABLE    0x80000000
 
-u32 pci_read_config(u32 bus, u32 device, u32 func, u32 offset, u32 shift, u32 mask)
+u32 pci_build_config_reg(u32 bus, u32 device, u32 func, u32 offset)
 {
     bus = bus << PCI_CONFIG_BUS_SHIFT;
     device = device << PCI_CONFIG_DEV_SHIFT;
@@ -32,6 +32,13 @@ u32 pci_read_config(u32 bus, u32 device, u32 func, u32 offset, u32 shift, u32 ma
     addr    |= bus;
     addr    |= device;
     addr    |= func;
+
+    return addr;
+}
+
+u32 pci_read_config(u32 bus, u32 device, u32 func, u32 offset, u32 shift, u32 mask)
+{
+    u32 addr =  pci_build_config_reg(bus, device,func, offset);
 
     outl(PCI_CONFIG_ADDR_PORT, addr);
     u32 data = inl(PCI_CONFIG_DATA_PORT);
@@ -164,6 +171,82 @@ u32 pci_get_bar0_size(u32 bus, u32 device, u32 func)
     u32 bar_val = pci_get_bar0(bus, device, func);
 
     // Now write all 1's to reg
+    u32 addr =  pci_build_config_reg(bus, device,func, 0x10);
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
+
+
+    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+}
+
+u32 pci_get_bar1_size(u32 bus, u32 device, u32 func)
+{
+    u32 bar_val = pci_get_bar0(bus, device, func);
+
+    // Now write all 1's to reg
+    u32 addr =  pci_build_config_reg(bus, device,func, 0x14);
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
+
+
+    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+}
+
+u32 pci_get_bar2_size(u32 bus, u32 device, u32 func)
+{
+    u32 bar_val = pci_get_bar0(bus, device, func);
+
+    // Now write all 1's to reg
+    u32 addr =  pci_build_config_reg(bus, device,func, 0x18);
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
+
+
+    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+}
+
+u32 pci_get_bar3_size(u32 bus, u32 device, u32 func)
+{
+    u32 bar_val = pci_get_bar0(bus, device, func);
+
+    // Now write all 1's to reg
+    u32 addr =  pci_build_config_reg(bus, device,func, 0x1c);
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
+
+
+    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+}
+
+u32 pci_get_bar4_size(u32 bus, u32 device, u32 func)
+{
+    u32 bar_val = pci_get_bar0(bus, device, func);
+
+    // Now write all 1's to reg
+    u32 addr =  pci_build_config_reg(bus, device,func, 0x20);
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
+
+
+    u32 ret = (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+
+    // return bar value
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, bar_val);
+
+}
+
+u32 pci_get_bar5_size(u32 bus, u32 device, u32 func)
+{
+    u32 bar_val = pci_get_bar0(bus, device, func);
+
+    // Now write all 1's to reg
+    u32 addr =  pci_build_config_reg(bus, device,func, 0x24);
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
+
+
+    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -209,11 +292,17 @@ u8 pci_init()
             log_val(__FILE__, __LINE__, "   lat timer ", (u32) pci_get_latency_timer(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   cache size", (u32) pci_get_cache_line_size(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   bar0      ", (u32) pci_get_bar0(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar0 size ", (u32) pci_get_bar0_size(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   bar1      ", (u32) pci_get_bar1(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar1 size ", (u32) pci_get_bar1_size(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   bar2      ", (u32) pci_get_bar2(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar2 size ", (u32) pci_get_bar2_size(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   bar3      ", (u32) pci_get_bar3(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar3 size ", (u32) pci_get_bar3_size(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   bar4      ", (u32) pci_get_bar4(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar4 size ", (u32) pci_get_bar4_size(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   bar5      ", (u32) pci_get_bar5(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar5 size ", (u32) pci_get_bar5_size(bus, dev, 0));
         }
     }
 }
