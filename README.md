@@ -4,15 +4,39 @@ will be the actual creation of an OS from as scratch as possible. For now
 target will be the x86 architecture and will target the qemu virtual env.
 This is sort of a "make it up" as you go, depth first search of OS dev.
 
+**End State:** To give this project a definable end state, this project will be consiered complete when the following are realized:
+* [X] Basic Keyboard driver.
+* [X] Interrrupt handler
+* [X] System timer and system clock. For simplcity just have a single counter
+      at the ms granularity. No need to get fancy with this.
+* [X] Basic textmode VGA driver.
+* [X] Serial driver and logging functions.
+* [~] PCI driver for discovering, enumerating, and initializing PCI devices and
+      providing an interface for other pci drivers to interface with their PCI
+      devices.
+* [ ] Minimal, but powerful, console that can read memory, registers, modify mem
+  and registers, and call executable code. Console will give minimal tools for
+  examining the system. Almost a built-in debugger.
+* [ ] PCI network driver working
+* [ ] Network stack implemented from scratch up to sockets. Can talk to a linux 
+  server TCP socket.
+* [ ] USB Driver. Figure out how this intergaces with 
+* [ ] MMIO / MMU memory manager. For this mostly just interface with any hardware
+  to accelerate translation. No need to create full dynamic memory manager,
+  just git warm fuzy for hardware / architecture on system todo memory stuff.
+
 # Design
 - Kernel will be composed of modules i.e. interrupt handler, serial driver,
-  etc. (Maybe )
+  etc. (Maybe revisit this once the debug console is complete. Would be nice
+  to be able load and unload drivers. VGA is a good example of this, unload
+  the text mode driver and be able to load a full PCI version).
 - Kernel is monolithic and all drivers and IRQ handlers reside in kernel.
 - Single core
 - For now everything resides in kernel
 - Functionality will be created by simply calling a drivers public API.
 - For now just a collection of drivers with a main that acts as a minimal
   console
+- Built in debug console for examaining memory, call driver API funcs, etc.
 
 # Interrupt Table
 
@@ -29,14 +53,20 @@ This is sort of a "make it up" as you go, depth first search of OS dev.
 
 # Drivers
 - GDT
-- IRQ
-- SERIAL
+- IRQ (8259 PIC)
+- SERIAL (8250 UART)
 - PS2
-- VGA
-- Timer
+- VGA textmode
+- Timer (8253/8254)
+- PCI
 
 # Coding Style
-- Drivers export public API's
+- All modules implementation are contained in a .c file with the module name
+  as the .c file name i.e. vga.c. C files are contained in kernel/
+- The public attributes (types, defines, API functions) should be containded
+  in a header with the modules name as the header name i.e. vga.h and placed
+  in include/kernel/.
+- Drivers / Modules export public API's
 - All public functions return an error code with these codes being defined in
   the drivers header
 - All private functions, macros, types, registers, etc. should be defined in

@@ -286,7 +286,12 @@ u8 pci_get_min_grant(u32 bus, u32 device, u32 func)
 
 u8 pci_get_int_pin(u32 bus, u32 device, u32 func)
 {
-    return (u8) pci_read_config(bus, device, func, 0x3c, 16 , 0xff);
+    return (u8) pci_read_config(bus, device, func, 0x3c, 8 , 0xff);
+}
+
+u8 pci_get_int_line(u32 bus, u32 device, u32 func)
+{
+    return (u8) pci_read_config(bus, device, func, 0x3c, 0 , 0xff);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -343,6 +348,15 @@ u8 pci_init()
             log_val(__FILE__, __LINE__, "   bar4 size ", (u32) pci_get_bar4_size(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   bar5      ", (u32) pci_get_bar5(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   bar5 size ", (u32) pci_get_bar5_size(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   cis ptr   ", (u32) pci_get_cardbus_pointer(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   subsys ID ", (u32) pci_get_subsystemID(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   subsysven ", (u32) pci_get_subsystem_vendorID(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   expansion ", (u32) pci_get_expansion_rom_addr(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   cap ptr   ", (u32) pci_get_capabilities_pointer(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   max lat   ", (u32) pci_get_max_latency(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   min grant ", (u32) pci_get_min_grant(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   intr pin  ", (u32) pci_get_int_pin(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   intr line ", (u32) pci_get_int_line(bus, dev, 0));
         }
     }
 }
