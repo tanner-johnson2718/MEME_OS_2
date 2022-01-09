@@ -5,20 +5,22 @@ Wish List)
 - Fill out VGA driver code
 - Why is timer in square wave mode?
 - For each driver read HID from device and log it
+- Locks / other sync primitives
 
 Actually need todo to move forward)
 - Legit console
 - Network driver
-- Locks / other sync primitives
+- Hook up emu env to actual outside world
 - mmu / tlb and address translation??
 - PCI driver
+   - allocate and store these pci dev hdrs discovered
+   - public functin to query and pull these hdrs
+   - public headers for updating and writing certaion config space registers
+   - public headers for polling for if it these config space headers change
+   - printing i.e. logging functions
+
+   - Multi-function????
+   - conifugre bridges and devices?
    - expansion rom??
    - commmand and stat registers??
    - 0x80 hdr type?
-   - go back over header and see if there is anything else you dont get
-   - allocate and store these pci dev hdrs discovered
-   - public headers for updating and writing certaion config space registers
-   - public headers for polling for if it these config space headers change
-   - Multi-function????
-   - conifugre bridges and devices?
-- CPU IDLE
