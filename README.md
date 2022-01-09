@@ -8,27 +8,27 @@ This is sort of a "make it up" as you go, depth first search of OS dev.
 consiered complete when the following are realized. This project will be 
 confined to targeting the x86 (i386) qemu virtual machine. Next MEME OS's in
 the series will make the jump to actual hardware.
-[X] Basic Keyboard driver.
-[X] Interrrupt handler
-[X] System timer and system clock. For simplcity just have a single counter
+* [X] Basic Keyboard driver.
+* [X] Interrrupt handler
+* [X] System timer and system clock. For simplcity just have a single counter
       at the ms granularity. No need to get fancy with this.
-[X] Basic textmode VGA driver.
-[X] Serial driver and logging functions.
-[~] PCI driver for discovering, enumerating, and initializing PCI devices and
+* [X] Basic textmode VGA driver.
+* [X] Serial driver and logging functions.
+* [ ] PCI driver for discovering, enumerating, and initializing PCI devices and
       providing an interface for other pci drivers to interface with their PCI
       devices.
-[ ] Minimal, but powerful, console that can read memory, registers, modify mem
+* [ ] Minimal, but powerful, console that can read memory, registers, modify mem
   and registers, and call executable code. Console will give minimal tools for
   examining the system. Almost a built-in debugger.
-[ ] PCI network driver working
-[ ] Network stack implemented from scratch up to sockets. Can talk to a linux 
+* [ ] PCI network driver working
+* [ ] Network stack implemented from scratch up to sockets. Can talk to a linux 
   server TCP socket.
-[ ] USB Driver. Figure out how this intergaces with 
-[ ] MMIO / MMU memory manager. For this mostly just interface with any hardware
+* [ ] USB Driver. Figure out how this intergaces with 
+* [ ] MMIO / MMU memory manager. For this mostly just interface with any hardware
   to accelerate translation. No need to create full dynamic memory manager,
   just git warm fuzy for hardware / architecture on system todo memory stuff.
-[ ] **BONUS** full VGA PCI driver (full 16bit and 256bit color mode).
-[ ] **BONUS** locking and other sync primitives.
+* [ ] **BONUS** full VGA PCI driver (full 16bit and 256bit color mode).
+* [ ] **BONUS** locking and other sync primitives.
 
 # Design
 - Kernel will be composed of modules i.e. interrupt handler, serial driver,
