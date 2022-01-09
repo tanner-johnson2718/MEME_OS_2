@@ -103,7 +103,7 @@ RETURNS) 0 on success or VGA error code on error.
 
 COMMENTS) NONE
 ******************************************************************************/
-u8 vga_textmode_putc(u8 x, u8 y, u8 c, u8 fg, u8 bg);
+u8 vga_textmode_getc(u8 x, u8 y, u8* c);
 ~~~
 
 # Deps

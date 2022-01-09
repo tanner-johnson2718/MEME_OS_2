@@ -94,10 +94,6 @@ void kernel_main(void)
     vga_textmode_clear_screen(fg, bg);
     vga_textmode_update_cursor(col,row);
     ps2_register_hanlder(kb_hanle);
-    
-    // SOm more test code
-    log_msg(__FILE__, __LINE__, "This is a message");
-    log_msg(__FILE__, __LINE__, "This is a message");
 
     while(1)
     {

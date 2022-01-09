@@ -175,78 +175,118 @@ u32 pci_get_bar0_size(u32 bus, u32 device, u32 func)
     outl(PCI_CONFIG_ADDR_PORT, addr);
     outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
 
+    // write back bar value
+    u32  size = (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, bar_val);
 
-    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    return size;
 }
 
 u32 pci_get_bar1_size(u32 bus, u32 device, u32 func)
 {
-    u32 bar_val = pci_get_bar0(bus, device, func);
+    u32 bar_val = pci_get_bar1(bus, device, func);
 
     // Now write all 1's to reg
     u32 addr =  pci_build_config_reg(bus, device,func, 0x14);
     outl(PCI_CONFIG_ADDR_PORT, addr);
     outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
 
+    // write back bar value
+    u32  size = (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, bar_val);
 
-    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    return size;
 }
 
 u32 pci_get_bar2_size(u32 bus, u32 device, u32 func)
 {
-    u32 bar_val = pci_get_bar0(bus, device, func);
+    u32 bar_val = pci_get_bar2(bus, device, func);
 
     // Now write all 1's to reg
     u32 addr =  pci_build_config_reg(bus, device,func, 0x18);
     outl(PCI_CONFIG_ADDR_PORT, addr);
     outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
 
+    // write back bar value
+    u32  size = (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, bar_val);
 
-    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    return size;
 }
 
 u32 pci_get_bar3_size(u32 bus, u32 device, u32 func)
 {
-    u32 bar_val = pci_get_bar0(bus, device, func);
+    u32 bar_val = pci_get_bar3(bus, device, func);
 
     // Now write all 1's to reg
     u32 addr =  pci_build_config_reg(bus, device,func, 0x1c);
     outl(PCI_CONFIG_ADDR_PORT, addr);
     outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
 
+    // write back bar value
+    u32  size = (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, bar_val);
 
-    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    return size;
 }
 
 u32 pci_get_bar4_size(u32 bus, u32 device, u32 func)
 {
-    u32 bar_val = pci_get_bar0(bus, device, func);
+    u32 bar_val = pci_get_bar4(bus, device, func);
 
     // Now write all 1's to reg
     u32 addr =  pci_build_config_reg(bus, device,func, 0x20);
     outl(PCI_CONFIG_ADDR_PORT, addr);
     outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
 
-
-    u32 ret = (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
-
-    // return bar value
+    // write back bar value
+    u32  size = (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
     outl(PCI_CONFIG_ADDR_PORT, addr);
     outl(PCI_CONFIG_DATA_PORT, bar_val);
 
+    return size;
 }
 
 u32 pci_get_bar5_size(u32 bus, u32 device, u32 func)
 {
-    u32 bar_val = pci_get_bar0(bus, device, func);
+    u32 bar_val = pci_get_bar5(bus, device, func);
 
     // Now write all 1's to reg
     u32 addr =  pci_build_config_reg(bus, device,func, 0x24);
     outl(PCI_CONFIG_ADDR_PORT, addr);
     outl(PCI_CONFIG_DATA_PORT, 0xffffffff);
 
+    // write back bar value
+    u32  size = (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    outl(PCI_CONFIG_ADDR_PORT, addr);
+    outl(PCI_CONFIG_DATA_PORT, bar_val);
 
-    return (~pci_get_bar_addr(inl(PCI_CONFIG_DATA_PORT))) + 1;
+    return size;
+}
+
+u8 pci_get_prefetch(u32 bar_value)
+{  
+    if(pci_get_mem_or_io(bar_value)) { return 0xff; }   // is IO
+
+    return ((bar_value >> 3) & 0x1);
+}
+
+u8 pci_get_64b(u32 bar_value)
+{
+    if(pci_get_mem_or_io(bar_value)) { return 0xff; }   // is IO
+
+    bar_value = ((bar_value >> 1) & 0x3);
+
+    if(bar_value == 0x0) { return 0; }
+
+    if(bar_value == 0x2) { return 1; }
+
+    log_msg(__FILE__, __LINE__, "Reserved value found in memory mapped BAR");
+    return 0xff;
 }
 
 u32 pci_get_cardbus_pointer(u32 bus, u32 device, u32 func)
@@ -322,32 +362,63 @@ u8 pci_init()
             if(venID == 0xffff) { continue; }
 
             log_msg(__FILE__, __LINE__, "Found PCI device: ");
-            log_val(__FILE__, __LINE__, "   bus      ", bus);
-            log_val(__FILE__, __LINE__, "   dev      ", dev);
-            log_val(__FILE__, __LINE__, "   ven      ", (u32) pci_get_venID(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   dev      ", (u32) pci_get_devID(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   stat     ", (u32) pci_get_stat(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   cmd      ", (u32) pci_get_cmd(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   class    ", (u32) pci_get_class(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   sub class", (u32) pci_get_subclass(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   prog if  ", (u32) pci_get_progif(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   rev id   ", (u32) pci_get_revid(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   bist     ", (u32) pci_get_bist(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bus       ", bus);
+            log_val(__FILE__, __LINE__, "   dev       ", dev);
+            log_val(__FILE__, __LINE__, "   ven       ", (u32) pci_get_venID(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   dev       ", (u32) pci_get_devID(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   stat      ", (u32) pci_get_stat(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   cmd       ", (u32) pci_get_cmd(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   class     ", (u32) pci_get_class(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   sub class ", (u32) pci_get_subclass(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   prog if   ", (u32) pci_get_progif(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   rev id    ", (u32) pci_get_revid(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bist      ", (u32) pci_get_bist(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   hdr type  ", (u32) pci_get_hdr_type(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   lat timer ", (u32) pci_get_latency_timer(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   cache size", (u32) pci_get_cache_line_size(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   bar0      ", (u32) pci_get_bar0(bus, dev, 0));
+
+            u32 bar0 = pci_get_bar0(bus, dev, 0);
+            log_val(__FILE__, __LINE__, "   bar0      ", (u32) bar0);
+            log_val(__FILE__, __LINE__, "   bar0 addr ", (u32) pci_get_bar_addr(bar0));
             log_val(__FILE__, __LINE__, "   bar0 size ", (u32) pci_get_bar0_size(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   bar1      ", (u32) pci_get_bar1(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar0 pre  ", (u32) pci_get_prefetch(bar0));
+            log_val(__FILE__, __LINE__, "   bar0 64b  ", (u32) pci_get_64b(bar0));
+
+            u32 bar1 = pci_get_bar1(bus, dev, 0);
+            log_val(__FILE__, __LINE__, "   bar1      ", (u32) bar1);
+            log_val(__FILE__, __LINE__, "   bar1 addr ", (u32) pci_get_bar_addr(bar1));
             log_val(__FILE__, __LINE__, "   bar1 size ", (u32) pci_get_bar1_size(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   bar2      ", (u32) pci_get_bar2(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar1 pre  ", (u32) pci_get_prefetch(bar1));
+            log_val(__FILE__, __LINE__, "   bar1 64b  ", (u32) pci_get_64b(bar1));
+
+            u32 bar2 = pci_get_bar2(bus, dev, 0);
+            log_val(__FILE__, __LINE__, "   bar2      ", (u32) bar2);
+            log_val(__FILE__, __LINE__, "   bar2 addr ", (u32) pci_get_bar_addr(bar2));
             log_val(__FILE__, __LINE__, "   bar2 size ", (u32) pci_get_bar2_size(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   bar3      ", (u32) pci_get_bar3(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar2 pre  ", (u32) pci_get_prefetch(bar2));
+            log_val(__FILE__, __LINE__, "   bar2 64b  ", (u32) pci_get_64b(bar2));
+
+            u32 bar3 = pci_get_bar3(bus, dev, 0);
+            log_val(__FILE__, __LINE__, "   bar3      ", (u32) bar3);
+            log_val(__FILE__, __LINE__, "   bar3 addr ", (u32) pci_get_bar_addr(bar3));
             log_val(__FILE__, __LINE__, "   bar3 size ", (u32) pci_get_bar3_size(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   bar4      ", (u32) pci_get_bar4(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar3 pre  ", (u32) pci_get_prefetch(bar3));
+            log_val(__FILE__, __LINE__, "   bar3 64b  ", (u32) pci_get_64b(bar3));
+
+            u32 bar4 = pci_get_bar4(bus, dev, 0);
+            log_val(__FILE__, __LINE__, "   bar4      ", (u32) bar4);
+            log_val(__FILE__, __LINE__, "   bar4 addr ", (u32) pci_get_bar_addr(bar4));
             log_val(__FILE__, __LINE__, "   bar4 size ", (u32) pci_get_bar4_size(bus, dev, 0));
-            log_val(__FILE__, __LINE__, "   bar5      ", (u32) pci_get_bar5(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar4 pre  ", (u32) pci_get_prefetch(bar4));
+            log_val(__FILE__, __LINE__, "   bar4 64b  ", (u32) pci_get_64b(bar4));
+
+            u32 bar5 = pci_get_bar5(bus, dev, 0);
+            log_val(__FILE__, __LINE__, "   bar5      ", (u32) bar5);
+            log_val(__FILE__, __LINE__, "   bar5 addr ", (u32) pci_get_bar_addr(bar5));
             log_val(__FILE__, __LINE__, "   bar5 size ", (u32) pci_get_bar5_size(bus, dev, 0));
+            log_val(__FILE__, __LINE__, "   bar5 pre  ", (u32) pci_get_prefetch(bar5));
+            log_val(__FILE__, __LINE__, "   bar5 64b  ", (u32) pci_get_64b(bar5));
+
             log_val(__FILE__, __LINE__, "   cis ptr   ", (u32) pci_get_cardbus_pointer(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   subsys ID ", (u32) pci_get_subsystemID(bus, dev, 0));
             log_val(__FILE__, __LINE__, "   subsysven ", (u32) pci_get_subsystem_vendorID(bus, dev, 0));

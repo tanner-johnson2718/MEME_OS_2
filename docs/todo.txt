@@ -12,4 +12,13 @@ Actually need todo to move forward)
 - Locks / other sync primitives
 - mmu / tlb and address translation??
 - PCI driver
+   - expansion rom??
+   - commmand and stat registers??
+   - 0x80 hdr type?
+   - go back over header and see if there is anything else you dont get
+   - allocate and store these pci dev hdrs discovered
+   - public headers for updating and writing certaion config space registers
+   - public headers for polling for if it these config space headers change
+   - Multi-function????
+   - conifugre bridges and devices?
 - CPU IDLE
