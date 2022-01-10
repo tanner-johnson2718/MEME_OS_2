@@ -1,17 +1,6 @@
 Wish List)
 - How do PS2 and USB interop?
-- Ways of measuring performance i.e. clock cycles
-- Need to go back over modules ideas
-- Fill out VGA driver code
 - Why is timer in square wave mode?
-- For each driver read HID from device and log it
-- Locks / other sync primitives
-
-Actually need todo to move forward)
-- Legit console
-- Network driver
-- Hook up emu env to actual outside world
-- mmu / tlb and address translation??
 - PCI driver
    - public headers for updating and writing certaion config space registers
    - public headers for polling for if it these config space headers change
@@ -20,3 +9,12 @@ Actually need todo to move forward)
    - expansion rom??
    - commmand and stat registers??
    - 0x80 hdr type?
+
+Actually need todo to move forward)
+- Legit console
+- Hook up emu env to actual outside world
+- mmu / tlb and address translation??
+- Network driver
+   - What is the mem bar for??
+   - RX/TX buffer???
+   - What about the expansion ROM??

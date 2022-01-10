@@ -98,8 +98,8 @@ u8 pci_init();
 NAME)     pci_get_device_struct
 
 INPUTS)   
-          0) u8 venID - vendor ID of the pci struct to return
-          1) u8 devID - device ID of the pci struct to return
+          0) u16 venID - vendor ID of the pci struct to return
+          1) u16 devID - device ID of the pci struct to return
 
 OUTPUTS)  
           2) dev_ptr - A pointer to a pointer. Will return a pointer to the pci
@@ -110,6 +110,6 @@ RETURNS)  0 if successfully found the pci device, error code otherwise
 COMMENTS) Returned pci device pointer, points to the single copy of the struct
           in the pci driver memory. A copy is not made.
 ******************************************************************************/
-u8 pci_get_device_struct(u8 venID, u8 devID, struct pci_device** dev_ptr);
+u8 pci_get_device_struct(u16 venID, u16 devID, struct pci_device** dev_ptr);
 
 #endif

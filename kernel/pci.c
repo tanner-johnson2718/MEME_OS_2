@@ -436,6 +436,7 @@ u8 pci_init()
             pci_devices[num_pci_devs].interrupt_pin = pci_get_int_pin(bus, dev, 0);
             pci_devices[num_pci_devs].interrupt_line = pci_get_int_line(bus, dev, 0);
 
+            /*
             log_msg(__FILE__, __LINE__, "\n\r");
             log_msg(__FILE__, __LINE__, "Found PCI device: ");
             log_val(__FILE__, __LINE__, "   bus       ", (u32) pci_devices[num_pci_devs].bus);
@@ -516,7 +517,8 @@ u8 pci_init()
             // log_val(__FILE__, __LINE__, "   min grant ", (u32) pci_devices[num_pci_devs].min_grant);
             log_val(__FILE__, __LINE__, "   intr pin  ", (u32) pci_devices[num_pci_devs].interrupt_pin);
             log_val(__FILE__, __LINE__, "   intr line ", (u32) pci_devices[num_pci_devs].interrupt_line);
-
+            */
+           
             ++num_pci_devs;
         }
     }
@@ -540,7 +542,7 @@ RETURNS)  0 if successfully found the pci device, error code otherwise
 COMMENTS) Returned pci device pointer, points to the single copy of the struct
           in the pci driver memory. A copy is not made.
 ******************************************************************************/
-u8 pci_get_device_struct(u8 venID, u8 devID, struct pci_device** dev_ptr)
+u8 pci_get_device_struct(u16 venID, u16 devID, struct pci_device** dev_ptr)
 {
     u8 i;
     for(; i < num_pci_devs; ++i)

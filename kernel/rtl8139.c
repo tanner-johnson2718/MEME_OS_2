@@ -21,6 +21,7 @@ void rtl8139_power_on()
     if(rtl8139_io_addr)
     {
         outb(rtl8139_io_addr + RTL8139_CONFIG1, 0x0);
+        log_msg(__FILE__, __LINE__, "RTL8139 powered on");
     }  
 }
 
@@ -30,6 +31,7 @@ void rtl8139_sw_reset()
     {
         outb( rtl8139_io_addr + RTL8139_CMD_REG, 0x10);
         while( (inb(rtl8139_io_addr + RTL8139_CMD_REG) & 0x10) != 0) { }
+        log_msg(__FILE__, __LINE__, "RTL8139 reset");
     }  
 }
 
@@ -62,6 +64,9 @@ u8 rtl8139_init()
         log_msg(__FILE__, __LINE__, "RTL8139 failed to grab pci device");
         return RTL8139_NO_PCI_DEV_FOUND;
     }
+
+    log_val(__FILE__, __LINE__, "RTL8139 bus ", rtl8139_device->bus);
+    log_val(__FILE__, __LINE__, "RTL8139 dev ", rtl8139_device->device);
 
     // search through bars to find io_addr
     if(rtl8139_device->bar0_addr && rtl8139_device->bar0_is_io)
@@ -118,9 +123,24 @@ u8 rtl8139_init()
         return RTL8139_NO_IO_BAR_FOUND;
     }
 
+    log_val(__FILE__, __LINE__, "RTL8139 IO addr ", rtl8139_io_addr);
+
     // Parse irq line
     rtl8139_pic_irq = rtl8139_device->interrupt_line;
+    log_val(__FILE__, __LINE__, "RTL8139 IRQ Line ", rtl8139_pic_irq);
 
     // Set irq handler
+
+    // power on
+
+    // reset
+
+    // Init recv buffer
+
+    // set IMR + ISR
+
+    // Config recv buffer
+
+    // enable TX/RX
 
 }

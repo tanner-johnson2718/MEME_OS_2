@@ -8,6 +8,7 @@
 #include "timer.h"
 #include "log.h"
 #include "pci.h"
+#include "rtl8139.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Basic Console Code
@@ -86,6 +87,7 @@ void kernel_main(void)
     vga_init();
     timer_init();
     pci_init();
+    rtl8139_init();
 
     // Turn interrupts on
     irq_on();
