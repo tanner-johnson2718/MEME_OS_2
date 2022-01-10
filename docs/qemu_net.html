@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html class="client-js ve-available" dir="ltr" data-darkreader-mode="dynamic" data-darkreader-scheme="dark" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen">.jfk-bubble.gtx-bubble, .captcheck_answer_label > input + img, span#closed_text > img[src^="https://www.gstatic.com/images/branding/googlelogo"], span[data-href^="https://www.hcaptcha.com/"] > #icon, #bit-notification-bar-iframe, ::-webkit-calendar-picker-indicator, .bookend, .mwe-math-fallback-image-inline, .mwe-math-fallback-image-display {
+    filter: invert(100%) hue-rotate(180deg) contrast(90%) !important;
+}</style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}
+[data-darkreader-inline-stopcolor] {
+  stop-color: var(--darkreader-inline-stopcolor) !important;
+}</style><style class="darkreader darkreader--variables" media="screen">:root {
+   --darkreader-neutral-background: #131516;
+   --darkreader-neutral-text: #d8d4cf;
+   --darkreader-selection-background: #004daa;
+   --darkreader-selection-text: #e8e6e3;
+}</style><style class="darkreader darkreader--root-vars" media="screen"></style><style class="darkreader darkreader--user-agent" media="screen">html {
+    background-color: #181a1b !important;
+}
+html, body, input, textarea, select, button {
+    background-color: #181a1b;
+}
+html, body, input, textarea, select, button {
+    border-color: #736b5e;
+    color: #e8e6e3;
+}
+a {
+    color: #3391ff;
+}
+table {
+    border-color: #545b5e;
+}
+::placeholder {
+    color: #b2aba1;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #555b00 !important;
+    color: #e8e6e3 !important;
+}
+::-webkit-scrollbar {
+    background-color: #202324;
+    color: #aba499;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #454a4d;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #575e62;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #484e51;
+}
+::-webkit-scrollbar-corner {
+    background-color: #181a1b;
+}
+* {
+    scrollbar-color: #454a4d #202324;
+}
+::selection {
+    background-color: #004daa !important;
+    color: #e8e6e3 !important;
+}
+::-moz-selection {
+    background-color: #004daa !important;
+    color: #e8e6e3 !important;
+}</style>
+<meta charset="UTF-8">
+<title>QEMU/Devices/Network - Wikibooks, open books for an open world</title>
+<script>document.documentElement.className="client-js";RLCONF={"wgBreakFrames":false,"wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgRequestId":"1c2c0e99-28e9-4343-9535-947bcab9a990","wgCSPNonce":false,"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"QEMU/Devices/Network","wgTitle":"QEMU/Devices/Network","wgCurRevisionId":3949941,"wgRevisionId":3949941,"wgArticleId":273497,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Book:QEMU"],"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgRelevantPageName":"QEMU/Devices/Network","wgRelevantArticleId":273497,"wgIsProbablyEditable":true,"wgRelevantPageIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgFlaggedRevsParams":{"tags"
+:{"value":{"levels":3}}},"wgStableRevisionId":3949941,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","pageVariantFallbacks":"en"},"wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":false},"wgWMESchemaEditAttemptStepOversample":false,"wgWMEPageLength":1000,"wgNoticeProject":"wikibooks","wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgULSCurrentAutonym":"English","wgEditSubmitButtonLabelPublish":true,"wgCentralAuthMobileDomain":false,"wgULSPosition":"interlanguage","wgULSisCompactLinksEnabled":true,"wgSiteNoticeId":"2.24"};RLSTATE={"ext.globalCssJs.user.styles":"ready","site.styles":"ready","user.styles":"ready","ext.globalCssJs.user":"ready","user":"ready","user.options":"loading","ext.flaggedRevs.icons":"ready","oojs-ui-core.styles":"ready","oojs-ui.styles.indicators":"ready","mediawiki.widgets.styles":"ready","oojs-ui-core.icons":"ready","ext.pygments":"ready","skins.vector.styles.legacy":"ready",
+"ext.flaggedRevs.basic":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.wikimediaBadges":"ready","ext.uls.interlanguage":"ready","wikibase.client.init":"ready","ext.dismissableSiteNotice.styles":"ready"};RLPAGEMODULES=["site","mediawiki.page.ready","skins.vector.legacy.js","ext.flaggedRevs.advanced","ext.gadget.wikidialog","ext.gadget.commons-file","ext.visualEditor.desktopArticleTarget.init","ext.visualEditor.targetLoader","ext.eventLogging","ext.wikimediaEvents","ext.navigationTiming","ext.centralNotice.geoIP","ext.centralNotice.startUp","ext.centralauth.centralautologin","ext.uls.compactlinks","ext.uls.interface","ext.dismissableSiteNotice"];</script>
+<script>(RLQ=window.RLQ||[]).push(function(){mw.loader.implement("user.options@1i9g4",function($,jQuery,require,module){mw.user.tokens.set({"patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});});});</script>
+<link rel="stylesheet" href="qemu_net_files/load.css"><style class="darkreader darkreader--sync" media="screen"></style>
+<script async="" src="qemu_net_files/load.php"></script>
+<style>
+.mw-editfont-monospace{font-family:monospace,monospace}.mw-editfont-sans-serif{font-family:sans-serif}.mw-editfont-serif{font-family:serif} .mw-editfont-monospace,.mw-editfont-sans-serif,.mw-editfont-serif{  font-size:13px;  -moz-tab-size:4; tab-size:4; }.mw-editfont-monospace.oo-ui-textInputWidget,.mw-editfont-sans-serif.oo-ui-textInputWidget,.mw-editfont-serif.oo-ui-textInputWidget{font-size:inherit}.mw-editfont-monospace.oo-ui-textInputWidget > .oo-ui-inputWidget-input,.mw-editfont-sans-serif.oo-ui-textInputWidget > .oo-ui-inputWidget-input,.mw-editfont-serif.oo-ui-textInputWidget > .oo-ui-inputWidget-input{  font-size:13px}.mw-editfont-monospace.oo-ui-textInputWidget > input.oo-ui-inputWidget-input,.mw-editfont-sans-serif.oo-ui-textInputWidget > input.oo-ui-inputWidget-input,.mw-editfont-serif.oo-ui-textInputWidget > input.oo-ui-inputWidget-input{min-height:32px}
+.mw-ui-button{background-color:#f8f9fa;color:#202122;display:inline-block;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;border:1px solid #a2a9b1;border-radius:2px;cursor:pointer;vertical-align:middle;font-family:inherit;font-size:1em;font-weight:bold;line-height:1.28571429em;text-align:center;-webkit-appearance:none}.mw-ui-button:not(.mw-ui-icon-element){min-height:32px;min-width:4em;max-width:28.75em;padding:5px 12px}.mw-ui-button:not(:disabled){-webkit-transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms;transition:background-color 100ms,color 100ms,border-color 100ms,box-shadow 100ms}.mw-ui-button:not(:disabled):visited{color:#202122}.mw-ui-button:not(:disabled):hover{background-color:#ffffff;color:#404244;border-color:#a2a9b1}.mw-ui-button:not(:disabled):focus{color:#202122;border-color:#3366cc;box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff;outline-width:0}.mw-ui-button:not(:disabled):focus::-moz-focus-inner{border-color:transparent;padding:0}.mw-ui-button:not(:disabled):active,.mw-ui-button:not(:disabled).is-on{background-color:#c8ccd1;color:#000000;border-color:#72777d;box-shadow:none}.mw-ui-button:disabled{background-color:#c8ccd1;color:#ffffff;border-color:#c8ccd1;cursor:default}.mw-ui-button.mw-ui-icon-element:not(.mw-ui-icon-with-label-desktop){color:transparent !important}.mw-ui-button.mw-ui-icon-element:not(.mw-ui-icon-with-label-desktop) span{display:block;position:absolute !important; clip:rect(1px,1px,1px,1px);width:1px;height:1px;margin:-1px;border:0;padding:0;overflow:hidden}@media all and (max-width:1000px){.mw-ui-button.mw-ui-icon-element.mw-ui-icon-with-label-desktop{color:transparent !important}.mw-ui-button.mw-ui-icon-element span{display:block;position:absolute !important; clip:rect(1px,1px,1px,1px);width:1px;height:1px;margin:-1px;border:0;padding:0;overflow:hidden}}.mw-ui-button.mw-ui-quiet,.mw-ui-button.mw-ui-quiet.mw-ui-progressive,.mw-ui-button.mw-ui-quiet.mw-ui-destructive{background-color:transparent;color:#202122;border-color:transparent;font-weight:bold}.mw-ui-button.mw-ui-quiet:not(.mw-ui-icon-element),.mw-ui-button.mw-ui-quiet.mw-ui-progressive:not(.mw-ui-icon-element),.mw-ui-button.mw-ui-quiet.mw-ui-destructive:not(.mw-ui-icon-element){min-height:32px}input[type='checkbox']:hover + .mw-ui-button.mw-ui-quiet,input[type='checkbox']:hover + .mw-ui-button.mw-ui-quiet.mw-ui-progressive,input[type='checkbox']:hover + .mw-ui-button.mw-ui-quiet.mw-ui-destructive,.mw-ui-button.mw-ui-quiet:hover,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:hover,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:hover{background-color:rgba(0,24,73,0.02745098);color:#202122;border-color:transparent}input[type='checkbox']:focus + .mw-ui-button.mw-ui-quiet,input[type='checkbox']:focus + .mw-ui-button.mw-ui-quiet.mw-ui-progressive,input[type='checkbox']:focus + .mw-ui-button.mw-ui-quiet.mw-ui-destructive,.mw-ui-button.mw-ui-quiet:focus,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:focus,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:focus{color:#202122;border-color:#3366cc;box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff}input[type='checkbox']:active + .mw-ui-button.mw-ui-quiet,input[type='checkbox']:active + .mw-ui-button.mw-ui-quiet.mw-ui-progressive,input[type='checkbox']:active + .mw-ui-button.mw-ui-quiet.mw-ui-destructive,.mw-ui-button.mw-ui-quiet:active,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:active,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:active{background-color:rgba(0,36,73,0.08235294);color:#000000;border-color:#72777d;box-shadow:none}.mw-ui-button.mw-ui-quiet:disabled,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled,.mw-ui-button.mw-ui-quiet:disabled:hover,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled:hover,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled:hover,.mw-ui-button.mw-ui-quiet:disabled:active,.mw-ui-button.mw-ui-quiet.mw-ui-progressive:disabled:active,.mw-ui-button.mw-ui-quiet.mw-ui-destructive:disabled:active{background-color:transparent;color:#72777d;border-color:transparent}.mw-ui-button.mw-ui-progressive:not(:disabled){background-color:#3366cc;color:#fff;border-color:#3366cc}.mw-ui-button.mw-ui-progressive:not(:disabled):hover{background-color:#447ff5;border-color:#447ff5}.mw-ui-button.mw-ui-progressive:not(:disabled):focus{box-shadow:inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff}.mw-ui-button.mw-ui-progressive:not(:disabled):active,.mw-ui-button.mw-ui-progressive:not(:disabled).is-on{background-color:#2a4b8d;border-color:#2a4b8d;box-shadow:none}.mw-ui-button.mw-ui-progressive:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button.mw-ui-progressive.mw-ui-quiet{color:#3366cc;background-color:transparent;border-color:transparent}input[type='checkbox']:hover + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,.mw-ui-button.mw-ui-progressive.mw-ui-quiet:hover{background-color:rgba(52,123,255,0.2);border-color:transparent;color:#447ff5}input[type='checkbox']:focus + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,.mw-ui-button.mw-ui-progressive.mw-ui-quiet:focus{color:#3366cc;border-color:#3366cc}input[type='checkbox']:active + .mw-ui-button.mw-ui-progressive.mw-ui-quiet,.mw-ui-button.mw-ui-progressive.mw-ui-quiet:active{color:#ffffff;background-color:#2a4b8d;border-color:#2a4b8d}.mw-ui-button.mw-ui-destructive:not(:disabled){background-color:#dd3333;color:#fff;border-color:#dd3333}.mw-ui-button.mw-ui-destructive:not(:disabled):hover{background-color:#ff4242;border-color:#ff4242}.mw-ui-button.mw-ui-destructive:not(:disabled):focus{box-shadow:inset 0 0 0 1px #dd3333,inset 0 0 0 2px #ffffff}.mw-ui-button.mw-ui-destructive:not(:disabled):active,.mw-ui-button.mw-ui-destructive:not(:disabled).is-on{background-color:#b32424;border-color:#b32424;box-shadow:none}.mw-ui-button.mw-ui-destructive:disabled{background-color:#c8ccd1;color:#fff;border-color:#c8ccd1}.mw-ui-button.mw-ui-destructive.mw-ui-quiet{color:#dd3333;background-color:transparent;border-color:transparent}input[type='checkbox']:hover + .mw-ui-button.mw-ui-destructive.mw-ui-quiet,.mw-ui-button.mw-ui-destructive.mw-ui-quiet:hover{background-color:rgba(209,29,19,0.2);border-color:transparent;color:#ff4242}input[type='checkbox']:focus + .mw-ui-button.mw-ui-destructive.mw-ui-quiet,.mw-ui-button.mw-ui-destructive.mw-ui-quiet:focus{color:#dd3333;border-color:#dd3333}input[type='checkbox']:active + .mw-ui-button.mw-ui-destructive.mw-ui-quiet,.mw-ui-button.mw-ui-destructive.mw-ui-quiet:active{color:#ffffff;background-color:#b32424;border-color:#b32424}.mw-ui-button.mw-ui-big{font-size:1.3em}.mw-ui-button.mw-ui-block{display:block;width:100%;margin-left:auto;margin-right:auto}a.mw-ui-button{text-decoration:none}a.mw-ui-button:hover,a.mw-ui-button:focus{text-decoration:none}.mw-ui-button-group > *{min-width:48px;border-radius:0;float:left}.mw-ui-button-group > *:first-child{border-top-left-radius:2px;border-bottom-left-radius:2px}.mw-ui-button-group > *:not(:first-child){border-left:0}.mw-ui-button-group > *:last-child{border-top-right-radius:2px;border-bottom-right-radius:2px}.mw-ui-button-group .is-on .button{cursor:default}
+.ve-init-mw-progressBarWidget{height:1em;overflow:hidden;margin:0 25%}.ve-init-mw-progressBarWidget-bar{height:1em;width:0} .ve-init-mw-progressBarWidget{background-color:#fff;box-sizing:border-box;height:0.875em;border:1px solid #36c;border-radius:0.875em;box-shadow:0 1px 1px rgba(0,0,0,0.15)}.ve-init-mw-progressBarWidget-bar{background-color:#36c;height:0.875em}
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+.uls-menu{border-radius:2px; font-size:medium}.uls-search,.uls-language-settings-close-block{border-top-right-radius:2px;border-top-left-radius:2px}.uls-language-list{border-bottom-right-radius:2px;border-bottom-left-radius:2px}.uls-menu.callout:before,.uls-menu.callout:after{border-top:10px solid transparent;border-bottom:10px solid transparent;display:inline-block; top:17px;position:absolute;content:''}.uls-menu.callout.selector-right:before{ border-left:10px solid #c8ccd1; right:-11px}.uls-menu.callout.selector-right:after{ border-left:10px solid #fff; right:-10px}.uls-menu.callout.selector-left:before{ border-right:10px solid #c8ccd1; left:-11px}.uls-menu.callout.selector-left:after{ border-right:10px solid #fff; left:-10px}.uls-ui-languages button{margin:5px 15px 5px 0;white-space:nowrap;overflow:hidden}.uls-search-wrapper-wrapper{position:relative;padding-left:40px;margin-top:5px;margin-bottom:5px}.uls-icon-back{background:transparent url(/w/extensions/UniversalLanguageSelector/resources/images/back-grey-ltr.svg?01868) no-repeat scroll center center;background-size:28px;height:32px;width:40px;display:block;position:absolute;left:0;border-right:1px solid #c8ccd1;opacity:0.8}.uls-icon-back:hover{opacity:1;cursor:pointer}.uls-menu .uls-no-results-view .uls-no-found-more{background-color:#fff}.uls-menu .uls-no-results-view h3{padding:0 28px;margin:0;color:#54595d;font-size:1em;font-weight:normal}   .skin-vector .uls-menu{border-color:#c8ccd1;box-shadow:0 2px 2px 0 rgba(0,0,0,0.25);font-size:0.875em;z-index:3}.skin-vector .uls-search{border-bottom-color:#c8ccd1}.skin-vector .uls-search-label{opacity:0.51;-webkit-transition:opacity 250ms;transition:opacity 250ms}.skin-vector .uls-search-wrapper:hover .uls-search-label{opacity:0.87}.skin-vector .uls-filtersuggestion{color:#72777d}.skin-vector .uls-lcd-region-title{color:#54595d}
+@media print{#centralNotice{display:none}}.cn-closeButton{display:inline-block;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAElBMVEUAAAAQEBDPz88AAABAQEDv7+9oe1vvAAAABnRSTlMA3rLe3rJS22KzAAAARElEQVQI12PAAUIUQCSTK5BwFgIxFU1AhKECUFAYKAAioXwwBeZChMGCEGGQIFQYJohgIhQgtCEMQ7ECYTHCOciOxA4AADgJTXIb9s8AAAAASUVORK5CYII=) no-repeat;width:20px;height:20px;text-indent:20px;white-space:nowrap;overflow:hidden}
+#uls-settings-block{background-color:#f8f9fa;border-top:1px solid #c8ccd1;padding-left:10px;line-height:1.2em;border-radius:0 0 2px 2px}#uls-settings-block > button{background:left top transparent no-repeat;background-size:20px auto;color:#54595d;display:inline-block;margin:8px 15px;border:0;padding:0 0 0 26px;font-size:medium;cursor:pointer}#uls-settings-block > button:hover{color:#202122}#uls-settings-block > button.display-settings-block{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/display.svg?b78f7)}#uls-settings-block > button.input-settings-block{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/input.svg?e7c85)}.uls-tipsy.uls-tipsy{z-index:1000}</style><style class="darkreader darkreader--sync" media="screen"></style><style>
+.ve-init-mw-tempWikitextEditorWidget{border:0;padding:0;color:inherit;line-height:1.5em;width:100%;-moz-tab-size:4;tab-size:4; }.ve-init-mw-tempWikitextEditorWidget:focus{outline:0;padding:0}.ve-init-mw-tempWikitextEditorWidget::selection{background:rgba(109,169,247,0.5); }
+#p-lang .body ul .uls-trigger,#p-lang .pBody ul .uls-trigger{background-image:none;padding:0}#p-lang .mw-interlanguage-selector,#p-lang .mw-interlanguage-selector:active{background-image:url(/w/extensions/UniversalLanguageSelector/resources/images/language-base20.svg?b7954);background-position:left 4px center;background-repeat:no-repeat;background-size:16px;margin:4px 0 8px;padding:4px 8px 4px 26px;font-size:13px;font-weight:normal;text-align:left;cursor:pointer}#p-lang .mw-interlanguage-selector.selector-open{background-color:#c8ccd1}  .interlanguage-uls-menu:before,.interlanguage-uls-menu:after{border-top:10px solid transparent;border-bottom:10px solid transparent;display:inline-block; top:17px;position:absolute;content:''}.interlanguage-uls-menu.selector-right:before{ border-left:10px solid #c8ccd1; right:-11px}.interlanguage-uls-menu.selector-right:after{ border-left:10px solid #fff; right:-10px}.interlanguage-uls-menu.selector-left:before{ border-right:10px solid #c8ccd1; left:-11px}.interlanguage-uls-menu.selector-left:after{ border-right:10px solid #fff; left:-10px}.uls-dialog-sticky .uls-menu{position:fixed; top:60px !important}.uls-dialog-sticky.uls-dialog-sticky-hide .uls-menu{ display:none !important}</style><style class="darkreader darkreader--sync" media="screen"></style><style>
+.ve-activated .ve-init-mw-desktopArticleTarget-editableContent #toc,.ve-activated #siteNotice,.ve-activated .mw-indicators,.ve-activated #t-print,.ve-activated #t-permalink,.ve-activated #p-coll-print_export,.ve-activated #t-cite,.ve-deactivating .ve-ui-surface,.ve-active .ve-init-mw-desktopArticleTarget-editableContent,.ve-active .ve-init-mw-tempWikitextEditorWidget{display:none} .ve-activating .ve-ui-surface{height:0;padding:0 !important; overflow:hidden} .ve-loading #content > :not(.ve-init-mw-desktopArticleTarget-loading-overlay), .ve-activated .ve-init-mw-desktopArticleTarget-uneditableContent{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;opacity:0.5}.ve-activated #firstHeading{ -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;pointer-events:auto;cursor:text}.ve-activated #firstHeading a{ pointer-events:none}.ve-activated #catlinks{cursor:pointer}.ve-activated #catlinks:hover{ background:#e9f2fd}.ve-activated #catlinks a{opacity:1}.ve-activated #content{position:relative} .ve-init-mw-desktopArticleTarget-loading-overlay{position:absolute;top:1.25em;left:0;right:0;z-index:1;margin-top:-0.5em}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{transition:height 250ms ease;height:0; } .oo-ui-element-hidden{display:none !important; } .mw-editsection{ unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection:before{content:'\200B'}.mw-editsection a{white-space:nowrap}.mw-editsection-divider{color:#54595d} .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{border-bottom:1px solid #c8ccd1;box-shadow:0 1px 1px 0 rgba(0,0,0,0.1)}.ve-init-mw-desktopArticleTarget-toolbarPlaceholder-open{height:42px} .ve-init-mw-desktopArticleTarget-toolbar,.ve-init-mw-desktopArticleTarget-toolbarPlaceholder{font-size:0.875em;margin:-1.42857143em -0.57142857em 1.42857143em -0.57142857em}.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbar,.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{ margin:-1.14em -1.14em 1.14em -1.14em; }@media screen and (min-width:982px){.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbar,.skin-vector-legacy .ve-init-mw-desktopArticleTarget-toolbarPlaceholder{ margin:-1.43em -1.71em 1.43em -1.71em}}</style><style class="darkreader darkreader--sync" media="screen"></style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="qemu_net_files/load_002.css"><style class="darkreader darkreader--cors" media="screen">.mobile-only{display:none}.PrettyTextBox{background-color:#F9F9F9;color:#000000;border:1px solid #AAAAAA;padding:0.2em}.archive-box{border:1px solid #aaaaff;background-color:#f2f2f9;color:black;margin-bottom:0.5em;margin-left:1em;padding:0.2em;float:right;clear:right;text-align:center}.mw-collapsible-arrowtoggle.mw-collapsible-toggle-expanded{padding-left:20px !important;background-image:url("https://upload.wikimedia.org/wikipedia/commons/1/10/MediaWiki_Vector_skin_action_arrow.png");background-repeat:no-repeat;background-position:center left}.mw-collapsible-arrowtoggle.mw-collapsible-toggle-collapsed{padding-left:20px !important;background-image:url("https://upload.wikimedia.org/wikipedia/commons/4/41/MediaWiki_Vector_skin_right_arrow.png");background-repeat:no-repeat;background-position:center left}body.page-Main_Page #deleteconfirm,body.page-Main_Page #t-cite,body.page-Main_Page #footer-info-lastmod,body.page-Main_Page #firstHeading,body.page-Wikijunior #deleteconfirm,body.page-Wikijunior #t-cite,body.page-Wikijunior #footer-info-lastmod,body.page-Wikijunior #firstHeading{display:none}body.page-Main_Page h2,body.page-Wikijunior h2{font-size:16pt;margin:0;padding:0;border-bottom:0;font-weight:bold}body #siteSub{display:none}table#mw-dismissable-notice{background-color:transparent}.template-documentation{clear:both;margin:1em 0em 0em 0em;border:1px solid #aaddff;background-color:#eef5ff;padding:1em}div.noarticletext{border:none;background:transparent;padding:0px}.wpb .wpb-header{display:none}.wpbs-inner .wpb .wpb-header{display:block}.wpbs-inner .wpb .wpb-header{display:table-row}.wpbs-inner .wpb-outside{display:none}.nowraplinks a,.nowraplinks .selflink{white-space:nowrap}#mw-fr-commentbox{display:none}div.user-block{padding:5px;margin-bottom:0.5em;border:1px solid #A9A9A9;background-color:#FFEFD5}.wikiEditor-ui-toolbar .group .menu .options{height:300px;overflow:auto}@media screen,projection,handheld{.printonly{display:none !important}}@media only screen and (max-device-width:480px){body{-webkit-text-size-adjust:none}}abbr.minoredit,abbr.botedit{font-weight:bold}#catlinks li{padding:0 .3em;margin:0}#catlinks li:first-child{padding-left:0}#mw-subcategories ul{list-style:none none;margin-left:0.25em}.CategoryTreeChildren{margin-left:1.25em}span.updatedmarker{color:#000;background:#99D642}.geo-default,.geo-dms,.geo-dec{display:inline}.geo-nondefault,.geo-multi-punct{display:none}.longitude,.latitude{white-space:nowrap}.nobuttons input.searchboxSearchButton,.nobuttons input.mw-ui-button{display:none}.vectorTabs .collapsible{border:none;clear:none}#mp-content td{background-color:rgb(243,243,243);border:thin solid rgb(167,215,249)}#coordinates{position:absolute;top:0em;right:0em;float:right;margin:0.0em;padding:0.0em;line-height:1.5em;text-align:right;text-indent:0;font-size:85%;text-transform:none;white-space:nowrap}@media print{.ambox,.tmbox,.dablink,.catlinks,.collapsible span.action,.editlink,.editsection,.subpages,#filetoc,#footer-places,#page-status,.metadata,.noprint{display:none}div.expand-print,div.printonly{display:block !important}span.expand-print,span.printonly{display:inline !important}table.collapsible tr,div.collapsible > div.body{display:block !important}table.collapsible tr{display:table-row !important}cite a.external.text:after,.citation a.external.text:after,.nourlexpansion a.external.text:after,.nourlexpansion a.external.autonumber:after{display:none !important}.skin-monobook #column-one,.skin-monobook #f-poweredbyico,.skin-monobook #f-copyrightico{display:none}table.wikitable{margin:1em 1em 1em 0em;border:1px #aaaaaa solid;border-collapse:collapse}table.wikitable th,.wikitable td{border:1px #aaaaaa solid;padding:0.2em}table.wikitable th{text-align:center;background:#F2F2F2;font-weight:bold}table.wikitable caption{font-weight:bold}.printfooter,#footer{clear:both}}</style><style class="darkreader darkreader--sync" media="screen"></style>
+<meta name="generator" content="MediaWiki 1.38.0-wmf.16">
+<meta name="referrer" content="origin">
+<meta name="referrer" content="origin-when-crossorigin">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:title" content="QEMU/Devices/Network - Wikibooks, open books for an open world">
+<meta property="og:type" content="website">
+<link rel="alternate" media="only screen and (max-width: 720px)" href="https://en.m.wikibooks.org/wiki/QEMU/Devices/Network">
+<link rel="alternate" type="application/x-wiki" title="Edit" href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;action=edit">
+<link rel="shortcut icon" href="https://en.wikibooks.org/static/favicon/wikibooks.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://en.wikibooks.org/w/opensearch_desc.php" title="Wikibooks (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://en.wikibooks.org/w/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="canonical" href="https://en.wikibooks.org/wiki/QEMU/Devices/Network">
+<link rel="dns-prefetch" href="https://meta.wikimedia.org/">
+<link rel="dns-prefetch" href="https://login.wikimedia.org/">
+<meta name="darkreader" content="6d9fd457f82446a8be31dd936218bd94"><style class="darkreader darkreader--override" media="screen">.vimvixen-hint {
+    background-color: #7b5300 !important;
+    border-color: #d8b013 !important;
+    color: #f3e8c8 !important;
+}
+::placeholder {
+    opacity: 0.5 !important;
+}
+a[href="https://coinmarketcap.com/"] > svg[width="94"][height="16"] > path {
+    fill: var(--darkreader-neutral-text) !important;
+}
+#edge-translate-panel-body,
+.MuiTypography-body1 {
+    color: var(--darkreader-neutral-text) !important;
+}
+gr-main-header {
+    background-color: #0f3a48 !important;
+}
+embed[type="application/pdf"] { filter: invert(100%) contrast(90%); }</style><style>.client-js .mw-dismissable-notice { display: block; }</style><style class="darkreader darkreader--sync" media="screen"></style><script src="qemu_net_files/index_005.php"></script><script src="qemu_net_files/index_002.php"></script><script src="qemu_net_files/index_012.php"></script><script src="qemu_net_files/index_003.php"></script><script src="qemu_net_files/index_010.php"></script><script src="qemu_net_files/index_011.php"></script><script src="qemu_net_files/index_009.php"></script><script src="qemu_net_files/index_008.php"></script><script src="qemu_net_files/index_013.php"></script><script src="qemu_net_files/index_014.php"></script><script src="qemu_net_files/index.php"></script><script src="qemu_net_files/index_004.php"></script><script src="qemu_net_files/index_007.php"></script><link rel="stylesheet" href="qemu_net_files/index.css"><style class="darkreader darkreader--sync" media="screen"></style><script src="qemu_net_files/index_006.php"></script></head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject mw-editable page-QEMU_Devices_Network rootpage-QEMU skin-vector action-view skin-vector-legacy"><div id="mw-page-base" class="noprint"></div>
+<div id="mw-head-base" class="noprint"></div>
+<div id="content" class="mw-body" role="main">
+	<a id="top"></a>
+	<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --><div class="mw-dismissable-notice"><div class="mw-dismissable-notice-close" style="visibility: visible;">[<a tabindex="0" role="button">dismiss</a>]</div><div class="mw-dismissable-notice-body"><div id="localNotice" dir="ltr" lang="en"><div style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(68, 136, 187); width: auto; padding-left: 2px; padding-right: 2px; margin-left: auto; margin-right: auto; vertical-align: top; display: table; color: black; --darkreader-inline-bgcolor: #181a1b; --darkreader-inline-bgimage: none; --darkreader-inline-border-top: #305f83; --darkreader-inline-border-right: #305f83; --darkreader-inline-border-bottom: #305f83; --darkreader-inline-border-left: #305f83; --darkreader-inline-color: #e8e6e3;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-color="">The Wikibooks community has accepted <a href="https://en.wikibooks.org/wiki/Wikibooks:Reading_room/Proposals#Implementation" title="Wikibooks:Reading room/Proposals">video game strategy guides</a> on this wiki! See <a href="https://en.wikibooks.org/wiki/Wikibooks:Strategy_guides" title="Wikibooks:Strategy guides">Wikibooks:Strategy guides</a> for the newly-created policy on strategy games. We're looking forward to your contributions.
+</div></div></div></div><script>(function(){var node=document.getElementById("mw-dismissablenotice-anonplace");if(node){node.outerHTML="\u003Cdiv class=\"mw-dismissable-notice\"\u003E\u003Cdiv class=\"mw-dismissable-notice-close\"\u003E[\u003Ca tabindex=\"0\" role=\"button\"\u003Edismiss\u003C/a\u003E]\u003C/div\u003E\u003Cdiv class=\"mw-dismissable-notice-body\"\u003E\u003Cdiv id=\"localNotice\" lang=\"en\" dir=\"ltr\"\u003E\u003Cdiv style=\"background: #ffffff; border: solid 1px #48b; width: auto; padding-left:2px; padding-right:2px; margin-left:auto; margin-right:auto; vertical-align: top; display:table; color:black;\"\u003EThe Wikibooks community has accepted \u003Ca href=\"/wiki/Wikibooks:Reading_room/Proposals#Implementation\" title=\"Wikibooks:Reading room/Proposals\"\u003Evideo game strategy guides\u003C/a\u003E on this wiki! See \u003Ca href=\"/wiki/Wikibooks:Strategy_guides\" title=\"Wikibooks:Strategy guides\"\u003EWikibooks:Strategy guides\u003C/a\u003E for the newly-created policy on strategy games. We're looking forward to your contributions.\n\u003C/div\u003E\u003C/div\u003E\u003C/div\u003E\u003C/div\u003E";}}());</script></div>
+	<div class="mw-indicators">
+	</div>
+	<h1 id="firstHeading" class="firstHeading mw-first-heading">QEMU/Devices/Network</h1>
+	<div id="bodyContent" class="vector-body">
+		<div id="siteSub" class="noprint">From Wikibooks, open books for an open world</div>
+		<div id="contentSub"><span class="subpages">&lt; <a href="https://en.wikibooks.org/wiki/QEMU" title="QEMU">QEMU</a>‎ | <a href="https://en.wikibooks.org/wiki/QEMU/Devices" title="QEMU/Devices">Devices</a></span></div>
+		<div id="contentSub2"></div>
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#searchInput">Jump to search</a>
+		<div id="mw-content-text" class="mw-body-content mw-content-ltr" dir="ltr" lang="en"><div class="mw-parser-output"><p>Network devices are somewhat special, since besides being able to add them the standard way,
+there's a much easier one to configure them through the <code>-net nic</code> parameter.
+</p><p>Also, please note that <code>-device</code> doesn't suppress the default configuration, so it might not do what you intend.
+</p>
+<h2><span class="mw-headline" id="Adding_a_card">Adding a card</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;veaction=edit&amp;section=1" class="mw-editsection-visualeditor" title="Edit section: Adding a card">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;action=edit&amp;section=1" title="Edit section: Adding a card">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Simply specifying <code>-net nic</code> on the command line adds an interface.
+You can select the hardware being emulated using the <code>model</code> modifier.
+</p><p>Example:
+</p>
+<div class="mw-highlight mw-highlight-lang-bash mw-content-ltr" dir="ltr"><pre><span></span>qemu -net nic,model<span class="o">=</span>ne2k_pci ...
+</pre></div>
+<h2><span class="mw-headline" id="Network_card_models">Network card models</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;veaction=edit&amp;section=2" class="mw-editsection-visualeditor" title="Edit section: Network card models">edit</a><span class="mw-editsection-divider"> | </span><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;action=edit&amp;section=2" title="Edit section: Network card models">edit source</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p><b>For PC emulation</b>
+</p>
+<table class="wikitable">
+
+<tbody><tr>
+<th>Model</th>
+<th>Bus</th>
+<th>Speed</th>
+<th>Description
+</th></tr>
+<tr>
+<td>e1000</td>
+<td>PCI</td>
+<td>1Gb/s</td>
+<td>Intel Gigabit Ethernet
+</td></tr>
+<tr>
+<td>i82551</td>
+<td>PCI</td>
+<td>10/100Mb/s</td>
+<td>Intel 10/100 Mbps Fast Ethernet
+</td></tr>
+<tr>
+<td>i82557b</td>
+<td>PCI</td>
+<td>10/100Mb/s</td>
+<td>Intel 10/100 Mbps Fast Ethernet
+</td></tr>
+<tr>
+<td>i82559er</td>
+<td>PCI</td>
+<td>10/100Mb/s</td>
+<td>Intel 10/100 Mbps Fast Ethernet
+</td></tr>
+<tr>
+<td>ne2k_pci</td>
+<td>PCI</td>
+<td>10Mb/s</td>
+<td>NE2000
+</td></tr>
+<tr>
+<td>ne2k_isa</td>
+<td>ISA</td>
+<td>10Mb/s</td>
+<td>NE2000
+</td></tr>
+<tr>
+<td>pcnet</td>
+<td>PCI</td>
+<td>10/100Mb/s</td>
+<td>AMD PCnet FAST III Ethernet
+</td></tr>
+<tr>
+<td>rtl8139</td>
+<td>PCI</td>
+<td>10/100Mb/s</td>
+<td>Realtek Fast Ethernet
+</td></tr>
+<tr>
+<td>virtio</td>
+<td>PCI</td>
+<td>1Gb/s</td>
+<td>Virtual High Performance Ethernet card (see <a href="https://en.wikibooks.org/wiki/QEMU/Devices/Virtio" title="QEMU/Devices/Virtio">Virtio</a>)
+</td></tr></tbody></table>
+<p><b>Others emulated architectures</b>
+</p><p>You have to launch this command to list emulated network card<i></i>
+</p>
+<div class="mw-highlight mw-highlight-lang-bash mw-content-ltr" dir="ltr"><pre><span></span>qemu-system-&lt;arch&gt; -net nic,model<span class="o">=</span>?
+</pre></div>
+<!-- 
+NewPP limit report
+Parsed by mw1373
+Cached time: 20211225101729
+Cache expiry: 1814400
+Reduced expiry: false
+Complications: []
+CPU time usage: 0.058 seconds
+Real time usage: 0.432 seconds
+Preprocessor visited node count: 115/1000000
+Post‐expand include size: 345/2097152 bytes
+Template argument size: 316/2097152 bytes
+Highest expansion depth: 11/40
+Expensive parser function count: 0/500
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 425/5000000 bytes
+Lua time usage: 0.018/10.000 seconds
+Lua memory usage: 840145/52428800 bytes
+Number of Wikibase entities loaded: 0/400
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   46.639      1 Template:BookCat
+100.00%   46.639      1 -total
+ 23.42%   10.921      1 Template:Evalx
+  9.99%    4.660      1 Template:BOOKCATEGORY
+  4.75%    2.214      1 Template:NAIVEBOOKNAME
+-->
+
+<!-- Saved in parser cache with key enwikibooks:pcache:idhash:273497-0!canonical and timestamp 20211225101728 and revision id 3949941. Serialized with JSON.
+ -->
+</div><noscript><img src="//en.wikibooks.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript>
+<div class="printfooter">Retrieved from "<a dir="ltr" href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;oldid=3949941">https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;oldid=3949941</a>"</div></div>
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://en.wikibooks.org/wiki/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="https://en.wikibooks.org/wiki/Category:Book:QEMU" title="Category:Book:QEMU">Book:QEMU</a></li></ul></div></div>
+	</div>
+</div>
+
+<div id="mw-navigation">
+	<h2>Navigation menu</h2>
+	<div id="mw-head">
+		<nav id="p-personal" class="mw-portlet mw-portlet-personal vector-user-menu-legacy vector-menu" aria-labelledby="p-personal-label" role="navigation">
+	<h3 id="p-personal-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Personal tools</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="pt-anonuserpage" class="mw-list-item"><span>Not logged in</span></li><li id="pt-anontalk" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:MyTalk" title="Discussion about edits from this IP address [Alt+Shift+n]" accesskey="n"><span>Discussion for this IP address</span></a></li><li id="pt-anoncontribs" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:MyContributions" title="A list of edits made from this IP address [Alt+Shift+y]" accesskey="y"><span>Contributions</span></a></li><li id="pt-createaccount" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:CreateAccount&amp;returnto=QEMU%2FDevices%2FNetwork" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Create account</span></a></li><li id="pt-login" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:UserLogin&amp;returnto=QEMU%2FDevices%2FNetwork" title="You are encouraged to log in; however, it is not mandatory [Alt+Shift+o]" accesskey="o"><span>Log in</span></a></li></ul>
+		
+	</div>
+</nav>
+
+		<div id="left-navigation">
+			<nav id="p-namespaces" class="mw-portlet mw-portlet-namespaces vector-menu vector-menu-tabs" aria-labelledby="p-namespaces-label" role="navigation">
+	<h3 id="p-namespaces-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Namespaces</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="ca-nstab-main" class="selected mw-list-item"><a href="https://en.wikibooks.org/wiki/QEMU/Devices/Network" title="View the content page [Alt+Shift+c]" accesskey="c"><span>Book</span></a></li><li id="ca-talk" class="new mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Talk:QEMU/Devices/Network&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page (does not exist) [Alt+Shift+t]" accesskey="t"><span>Discussion</span></a></li></ul>
+		
+	</div>
+</nav>
+
+			<nav id="p-variants" class="mw-portlet mw-portlet-variants emptyPortlet vector-menu-dropdown-noicon vector-menu vector-menu-dropdown" aria-labelledby="p-variants-label" role="navigation">
+	<input type="checkbox" id="p-variants-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-variants" class="vector-menu-checkbox" aria-labelledby="p-variants-label">
+	<h3 id="p-variants-label" aria-label="Change language variant" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Variants</span>
+			<span class="vector-menu-checkbox-expanded">expanded</span>
+			<span class="vector-menu-checkbox-collapsed">collapsed</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</nav>
+
+		</div>
+		<div id="right-navigation">
+			<nav id="p-views" class="mw-portlet mw-portlet-views vector-menu vector-menu-tabs" aria-labelledby="p-views-label" role="navigation">
+	<h3 id="p-views-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Views</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="ca-view" class="selected mw-list-item collapsible"><a href="https://en.wikibooks.org/wiki/QEMU/Devices/Network"><span>Read</span></a></li><li id="ca-ve-edit" class="mw-list-item collapsible"><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;veaction=edit" title="Edit this page [Alt+Shift+v]" accesskey="v">Edit</a></li><li id="ca-edit" class="collapsible mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;action=edit" title="Edit this page [Alt+Shift+e]" accesskey="e"><span>Edit source</span></a></li><li id="ca-history" class="mw-list-item collapsible"><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h"><span>View history</span></a></li></ul>
+		
+	</div>
+</nav>
+
+			<nav id="p-cactions" class="mw-portlet mw-portlet-cactions emptyPortlet vector-menu-dropdown-noicon vector-menu vector-menu-dropdown" aria-labelledby="p-cactions-label" role="navigation" title="More options">
+	<input type="checkbox" id="p-cactions-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-cactions" class="vector-menu-checkbox" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">More</span>
+			<span class="vector-menu-checkbox-expanded">expanded</span>
+			<span class="vector-menu-checkbox-collapsed">collapsed</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</nav>
+
+			<div id="p-search" role="search" class=" vector-search-box">
+	<div>
+			<h3>
+				<label for="searchInput">Search</label>
+			</h3>
+		<form action="/w/index.php" id="searchform" class="vector-search-box-form">
+			<div id="simpleSearch" class="vector-search-box-inner" data-search-loc="header-navigation">
+				<input class="vector-search-box-input" type="search" name="search" placeholder="Search Wikibooks" aria-label="Search Wikibooks" autocapitalize="sentences" title="Search Wikibooks [Alt+Shift+f]" accesskey="f" id="searchInput">
+				<input type="hidden" name="title" value="Special:Search">
+				<input id="mw-searchButton" class="searchButton mw-fallbackSearchButton" type="submit" name="fulltext" title="Search the pages for this text" value="Search">
+				<input id="searchButton" class="searchButton" type="submit" name="go" title="Go to a page with this exact name if it exists" value="Go">
+			</div>
+		</form>
+	</div>
+</div>
+
+		</div>
+	</div>
+	
+<div id="mw-panel">
+	<div id="p-logo" role="banner">
+		<a class="mw-wiki-logo" href="https://en.wikibooks.org/wiki/Main_Page" title="Visit the main page"></a>
+	</div>
+	<nav id="p-Navigation" class="mw-portlet mw-portlet-Navigation vector-menu vector-menu-portal portal" aria-labelledby="p-Navigation-label" role="navigation">
+	<h3 id="p-Navigation-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Navigation</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="n-mainpage" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z"><span>Main Page</span></a></li><li id="n-help" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Help:Contents" title="Find help on how to use and edit Wikibooks"><span>Help</span></a></li><li id="n-Browse" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Card_Catalog_Office" title="Check out what Wikibooks has to offer"><span>Browse</span></a></li><li id="n-Cookbook" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Cookbook:Table_of_Contents" title="Learn recipes from around the world"><span>Cookbook</span></a></li><li id="n-Wikijunior" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikijunior" title="Books for children"><span>Wikijunior</span></a></li><li id="n-Featured-books" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Featured_books" title="The best of Wikibooks"><span>Featured books</span></a></li><li id="n-recentchanges" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r"><span>Recent changes</span></a></li><li id="n-sitesupport" class="mw-list-item"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikibooks.org&amp;uselang=en" title="Support Wikibooks"><span>Donations</span></a></li><li id="n-randomrootpage" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:RandomInCategory/Book:Wikibooks_Stacks/Books"><span>Random book</span></a></li><li id="n-Using-Wikibooks" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Using_Wikibooks"><span>Using Wikibooks</span></a></li></ul>
+		
+	</div>
+</nav>
+
+	<nav id="p-Community" class="mw-portlet mw-portlet-Community vector-menu vector-menu-portal portal" aria-labelledby="p-Community-label" role="navigation">
+	<h3 id="p-Community-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Community</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="n-Reading-room-forum" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Reading_room"><span>Reading room forum</span></a></li><li id="n-portal" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Community_Portal" title="Find your way around the Wikibooks community"><span>Community portal</span></a></li><li id="n-currentevents" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Reading_room/Bulletin_Board" title="Important community news"><span>Bulletin Board</span></a></li><li id="n-maintenance" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Maintenance" title="Frequent tasks that you can help with"><span>Help out!</span></a></li><li id="n-Policies-and-guidelines" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Policies_and_guidelines" title="Pages detailing important rules and procedures"><span>Policies and guidelines</span></a></li><li id="n-contact" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Wikibooks:Contact_us" title="Alternative methods of communication"><span>Contact us</span></a></li></ul>
+		
+	</div>
+</nav>
+<nav id="p-tb" class="mw-portlet mw-portlet-tb vector-menu vector-menu-portal portal" aria-labelledby="p-tb-label" role="navigation">
+	<h3 id="p-tb-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Tools</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="t-whatlinkshere" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:WhatLinksHere/QEMU/Devices/Network" title="A list of all wiki pages that link here [Alt+Shift+j]" accesskey="j"><span>What links here</span></a></li><li id="t-recentchangeslinked" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:RecentChangesLinked/QEMU/Devices/Network" rel="nofollow" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k"><span>Related changes</span></a></li><li id="t-upload" class="mw-list-item"><a href="https://commons.wikimedia.org/wiki/Special:UploadWizard?uselang=en" title="Upload files [Alt+Shift+u]" accesskey="u"><span>Upload file</span></a></li><li id="t-specialpages" class="mw-list-item"><a href="https://en.wikibooks.org/wiki/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q"><span>Special pages</span></a></li><li id="t-permalink" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;oldid=3949941" title="Permanent link to this revision of the page"><span>Permanent link</span></a></li><li id="t-info" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;action=info" title="More information about this page"><span>Page information</span></a></li><li id="t-cite" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:CiteThisPage&amp;page=QEMU%2FDevices%2FNetwork&amp;id=3949941&amp;wpFormIdentifier=titleform" title="Information on how to cite this page"><span>Cite this page</span></a></li></ul>
+		
+	</div>
+</nav>
+<nav id="p-Sister_projects" class="mw-portlet mw-portlet-Sister_projects vector-menu vector-menu-portal portal" aria-labelledby="p-Sister_projects-label" role="navigation">
+	<h3 id="p-Sister_projects-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Sister projects</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="n-Wikipedia" class="mw-list-item"><a href="https://en.wikipedia.org/wiki/Main_Page"><span>Wikipedia</span></a></li><li id="n-Wikiversity" class="mw-list-item"><a href="https://en.wikiversity.org/wiki/Wikiversity:Main_Page"><span>Wikiversity</span></a></li><li id="n-Wiktionary" class="mw-list-item"><a href="https://en.wiktionary.org/wiki/Wiktionary:Main_Page"><span>Wiktionary</span></a></li><li id="n-Wikiquote" class="mw-list-item"><a href="https://en.wikiquote.org/wiki/Main_Page"><span>Wikiquote</span></a></li><li id="n-Wikisource" class="mw-list-item"><a href="https://en.wikisource.org/wiki/Main_Page"><span>Wikisource</span></a></li><li id="n-Wikinews" class="mw-list-item"><a href="https://en.wikinews.org/wiki/Main_Page"><span>Wikinews</span></a></li><li id="n-Wikivoyage" class="mw-list-item"><a href="https://en.wikivoyage.org/wiki/Main_Page"><span>Wikivoyage</span></a></li><li id="n-Commons" class="mw-list-item"><a href="https://commons.wikimedia.org/wiki/Main_Page"><span>Commons</span></a></li><li id="n-Wikidata" class="mw-list-item"><a href="https://www.wikidata.org/wiki/Wikidata:Main_Page"><span>Wikidata</span></a></li><li id="n-MediaWiki" class="mw-list-item"><a href="https://www.mediawiki.org/wiki/Main_Page"><span>MediaWiki</span></a></li><li id="n-Meta-Wiki" class="mw-list-item"><a href="https://meta.wikimedia.org/wiki/Main_Page"><span>Meta-Wiki</span></a></li></ul>
+		
+	</div>
+</nav>
+<nav id="p-coll-print_export" class="mw-portlet mw-portlet-coll-print_export vector-menu vector-menu-portal portal" aria-labelledby="p-coll-print_export-label" role="navigation">
+	<h3 id="p-coll-print_export-label" aria-label="" class="vector-menu-heading">
+		<span class="vector-menu-heading-label">Print/export</span>
+	</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="coll-create_a_book" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=QEMU%2FDevices%2FNetwork"><span>Create a collection</span></a></li><li id="coll-download-as-rl" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=Special:DownloadAsPdf&amp;page=QEMU%2FDevices%2FNetwork&amp;action=show-download-screen"><span>Download as PDF</span></a></li><li id="t-print" class="mw-list-item"><a href="https://en.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;printable=yes" title="Printable version of this page [Alt+Shift+p]" accesskey="p"><span>Printable version</span></a></li></ul>
+		
+	</div>
+</nav>
+
+	<nav id="p-lang" class="mw-portlet mw-portlet-lang vector-menu vector-menu-portal portal" aria-labelledby="p-lang-label" role="navigation"><button class="uls-settings-trigger" title="Language settings"></button>
+	<h3 id="p-lang-label" aria-label="" class="vector-menu-heading">Languages</h3>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		<div class="after-portlet after-portlet-lang"><span class="uls-after-portlet-link"></span><span class="wb-langlinks-add wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Special:NewItem?site=enwikibooks&amp;page=QEMU%2FDevices%2FNetwork" title="Add interlanguage links" class="wbc-editpage">Add links</a></span></div>
+	</div>
+</nav>
+
+</div>
+
+</div>
+<footer id="footer" class="mw-footer" role="contentinfo">
+	<ul id="footer-info">
+	<li id="footer-info-lastmod"> This page was last edited on 30 July 2021, at 05:03.</li>
+	<li id="footer-info-copyright">Text is available under the <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike License.</a>; additional terms may apply.  By using this site, you agree to the <a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="https://foundation.wikimedia.org/wiki/Privacy_policy">Privacy Policy.</a></li>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="https://foundation.wikimedia.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="https://en.wikibooks.org/wiki/Wikibooks:Welcome" title="Wikibooks:Welcome">About Wikibooks</a></li>
+	<li id="footer-places-disclaimer"><a href="https://en.wikibooks.org/wiki/Wikibooks:General_disclaimer" title="Wikibooks:General disclaimer">Disclaimers</a></li>
+	<li id="footer-places-mobileview"><a href="https://en.m.wikibooks.org/w/index.php?title=QEMU/Devices/Network&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+	<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+	<li id="footer-places-statslink"><a href="https://stats.wikimedia.org/#/en.wikibooks.org">Statistics</a></li>
+	<li id="footer-places-cookiestatement"><a href="https://foundation.wikimedia.org/wiki/Cookie_statement">Cookie statement</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://wikimediafoundation.org/"><img src="qemu_net_files/wikimedia-button.png" srcset="qemu_net_files/wikimedia-button-1.png 1.5x, qemu_net_files/wikimedia-button-2x.png 2x" alt="Wikimedia Foundation" loading="lazy" width="88" height="31"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="qemu_net_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="qemu_net_files/poweredby_mediawiki_132x47.png 1.5x, qemu_net_files/poweredby_mediawiki_176x62.png 2x" loading="lazy" width="88" height="31"></a></li>
+</ul>
+
+</footer>
+
+<script>(RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.058","walltime":"0.432","ppvisitednodes":{"value":115,"limit":1000000},"postexpandincludesize":{"value":345,"limit":2097152},"templateargumentsize":{"value":316,"limit":2097152},"expansiondepth":{"value":11,"limit":40},"expensivefunctioncount":{"value":0,"limit":500},"unstrip-depth":{"value":0,"limit":20},"unstrip-size":{"value":425,"limit":5000000},"entityaccesscount":{"value":0,"limit":400},"timingprofile":["100.00%   46.639      1 Template:BookCat","100.00%   46.639      1 -total"," 23.42%   10.921      1 Template:Evalx","  9.99%    4.660      1 Template:BOOKCATEGORY","  4.75%    2.214      1 Template:NAIVEBOOKNAME"]},"scribunto":{"limitreport-timeusage":{"value":"0.018","limit":"10.000"},"limitreport-memusage":{"value":840145,"limit":52428800}},"cachereport":{"origin":"mw1373","timestamp":"20211225101729","ttl":1814400,"transientcontent":false}}});mw.config.set({"wgBackendResponseTime":95,"wgHostname":"mw1441"});});</script>
+
+</body></html>

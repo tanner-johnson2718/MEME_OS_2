@@ -14,7 +14,7 @@ the series will make the jump to actual hardware.
       at the ms granularity. No need to get fancy with this.
 * [X] Basic textmode VGA driver.
 * [X] Serial driver and logging functions.
-* [ ] PCI driver for discovering, enumerating, and initializing PCI devices and
+* [X] PCI driver for discovering, enumerating, and initializing PCI devices and
       providing an interface for other pci drivers to interface with their PCI
       devices.
 * [ ] Minimal, but powerful, console that can read memory, registers, modify mem
@@ -64,6 +64,7 @@ the series will make the jump to actual hardware.
 - VGA textmode
 - Timer (8253/8254)
 - PCI
+- RTL8139 Ethernet Driver
 
 # Coding Style
 - All modules implementation are contained in a .c file with the module name
