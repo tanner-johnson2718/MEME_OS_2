@@ -436,58 +436,84 @@ u8 pci_init()
             pci_devices[num_pci_devs].interrupt_pin = pci_get_int_pin(bus, dev, 0);
             pci_devices[num_pci_devs].interrupt_line = pci_get_int_line(bus, dev, 0);
 
+            log_msg(__FILE__, __LINE__, "\n\r");
             log_msg(__FILE__, __LINE__, "Found PCI device: ");
             log_val(__FILE__, __LINE__, "   bus       ", (u32) pci_devices[num_pci_devs].bus);
             log_val(__FILE__, __LINE__, "   dev       ", (u32) pci_devices[num_pci_devs].device);
             log_val(__FILE__, __LINE__, "   ven       ", (u32) pci_devices[num_pci_devs].vendor_ID);
             log_val(__FILE__, __LINE__, "   dev       ", (u32) pci_devices[num_pci_devs].device_ID);
-            log_val(__FILE__, __LINE__, "   stat      ", (u32) pci_devices[num_pci_devs].status);
-            log_val(__FILE__, __LINE__, "   cmd       ", (u32) pci_devices[num_pci_devs].command);
+            // log_val(__FILE__, __LINE__, "   stat      ", (u32) pci_devices[num_pci_devs].status);
+            // log_val(__FILE__, __LINE__, "   cmd       ", (u32) pci_devices[num_pci_devs].command);
             log_val(__FILE__, __LINE__, "   class     ", (u32) pci_devices[num_pci_devs].class);
             log_val(__FILE__, __LINE__, "   sub class ", (u32) pci_devices[num_pci_devs].sub_class);
-            log_val(__FILE__, __LINE__, "   prog if   ", (u32) pci_devices[num_pci_devs].prog_if);
-            log_val(__FILE__, __LINE__, "   rev id    ", (u32) pci_devices[num_pci_devs].revision_ID);
-            log_val(__FILE__, __LINE__, "   bist      ", (u32) pci_devices[num_pci_devs].bist);
+            // log_val(__FILE__, __LINE__, "   prog if   ", (u32) pci_devices[num_pci_devs].prog_if);
+            // log_val(__FILE__, __LINE__, "   rev id    ", (u32) pci_devices[num_pci_devs].revision_ID);
+            // log_val(__FILE__, __LINE__, "   bist      ", (u32) pci_devices[num_pci_devs].bist);
             log_val(__FILE__, __LINE__, "   hdr type  ", (u32) pci_devices[num_pci_devs].hdr_type);
-            log_val(__FILE__, __LINE__, "   lat timer ", (u32) pci_devices[num_pci_devs].latency_timer);
-            log_val(__FILE__, __LINE__, "   cache size", (u32) pci_devices[num_pci_devs].cache_line_size);
-            log_val(__FILE__, __LINE__, "   bar0      ", (u32) bar0);
-            log_val(__FILE__, __LINE__, "   bar0 addr ", (u32) pci_devices[num_pci_devs].bar0_addr);
-            log_val(__FILE__, __LINE__, "   bar0 size ", (u32) pci_devices[num_pci_devs].bar0_size);
-            log_val(__FILE__, __LINE__, "   bar0 pre  ", (u32) pci_devices[num_pci_devs].bar0_prefetch);
-            log_val(__FILE__, __LINE__, "   bar0 64b  ", (u32) pci_devices[num_pci_devs].bar0_is_64b);
-            log_val(__FILE__, __LINE__, "   bar1      ", (u32) bar1);
-            log_val(__FILE__, __LINE__, "   bar1 addr ", (u32) pci_devices[num_pci_devs].bar1_addr);
-            log_val(__FILE__, __LINE__, "   bar1 size ", (u32) pci_devices[num_pci_devs].bar1_size);
-            log_val(__FILE__, __LINE__, "   bar1 pre  ", (u32) pci_devices[num_pci_devs].bar1_prefetch);
-            log_val(__FILE__, __LINE__, "   bar1 64b  ", (u32) pci_devices[num_pci_devs].bar1_is_64b);
-            log_val(__FILE__, __LINE__, "   bar2      ", (u32) bar2);
-            log_val(__FILE__, __LINE__, "   bar2 addr ", (u32) pci_devices[num_pci_devs].bar2_addr);
-            log_val(__FILE__, __LINE__, "   bar2 size ", (u32) pci_devices[num_pci_devs].bar2_size);
-            log_val(__FILE__, __LINE__, "   bar2 pre  ", (u32) pci_devices[num_pci_devs].bar2_prefetch);
-            log_val(__FILE__, __LINE__, "   bar2 64b  ", (u32) pci_devices[num_pci_devs].bar2_is_64b);
-            log_val(__FILE__, __LINE__, "   bar3      ", (u32) bar3);
-            log_val(__FILE__, __LINE__, "   bar3 addr ", (u32) pci_devices[num_pci_devs].bar3_addr);
-            log_val(__FILE__, __LINE__, "   bar3 size ", (u32) pci_devices[num_pci_devs].bar3_size);
-            log_val(__FILE__, __LINE__, "   bar3 pre  ", (u32) pci_devices[num_pci_devs].bar3_prefetch);
-            log_val(__FILE__, __LINE__, "   bar3 64b  ", (u32) pci_devices[num_pci_devs].bar3_is_64b);
-            log_val(__FILE__, __LINE__, "   bar4      ", (u32) bar4);
-            log_val(__FILE__, __LINE__, "   bar4 addr ", (u32) pci_devices[num_pci_devs].bar4_addr);
-            log_val(__FILE__, __LINE__, "   bar4 size ", (u32) pci_devices[num_pci_devs].bar4_size);
-            log_val(__FILE__, __LINE__, "   bar4 pre  ", (u32) pci_devices[num_pci_devs].bar4_prefetch);
-            log_val(__FILE__, __LINE__, "   bar4 64b  ", (u32) pci_devices[num_pci_devs].bar4_is_64b);
-            log_val(__FILE__, __LINE__, "   bar5      ", (u32) bar5);
-            log_val(__FILE__, __LINE__, "   bar5 addr ", (u32) pci_devices[num_pci_devs].bar5_addr);
-            log_val(__FILE__, __LINE__, "   bar5 size ", (u32) pci_devices[num_pci_devs].bar5_size);
-            log_val(__FILE__, __LINE__, "   bar5 pre  ", (u32) pci_devices[num_pci_devs].bar5_prefetch);
-            log_val(__FILE__, __LINE__, "   bar5 64b  ", (u32) pci_devices[num_pci_devs].bar5_is_64b);
+            // log_val(__FILE__, __LINE__, "   lat timer ", (u32) pci_devices[num_pci_devs].latency_timer);
+            // log_val(__FILE__, __LINE__, "   cache size", (u32) pci_devices[num_pci_devs].cache_line_size);
+            
+            if(bar0)
+            {
+                log_val(__FILE__, __LINE__, "   bar0      ", (u32) bar0);
+                log_val(__FILE__, __LINE__, "   bar0 addr ", (u32) pci_devices[num_pci_devs].bar0_addr);
+                log_val(__FILE__, __LINE__, "   bar0 size ", (u32) pci_devices[num_pci_devs].bar0_size);
+                log_val(__FILE__, __LINE__, "   bar0 pre  ", (u32) pci_devices[num_pci_devs].bar0_prefetch);
+                log_val(__FILE__, __LINE__, "   bar0 64b  ", (u32) pci_devices[num_pci_devs].bar0_is_64b);
+            }
+
+            if(bar1)
+            {         
+                log_val(__FILE__, __LINE__, "   bar1      ", (u32) bar1);
+                log_val(__FILE__, __LINE__, "   bar1 addr ", (u32) pci_devices[num_pci_devs].bar1_addr);
+                log_val(__FILE__, __LINE__, "   bar1 size ", (u32) pci_devices[num_pci_devs].bar1_size);
+                log_val(__FILE__, __LINE__, "   bar1 pre  ", (u32) pci_devices[num_pci_devs].bar1_prefetch);
+                log_val(__FILE__, __LINE__, "   bar1 64b  ", (u32) pci_devices[num_pci_devs].bar1_is_64b);
+            }
+            
+            if(bar2)
+            {
+                log_val(__FILE__, __LINE__, "   bar2      ", (u32) bar2);
+                log_val(__FILE__, __LINE__, "   bar2 addr ", (u32) pci_devices[num_pci_devs].bar2_addr);
+                log_val(__FILE__, __LINE__, "   bar2 size ", (u32) pci_devices[num_pci_devs].bar2_size);
+                log_val(__FILE__, __LINE__, "   bar2 pre  ", (u32) pci_devices[num_pci_devs].bar2_prefetch);
+                log_val(__FILE__, __LINE__, "   bar2 64b  ", (u32) pci_devices[num_pci_devs].bar2_is_64b);
+            }
+            
+            if(bar3)
+            {
+                log_val(__FILE__, __LINE__, "   bar3      ", (u32) bar3);
+                log_val(__FILE__, __LINE__, "   bar3 addr ", (u32) pci_devices[num_pci_devs].bar3_addr);
+                log_val(__FILE__, __LINE__, "   bar3 size ", (u32) pci_devices[num_pci_devs].bar3_size);
+                log_val(__FILE__, __LINE__, "   bar3 pre  ", (u32) pci_devices[num_pci_devs].bar3_prefetch);
+                log_val(__FILE__, __LINE__, "   bar3 64b  ", (u32) pci_devices[num_pci_devs].bar3_is_64b);
+            }
+            
+            if(bar4)
+            {
+                log_val(__FILE__, __LINE__, "   bar4      ", (u32) bar4);
+                log_val(__FILE__, __LINE__, "   bar4 addr ", (u32) pci_devices[num_pci_devs].bar4_addr);
+                log_val(__FILE__, __LINE__, "   bar4 size ", (u32) pci_devices[num_pci_devs].bar4_size);
+                log_val(__FILE__, __LINE__, "   bar4 pre  ", (u32) pci_devices[num_pci_devs].bar4_prefetch);
+                log_val(__FILE__, __LINE__, "   bar4 64b  ", (u32) pci_devices[num_pci_devs].bar4_is_64b);
+            }
+            
+            if(bar5)
+            {
+                log_val(__FILE__, __LINE__, "   bar5      ", (u32) bar5);
+                log_val(__FILE__, __LINE__, "   bar5 addr ", (u32) pci_devices[num_pci_devs].bar5_addr);
+                log_val(__FILE__, __LINE__, "   bar5 size ", (u32) pci_devices[num_pci_devs].bar5_size);
+                log_val(__FILE__, __LINE__, "   bar5 pre  ", (u32) pci_devices[num_pci_devs].bar5_prefetch);
+                log_val(__FILE__, __LINE__, "   bar5 64b  ", (u32) pci_devices[num_pci_devs].bar5_is_64b);
+            }
+            
             log_val(__FILE__, __LINE__, "   cis ptr   ", (u32) pci_devices[num_pci_devs].cardbus_pointer);
-            log_val(__FILE__, __LINE__, "   subsys ID ", (u32) pci_devices[num_pci_devs].subsystem_ID);
-            log_val(__FILE__, __LINE__, "   subsysven ", (u32) pci_devices[num_pci_devs].subsystem_vendor_ID);
+            // log_val(__FILE__, __LINE__, "   subsys ID ", (u32) pci_devices[num_pci_devs].subsystem_ID);
+            // log_val(__FILE__, __LINE__, "   subsysven ", (u32) pci_devices[num_pci_devs].subsystem_vendor_ID);
             log_val(__FILE__, __LINE__, "   expansion ", (u32) pci_devices[num_pci_devs].expansion_rom_base_addr);
             log_val(__FILE__, __LINE__, "   cap ptr   ", (u32) pci_devices[num_pci_devs].capabilites_pointer);
-            log_val(__FILE__, __LINE__, "   max lat   ", (u32) pci_devices[num_pci_devs].max_latency);
-            log_val(__FILE__, __LINE__, "   min grant ", (u32) pci_devices[num_pci_devs].min_grant);
+            // log_val(__FILE__, __LINE__, "   max lat   ", (u32) pci_devices[num_pci_devs].max_latency);
+            // log_val(__FILE__, __LINE__, "   min grant ", (u32) pci_devices[num_pci_devs].min_grant);
             log_val(__FILE__, __LINE__, "   intr pin  ", (u32) pci_devices[num_pci_devs].interrupt_pin);
             log_val(__FILE__, __LINE__, "   intr line ", (u32) pci_devices[num_pci_devs].interrupt_line);
 
@@ -526,5 +552,8 @@ u8 pci_get_device_struct(u8 venID, u8 devID, struct pci_device** dev_ptr)
         }
     }
 
+    log_msg(__FILE__, __LINE__, "PCI get device failed to find device");
+    log_val(__FILE__, __LINE__, "venID", venID);
+    log_val(__FILE__, __LINE__, "devID", devID);
     return PCI_DEV_NOT_FOUND;
 }

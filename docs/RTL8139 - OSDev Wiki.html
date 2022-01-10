@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js" data-darkreader-mode="dynamic" data-darkreader-scheme="dark" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen">.jfk-bubble.gtx-bubble, .captcheck_answer_label > input + img, span#closed_text > img[src^="https://www.gstatic.com/images/branding/googlelogo"], span[data-href^="https://www.hcaptcha.com/"] > #icon, #bit-notification-bar-iframe, ::-webkit-calendar-picker-indicator {
+    filter: invert(100%) hue-rotate(180deg) contrast(90%) !important;
+}</style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}
+[data-darkreader-inline-stopcolor] {
+  stop-color: var(--darkreader-inline-stopcolor) !important;
+}</style><style class="darkreader darkreader--variables" media="screen">:root {
+   --darkreader-neutral-background: #131516;
+   --darkreader-neutral-text: #d8d4cf;
+   --darkreader-selection-background: #004daa;
+   --darkreader-selection-text: #e8e6e3;
+}</style><style class="darkreader darkreader--root-vars" media="screen"></style><style class="darkreader darkreader--user-agent" media="screen">html {
+    background-color: #181a1b !important;
+}
+html, body, input, textarea, select, button {
+    background-color: #181a1b;
+}
+html, body, input, textarea, select, button {
+    border-color: #736b5e;
+    color: #e8e6e3;
+}
+a {
+    color: #3391ff;
+}
+table {
+    border-color: #545b5e;
+}
+::placeholder {
+    color: #b2aba1;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #555b00 !important;
+    color: #e8e6e3 !important;
+}
+::-webkit-scrollbar {
+    background-color: #202324;
+    color: #aba499;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #454a4d;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #575e62;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #484e51;
+}
+::-webkit-scrollbar-corner {
+    background-color: #181a1b;
+}
+* {
+    scrollbar-color: #454a4d #202324;
+}
+::selection {
+    background-color: #004daa !important;
+    color: #e8e6e3 !important;
+}
+::-moz-selection {
+    background-color: #004daa !important;
+    color: #e8e6e3 !important;
+}</style>
+<title>RTL8139 - OSDev Wiki</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.18.0">
+<link rel="shortcut icon" href="https://wiki.osdev.org/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.osdev.org/opensearch_desc.php" title="OSDev Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.osdev.org/api.php?action=rsd">
+<link rel="alternate" type="application/atom+xml" title="OSDev Wiki Atom feed" href="https://wiki.osdev.org/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="RTL8139%20-%20OSDev%20Wiki_files/load.css"><style class="darkreader darkreader--sync" media="screen"></style>
+<style type="text/css" media="all">.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+
+/* cache key: wikidb:resourceloader:filter:minify-css:4:4250852ed2349a0d4d0fc6509a3e7d4c */
+</style><style class="darkreader darkreader--sync" media="screen"></style><style type="text/css" media="all">.js-messagebox{margin:1em 5%;padding:0.5em 2.5%;border:1px solid #ccc;background-color:#fcfcfc;font-size:0.8em}.js-messagebox .js-messagebox-group{margin:1px;padding:0.5em 2.5%;border-bottom:1px solid #ddd}.js-messagebox .js-messagebox-group:last-child{border-bottom:thin none transparent}
+
+/* cache key: wikidb:resourceloader:filter:minify-css:4:8b08bdc91c52a9ffba396dccfb5b473c */
+</style><style class="darkreader darkreader--sync" media="screen"></style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="RTL8139%20-%20OSDev%20Wiki_files/load_002.css"><style class="darkreader darkreader--sync" media="screen"></style>
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: wikidb:resourceloader:filter:minify-css:4:c88e2bcd56513749bec09a7e29cb3ffa */
+</style><style class="darkreader darkreader--sync" media="screen"></style>
+<script src="RTL8139%20-%20OSDev%20Wiki_files/load_006.php"></script><meta name="darkreader" content="3b83c14204634e019e3b0437481ec789"><style class="darkreader darkreader--override" media="screen">.vimvixen-hint {
+    background-color: #7b5300 !important;
+    border-color: #d8b013 !important;
+    color: #f3e8c8 !important;
+}
+::placeholder {
+    opacity: 0.5 !important;
+}
+a[href="https://coinmarketcap.com/"] > svg[width="94"][height="16"] > path {
+    fill: var(--darkreader-neutral-text) !important;
+}
+#edge-translate-panel-body,
+.MuiTypography-body1 {
+    color: var(--darkreader-neutral-text) !important;
+}
+gr-main-header {
+    background-color: #0f3a48 !important;
+}
+embed[type="application/pdf"] { filter: invert(100%) contrast(90%); }</style><script src="RTL8139%20-%20OSDev%20Wiki_files/load.php"></script>
+<script>if(window.mw){
+	mw.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "RTL8139", "wgTitle": "RTL8139", "wgCurRevisionId": 26812, "wgArticleId": 2176, "wgIsArticle": true, "wgAction": "view", "wgUserName": null, "wgUserGroups": ["*"], "wgCategories": ["In Progress", "Network Hardware", "Standards"], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script><script>if(window.mw){
+	mw.loader.load(["mediawiki.page.startup"]);
+}
+</script><script type="text/javascript" src="RTL8139%20-%20OSDev%20Wiki_files/load_005.php"></script>
+<style type="text/css">/*<![CDATA[*/
+.source-c {line-height: normal;}
+.source-c li, .source-c pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for c
+ * CSS class: source-c, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.c.source-c .de1, .c.source-c .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.c.source-c  {font-family:monospace;}
+.c.source-c .imp {font-weight: bold; color: red;}
+.c.source-c li, .c.source-c .li1 {font-weight: normal; vertical-align:top;}
+.c.source-c .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.c.source-c .li2 {font-weight: bold; vertical-align:top;}
+.c.source-c .kw1 {color: #b1b100;}
+.c.source-c .kw2 {color: #000000; font-weight: bold;}
+.c.source-c .kw3 {color: #000066;}
+.c.source-c .kw4 {color: #993333;}
+.c.source-c .co1 {color: #666666; font-style: italic;}
+.c.source-c .co2 {color: #339933;}
+.c.source-c .coMULTI {color: #808080; font-style: italic;}
+.c.source-c .es0 {color: #000099; font-weight: bold;}
+.c.source-c .es1 {color: #000099; font-weight: bold;}
+.c.source-c .es2 {color: #660099; font-weight: bold;}
+.c.source-c .es3 {color: #660099; font-weight: bold;}
+.c.source-c .es4 {color: #660099; font-weight: bold;}
+.c.source-c .es5 {color: #006699; font-weight: bold;}
+.c.source-c .br0 {color: #009900;}
+.c.source-c .sy0 {color: #339933;}
+.c.source-c .st0 {color: #ff0000;}
+.c.source-c .nu0 {color: #0000dd;}
+.c.source-c .nu6 {color: #208080;}
+.c.source-c .nu8 {color: #208080;}
+.c.source-c .nu12 {color: #208080;}
+.c.source-c .nu16 {color:#800080;}
+.c.source-c .nu17 {color:#800080;}
+.c.source-c .nu18 {color:#800080;}
+.c.source-c .nu19 {color:#800080;}
+.c.source-c .me1 {color: #202020;}
+.c.source-c .me2 {color: #202020;}
+.c.source-c .ln-xtra, .c.source-c li.ln-xtra, .c.source-c div.ln-xtra {background-color: #ffc;}
+.c.source-c span.xtra { display:block; }
+
+/*]]>*/
+</style><style class="darkreader darkreader--sync" media="screen"></style>
+<style type="text/css">/*<![CDATA[*/
+@import "/index.php?title=MediaWiki:Geshi.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+/*]]>*/
+</style><style class="darkreader darkreader--cors" media="screen">div.mw-geshi {
+  padding: 1em; 
+  margin: 1em 0; 
+  border: 1px dashed #2f6fab;
+  background-color: #f9f9f9;
+}</style><style class="darkreader darkreader--sync" media="screen"></style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-RTL8139 action-view skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;" class="js-messagebox"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">RTL8139</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From OSDev Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div dir="ltr" class="mw-content-ltr" lang="en"><center>
+<table style="border: 1px solid rgb(207, 207, 191); margin-top: 25px; margin-bottom: 25px; background-color: rgb(240, 240, 255); text-align: center; --darkreader-inline-border-top: #404548; --darkreader-inline-border-right: #404548; --darkreader-inline-border-bottom: #404548; --darkreader-inline-border-left: #404548; --darkreader-inline-bgcolor: #1c1f20;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor="">
+<tbody><tr>
+<td>
+<p><a href="https://wiki.osdev.org/File:Under_Construction.png" class="image" title="This page is under construction!"><img alt="This page is under construction!" src="RTL8139%20-%20OSDev%20Wiki_files/Under_Construction.png" width="50" height="50"></a>
+This page or section is a work in progress and may thus be incomplete. Its content may be changed in the near future.
+</p>
+</td>
+<td>
+</td></tr></tbody></table>
+</center>
+<p>The RTL8139 Network Chip is used on many old and budget Ethernet Network Devices. It supports 10 and 100 MBit.  
+</p><p>While the original chip lacks the features of newer Gigabit 
+devices, it is a commonly emulated device in virtualization 
+environments, due to its simplicity (fewer IO operations means faster 
+traps to the Hypervisor), and extensive OS support.  
+</p><p>It also makes a for a simple driver (and so is an excellent first choice for OS development hobbyists).
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;"><a href="https://wiki.osdev.org/File:Rtl8139.JPG" class="image"><img alt="" src="RTL8139%20-%20OSDev%20Wiki_files/Rtl8139.JPG" class="thumbimage" width="400" height="300"></a>  <div class="thumbcaption">A PCI RTL8139</div></div></div>
+<p>NB If you find your driver suddenly freezes and stops receiving 
+interrupts and you're using kvm/qemu. Try the option -no-kvm-irqchip
+</p><p>The PCI vendor ID is 0x10EC and the device ID is 0x8139.
+</p>
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Registers"><span class="tocnumber">1.1</span> <span class="toctext">Registers</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Programming_Guide"><span class="tocnumber">2</span> <span class="toctext">Programming Guide</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#PCI_Bus_Mastering"><span class="tocnumber">2.1</span> <span class="toctext">PCI Bus Mastering</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Turning_on_the_RTL8139"><span class="tocnumber">2.2</span> <span class="toctext">Turning on the RTL8139</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Software_Reset.21"><span class="tocnumber">2.2.1</span> <span class="toctext">Software Reset!</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Init_Receive_buffer"><span class="tocnumber">2.2.2</span> <span class="toctext">Init Receive buffer</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Set_IMR_.2B_ISR"><span class="tocnumber">2.3</span> <span class="toctext">Set IMR + ISR</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Configuring_receive_buffer_.28RCR.29"><span class="tocnumber">2.4</span> <span class="toctext">Configuring receive buffer (RCR)</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Enable_Receive_and_Transmitter"><span class="tocnumber">2.5</span> <span class="toctext">Enable Receive and Transmitter</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Transmitting_Packets"><span class="tocnumber">2.6</span> <span class="toctext">Transmitting Packets</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#ISR_Handler"><span class="tocnumber">3</span> <span class="toctext">ISR Handler</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Related_Articles"><span class="tocnumber">4</span> <span class="toctext">Related Articles</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#External_Links"><span class="tocnumber">5</span> <span class="toctext">External Links</span></a></li>
+</ul>
+</td></tr></tbody></table>
+<h2> <span class="mw-headline" id="Overview"> Overview </span></h2>
+<p>RTL8139 is configured via registers. The IO base address and the IRQ number for the device is taken from <a href="https://wiki.osdev.org/PCI" title="PCI">PCI</a> configuration.
+</p><p><br>
+</p>
+<h3> <span class="mw-headline" id="Registers"> Registers </span></h3>
+<p>These are the registers used for using RTL8139.
+</p>
+<table style="margin-top: 1em; margin-bottom: 1em; background: rgb(249, 249, 249) none repeat scroll 0% 0%; border: 1px solid rgb(170, 170, 170); border-collapse: collapse; --darkreader-inline-bgcolor: #1b1e1f; --darkreader-inline-bgimage: none; --darkreader-inline-border-top: #484e51; --darkreader-inline-border-right: #484e51; --darkreader-inline-border-bottom: #484e51; --darkreader-inline-border-left: #484e51;" data-darkreader-inline-bgcolor="" data-darkreader-inline-bgimage="" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" cellspacing="0" cellpadding="4" border="2">
+<tbody><tr>
+<th> Offset (from IO base)
+</th>
+<th> Size
+</th>
+<th> Name
+</th></tr>
+<tr>
+<td> 0x00 </td>
+<td> 6 </td>
+<td> MAC0-5
+</td></tr>
+<tr>
+<td> 0x08 </td>
+<td> 8 </td>
+<td> MAR0-7
+</td></tr>
+<tr>
+<td> 0x30 </td>
+<td> 4 </td>
+<td> RBSTART
+</td></tr>
+<tr>
+<td> 0x37 </td>
+<td> 1 </td>
+<td> CMD
+</td></tr>
+<tr>
+<td> 0x3C </td>
+<td> 2 </td>
+<td> IMR
+</td></tr>
+<tr>
+<td> 0x3E </td>
+<td> 2 </td>
+<td> ISR
+</td></tr></tbody></table>
+<h2> <span class="mw-headline" id="Programming_Guide"> Programming Guide </span></h2>
+<h3> <span class="mw-headline" id="PCI_Bus_Mastering"> PCI Bus Mastering </span></h3>
+<p>First, you need to enable PCI Bus Mastering for this device. This 
+allows the NIC to perform DMA. To do it, you can read the Command 
+Register from the device's PCI Configuration Space, set bit 2 (bus 
+mastering bit) and write the modified Command Register. Note this 
+Command Register is that of the PCI Configuration Space and has nothing 
+to do with the Command Register that will be evoked in the following 
+sections: the latter is specific to the RTL8139, whereas every PCI 
+device (not only NICs) have a PCI Configuration Space with a Command 
+Register.
+</p><p>Some BIOS may enable Bus Mastering at startup, but some versions of qemu don't. You should thus be careful about this step.
+</p>
+<h3> <span class="mw-headline" id="Turning_on_the_RTL8139"> Turning on the RTL8139 </span></h3>
+<p>Send 0x00 to the CONFIG_1 register (0x52) to set the LWAKE + LWPTN to active high.
+this should essentially *power on* the device.
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"> outportb<span class="br0">(</span> ioaddr <span class="sy0">+</span> <span class="nu12">0x52</span><span class="sy0">,</span> <span class="nu12">0x0</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<h4> <span class="mw-headline" id="Software_Reset.21"> Software Reset! </span></h4>
+<p>Next, we should do a software reset to clear the RX and TX buffers and set everything
+back to defaults. Do this to eliminate the possibility of there still being garbage
+left in the buffers or registers on power on. 
+</p><p>Sending 0x10 to the Command register (0x37) will send the RTL8139 into a software reset. 
+Once that byte is sent, the RST bit must be checked to make sure that the chip has finished
+the reset.  If the RST bit is high (1), then the reset is still in operation. 
+</p><p>NB: There is a minor bug in Qemu. If you check the command register before performing a
+soft reset, you may find the RST bit is high (1). Just ignore it and carry on with the 
+initialization procedure. 
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"> outportb<span class="br0">(</span> ioaddr <span class="sy0">+</span> <span class="nu12">0x37</span><span class="sy0">,</span> <span class="nu12">0x10</span><span class="br0">)</span><span class="sy0">;</span>
+ <span class="kw1">while</span><span class="br0">(</span> <span class="br0">(</span>inb<span class="br0">(</span>ioaddr <span class="sy0">+</span> <span class="nu12">0x37</span><span class="br0">)</span> <span class="sy0">&amp;</span> <span class="nu12">0x10</span><span class="br0">)</span> <span class="sy0">!=</span> <span class="nu0">0</span><span class="br0">)</span> <span class="br0">{</span> <span class="br0">}</span></pre></div></div>
+<h4> <span class="mw-headline" id="Init_Receive_buffer"> Init Receive buffer </span></h4>
+<p>For this part, we will send the chip a memory location to use as its receive buffer start 
+location.  One way to do it, would be to define a buffer variable and send
+that variables memory location to the RBSTART register (0x30). 
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"> <span class="co1">//ioaddr is obtained from PCI configuration</span>
+ outportd<span class="br0">(</span>ioaddr <span class="sy0">+</span> <span class="nu12">0x30</span><span class="sy0">,</span> <span class="br0">(</span><span class="kw4">uintptr_t</span><span class="br0">)</span>rx_buffer<span class="br0">)</span><span class="sy0">;</span> <span class="co1">// send uint32_t memory location to RBSTART (0x30)</span></pre></div></div>
+<p>Note that 'rx_buffer' needs to be a pointer to a <b>physical address</b>. In this case a size of 8192 + 16 (8K + 16 bytes) is recommended, see below.
+</p>
+<h3> <span class="mw-headline" id="Set_IMR_.2B_ISR"> Set IMR + ISR </span></h3>
+<p>The Interrupt Mask Register (IMR) and Interrupt Service Register (ISR) are responsible
+for firing up different IRQs. The IMR bits line up with the ISR bits to work in sync.
+If an IMR bit is low, then the corresponding ISR bit with never fire an IRQ when the
+time comes for it to happen. The IMR is located at 0x3C and the ISR is located at 0x3E.
+</p><p>To set the RTL8139 to accept only the Transmit OK (TOK) and Receive OK (ROK) interrupts,
+we would have the TOK and ROK bits of the IMR high and leave the rest low.  That way when 
+a TOK or ROK IRQ happens, it actually will go through and fire up an IRQ. 
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"> outportw<span class="br0">(</span>ioaddr <span class="sy0">+</span> <span class="nu12">0x3C</span><span class="sy0">,</span> <span class="nu12">0x0005</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Sets the TOK and ROK bits high</span></pre></div></div>
+<h3> <span class="mw-headline" id="Configuring_receive_buffer_.28RCR.29"> Configuring receive buffer (RCR) </span></h3>
+<p>Before hoping to see a packet coming to you, you should tell the RTL8139 to <b>accept</b> packets based on various rules. The configuration register is RCR.
+</p><p>You can enable different "matching" rules:
+</p>
+<ul><li> <b>AB - Accept Broadcast</b>: Accept broadcast packets sent to mac ff:ff:ff:ff:ff:ff
+</li><li> <b>AM - Accept Multicast</b>: Accept multicast packets.
+</li><li> <b>APM - Accept Physical Match</b>: Accept packets send to NIC's MAC address.
+</li><li> <b>AAP - Accept All Packets</b>. Accept all packets (run in promiscuous mode).
+</li></ul>
+<p>Another bit, the WRAP bit, controls the handling of receive buffer wrap around.  
+</p><p>If WRAP is 0, the Rx buffer is treated as a traditional ring 
+buffer: if a packet is being written near the end of the buffer and the 
+RTL8139 knows you've already handled data before this (thanks to CAPR), 
+the packet will continue at the beginning of the buffer.
+</p><p>If WRAP is 1, the remainder of the packet will be written 
+contiguously (overflowing the actual receive buffer) so that it can be 
+handled more efficiently. This means the buffer must be an additional 
+1500 bytes (to hold the largest potentially overflowing packet).
+</p><p>You can also tell the size of your RX buffer here, however if you
+ use a 8k + 16 buffer as described before, writing zeroes is enough.   
+To use the WRAP=1 bit, an 8K buffer must in fact be 8k+16+1500 bytes.
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"> outportl<span class="br0">(</span>ioaddr <span class="sy0">+</span> <span class="nu12">0x44</span><span class="sy0">,</span> <span class="nu12">0xf</span> <span class="sy0">|</span> <span class="br0">(</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> <span class="nu0">7</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// (1 &lt;&lt; 7) is the WRAP bit, 0xf is AB+AM+APM+AAP</span></pre></div></div>
+<h3> <span class="mw-headline" id="Enable_Receive_and_Transmitter"> Enable Receive and Transmitter </span></h3>
+<p>Now is the time to start up the RX and TX functions.  
+This is quite an easy piece, and should (in my opinion) only be done after all of the 
+configurations to the RTL8139's registers have been set to what is desired.  The
+RE (Receiver Enabled) and the TE (Transmitter Enabled) bits are located in the Command
+Register (0x37).  Starting up the RE and TE is pretty straight-forward, but lets go 
+through it anyways.  
+</p><p>To enable the RTL8139 to accept and transmit packets, the RE and TE bits must go high.  
+Once this is completed, then the card will start allowing packets in and/or out. 
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"> outportb<span class="br0">(</span>ioaddr <span class="sy0">+</span> <span class="nu12">0x37</span><span class="sy0">,</span> <span class="nu12">0x0C</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Sets the RE and TE bits high</span></pre></div></div>
+<h3> <span class="mw-headline" id="Transmitting_Packets"> Transmitting Packets </span></h3>
+<p>The RTL8139 NIC uses a round robin style for transmitting packets. It
+ has four transmit buffer (a.k.a. transmit start) registers, and four 
+transmit status/command registers. The transmit start registers are each
+ 32 bits long, and are in I/O offsets 0x20, 0x24, 0x28 and 0x2C. The 
+transmit status/command registers are also each 32 bits long and are in 
+I/O offsets 0x10, 0x14, 0x18 and 0x1C. Each pair of transmit start and 
+status registers work together (i.e. registers 0x20 and 0x10 work 
+together, 0x24 and 0x14 work together, etc.)
+</p><p>After performing a controller reset as mentioned above, the 
+controller ignores all transmit registers except pair zero (i.e. 
+register 0x20 for the transmit start and register 0x10 for the 
+status/command.) After software transmits a packet using those 
+registers, the round robin counter increments, to use pair one (i.e. 
+register 0x24 for the transmit start and register 0x14 for the 
+status/command.) This continues until pair number three, which is the 
+last transmit register pair, and the counter then overflows and goes 
+back to pair number zero. When the controller is using a specific 
+transmit register pair, all other transmit registers are ignored, and 
+cannot be used to transmit packets at all. Software is responsible for 
+keeping track which pair is being used.
+</p><p>Each transmit start register contains the 32-bit physical address of the packet which is to be sent over the network.
+</p><p>Each transmit status/command register contains various bit fields
+ that control the transmission of the packet. The table below only gives
+ a brief about these bits. For the full format, take a look at the 
+RTL8139 specification under "External links" below.
+</p>
+<table width="70%" border="1">
+
+<tbody><tr>
+<td><b>Bit Range</b>
+</td>
+<td><b>Description</b>
+</td></tr>
+<tr>
+<td>0-12
+</td>
+<td><b>Data size.</b> This field contains the total size of the data to 
+be sent across the network. The maximum value for this field is 1792, 
+and larger numbers will cause an error.
+</td></tr>
+<tr>
+<td>13
+</td>
+<td><b>Own bit.</b> When this bit is set to 1, the controller is idle 
+and not performing any DMA transfers on this descriptor. The driver sets
+ this bit to zero to tell the controller to start transmitting the 
+packet. The bit then remains zero until the entire packet has been 
+copied from RAM into the controller's internal memory via DMA. The 
+default value after a reset is one. Setting this bit to zero also clears
+ all other status bits in this register.
+</td></tr>
+<tr>
+<td>15
+</td>
+<td><b>Transmit OK.</b> After the own bit has been set by the hardware, 
+indicating the DMA transfer has completed, the hardware will start to 
+transmit the packet across the actual network. This bit will be set to 
+one after the network transmission has completed.
+</td></tr></tbody></table>
+<h2> <span class="mw-headline" id="ISR_Handler"> ISR Handler </span></h2>
+<p>When you handle an interrupt, you <i>have</i> to write the bit 
+corresponding to the interrupt to reset it. The doc says reading the 
+register is enough to reset the buffer to zero and writing has no 
+effect. <i>This is not the case on QEMU</i>, and probably on some/most hardware too. Writing a bit when it has no effect will probably not hurt.
+</p><p>01000101: Confirmed.  In fact, the only way to clear an interrupt
+ is by writing to it.  The datasheet says that reading is what you must 
+do, but it is completely wrong.  
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"> outportw<span class="br0">(</span>ioaddr <span class="sy0">+</span> <span class="nu12">0x3E</span><span class="sy0">,</span> <span class="nu12">0x5</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// Interrupt Status - Clears the Rx OK bit, acknowledging a packet has been received, </span>
+                               <span class="co1">// and is now in rx_buffer</span></pre></div></div>
+<h2> <span class="mw-headline" id="Related_Articles"> Related Articles </span></h2>
+<ul><li> <a href="https://wiki.osdev.org/RTL8169" title="RTL8169">RTL8169</a> Successor Chipset
+</li></ul>
+<h2> <span class="mw-headline" id="External_Links"> External Links </span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="https://github.com/omarrx024/xos/tree/master/rtl8139">xOS RTL8139 Driver</a> (MIT license)
+</li><li> <a rel="nofollow" class="external free" href="http://www.magnesium.net/~wpaul/rt/spec-8139cp(150).pdf">http://www.magnesium.net/~wpaul/rt/spec-8139cp(150).pdf</a>, Datasheet for the RTL8139C
+</li><li> <a rel="nofollow" class="external free" href="http://www.cs.usfca.edu/~cruse/cs326f04/RTL8139D_DataSheet.pdf">http://www.cs.usfca.edu/~cruse/cs326f04/RTL8139D_DataSheet.pdf</a>, Datasheet for the RTL8139D, has more information
+</li><li> <a rel="nofollow" class="external free" href="http://www.cs.usfca.edu/~cruse/cs326f04/RTL8139_ProgrammersGuide.pdf">http://www.cs.usfca.edu/~cruse/cs326f04/RTL8139_ProgrammersGuide.pdf</a>, Programming guide for the RTL8139 
+</li><li> <a rel="nofollow" class="external free" href="http://www.jbox.dk/sanos/source/sys/dev/rtl8139.c.html">http://www.jbox.dk/sanos/source/sys/dev/rtl8139.c.html</a>, Example Driver implementation (GPL Licensed)
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 147/1000000
+Post-expand include size: 520/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:2176-0!*!0!!en!2!* and timestamp 20220110062039 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "<a href="https://wiki.osdev.org/index.php?title=RTL8139&amp;oldid=26812">https://wiki.osdev.org/index.php?title=RTL8139&amp;oldid=26812</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="https://wiki.osdev.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.osdev.org/Category:In_Progress" title="Category:In Progress">In Progress</a></li><li><a href="https://wiki.osdev.org/Category:Network_Hardware" title="Category:Network Hardware">Network Hardware</a></li><li><a href="https://wiki.osdev.org/Category:Standards" title="Category:Standards">Standards</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+		<li id="pt-login"><a href="https://wiki.osdev.org/index.php?title=Special:UserLogin&amp;returnto=RTL8139" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="https://wiki.osdev.org/RTL8139" title="View the content page [alt-shift-c]" accesskey="c">Page</a></span></li>
+					<li id="ca-talk" class="new"><span><a href="https://wiki.osdev.org/index.php?title=Talk:RTL8139&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="https://wiki.osdev.org/RTL8139">Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="https://wiki.osdev.org/index.php?title=RTL8139&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="https://wiki.osdev.org/index.php?title=RTL8139&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="/index.php" id="searchform">
+		<input type="hidden" name="title" value="Special:Search">
+				<input type="search" name="search" title="Search OSDev Wiki [alt-shift-f]" accesskey="f" id="searchInput">		<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton">		<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton">			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/skins/common/images/osdev.png);" href="https://wiki.osdev.org/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="https://wiki.osdev.org/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main Page</a></li>
+			<li id="n-portal"><a href="http://forum.osdev.org/" rel="nofollow" title="About the project, what you can do, where to find things">Forums</a></li>
+			<li id="n-FAQ"><a href="https://wiki.osdev.org/Category:FAQ">FAQ</a></li>
+			<li id="n-OS-Projects"><a href="https://wiki.osdev.org/Projects">OS Projects</a></li>
+			<li id="n-randompage"><a href="https://wiki.osdev.org/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- about -->
+<div class="portal" id="p-about">
+	<h5>About</h5>
+	<div class="body">
+		<ul>
+			<li id="n-This-site"><a href="https://wiki.osdev.org/OSDevWiki:About">This site</a></li>
+			<li id="n-Joining"><a href="https://wiki.osdev.org/OSDevWiki:Joining">Joining</a></li>
+			<li id="n-Editing-help"><a href="https://wiki.osdev.org/OSDevWiki:Editing">Editing help</a></li>
+			<li id="n-recentchanges"><a href="https://wiki.osdev.org/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /about -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="https://wiki.osdev.org/Special:WhatLinksHere/RTL8139" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="https://wiki.osdev.org/Special:RecentChangesLinked/RTL8139" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="https://wiki.osdev.org/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li><a href="https://wiki.osdev.org/index.php?title=RTL8139&amp;printable=yes" rel="alternate">Printable version</a></li>
+			<li id="t-permalink"><a href="https://wiki.osdev.org/index.php?title=RTL8139&amp;oldid=26812" title="Permanent link to this revision of the page">Permanent link</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+<div class="portal" id="p-lang">
+	<h5>In other languages</h5>
+	<div class="body">
+		<ul>
+			<li class="interwiki-de"><a href="http://www.lowlevel.eu/wiki/RTL8139" title="RTL8139">Deutsch</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 28 December 2021, at 05:00.</li>
+											<li id="footer-info-viewcount">This page has been accessed 111,561 times.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wiki.osdev.org/OSDev_Wiki:Privacy_policy" title="OSDev Wiki:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="https://wiki.osdev.org/OSDev_Wiki:About" title="OSDev Wiki:About">About OSDev Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="https://wiki.osdev.org/OSDev_Wiki:General_disclaimer" title="OSDev Wiki:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="RTL8139%20-%20OSDev%20Wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<script src="RTL8139%20-%20OSDev%20Wiki_files/load_004.php"></script>
+<script>if(window.mw){
+	mw.loader.load(["mediawiki.user", "mediawiki.util", "mediawiki.page.ready", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+}
+</script><script type="text/javascript" src="RTL8139%20-%20OSDev%20Wiki_files/load_002.php"></script>
+<script src="RTL8139%20-%20OSDev%20Wiki_files/load_003.php"></script>
+<script>if(window.mw){
+	mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,
+	"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mw.user.tokens.set({"editToken":"+\\","watchToken":false});;mw.loader.state({"user.options":"ready","user.tokens":"ready"});
+	
+	/* cache key: wikidb:resourceloader:filter:minify-js:4:19a4b18a9ac79a6b8c60b24af4668814 */
+}
+</script><!-- Served in 0.093 secs. -->
+	
+
+</body></html>
