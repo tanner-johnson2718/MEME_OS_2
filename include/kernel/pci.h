@@ -14,6 +14,8 @@
 // Public API
 ///////////////////////////////////////////////////////////////////////////////
 
+#define PCI_DEV_NOT_FOUND 1
+
 struct pci_device       // assumes header type 0
 {
     u8 bus;
