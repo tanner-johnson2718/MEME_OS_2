@@ -21,10 +21,6 @@ u32 time_ms = 1;
 void timer_interrupt_handler()
 {
     time_ms++;
-    if(time_ms % 1000 == 0)
-    {
-        log_msg(__FILE__, __LINE__, "System heartbeat");
-    }
 }
 
 void set_timer_phase(u32 hz)
