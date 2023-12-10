@@ -110,8 +110,10 @@ COMMENTS) NONE
 ******************************************************************************/
 u8 serial_init_output()
 {
+
     // Set defualt baud rate set in configs
     serial_set_buad(SERIAL_DEFAULT_COM_BAUD);
+    log_val(__FILE__, __LINE__, "8250 Serial Baud", SERIAL_DEFAULT_COM_BAUD);
 
     // Enable inturrepts we want to handle
     u8 ier = inb(SERIAL_DEFAULT_COM + SERIAL_COM_IER);
@@ -120,6 +122,7 @@ u8 serial_init_output()
     ier = ier | (SERIAL_DEFAULT_COM_LSR_IRQ << 2);
     ier = ier | (SERIAL_DEFAULT_COM_MSR_IRQ << 3);
     outb(SERIAL_DEFAULT_COM + SERIAL_COM_IER, ier);
+    log_val(__FILE__, __LINE__, "8250 Serial IER", ier);
 
     // Set LCR values
     u8 lcr = 0;
@@ -128,8 +131,8 @@ u8 serial_init_output()
     lcr = lcr | (SERIAL_DEFAULT_COM_PARITY << 3);
     lcr = lcr | (SERIAL_DEFAULT_COM_BREAK_COND << 6);
     outb(SERIAL_DEFAULT_COM + SERIAL_COM_LCR, lcr) ;
-
-    log_msg(__FILE__, __LINE__, "Serial output init-ed");
+    log_val(__FILE__, __LINE__, "8250 Serial LCR", lcr);
+    
 
     return 0;
 }
